@@ -3,21 +3,6 @@
     text-align: center;
 }
 
-#btnVoltar {
-    width: 35px;
-    height: 35px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 15px;
-    margin-right: 15px;
-    background-color: #F5FFFA;
-    border-radius: 25px;
-    border-width: 1px;
-    border-style: solid;
-    border-color: #A9A9A9;
-}
-
 #reset_senha_txt_voltar {
     font-weight: bold;
     font-size: 1.3em;

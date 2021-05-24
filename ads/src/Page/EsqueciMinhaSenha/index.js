@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import '../../Css/EsqueciMinhaSenha.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import BtnVoltar from '../../Components/BtnVoltar';
 
 export default function EsqueciMinhaSenha() {
     const [email, setEmail] = useState('');
@@ -23,10 +22,7 @@ export default function EsqueciMinhaSenha() {
     return(
         <div style={container}>
             <nav className={'reset_senha_nav'}>
-                <button id={'btnVoltar'} name={'btnVoltar'} type={'button'} onClick={()=> console.log('Clicou no botão voltar!!!')}>
-                    <FontAwesomeIcon icon={faArrowLeft} color={'#000'} size={'lg'} />
-                </button>
-
+                <BtnVoltar path={'/'} />
                 <span id={'reset_senha_txt_voltar'}>Voltar</span>
             </nav>
 

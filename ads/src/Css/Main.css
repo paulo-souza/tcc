@@ -43,7 +43,6 @@ body {
     font-family: var(--font-family) !important;
     background-color: #fff;
     -webkit-font-smoothing: antialiased !important;
-    -moz-osx-font-smoothing: grayscale !important;   
   }
   
   button {
