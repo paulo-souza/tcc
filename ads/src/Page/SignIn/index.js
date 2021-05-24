@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import '../../Css/SignIn.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
@@ -48,8 +49,8 @@ export default function SignIn() {
                 
                 <button type={'button'} id={'signin_button'} onClick={()=> alert(`email: ${email}\nsenha: ${senha}`)}>Entrar</button>
 
-                <div className={'signin_container'}>                    
-                    <a href={'#'}>Esqueci minha senha</a>                    
+                <div className={'signin_container'}> 
+                    <Link to={'/EsqueciMinhaSenha'}>Esqueci minha senha</Link>                   
                 </div>
 
                 <hr className={'signin_hr'}/>                

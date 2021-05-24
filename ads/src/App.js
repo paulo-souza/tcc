@@ -1,8 +1,12 @@
 import React from 'react';
-import EsqueciMinhaSenha from './Page/EsqueciMinhaSenha';
+import Routes from './Routes';
 
 export default function App() {
-  return <EsqueciMinhaSenha />;
+  return(
+      <>
+        <Routes />
+      </>
+  );
  
 }
 
