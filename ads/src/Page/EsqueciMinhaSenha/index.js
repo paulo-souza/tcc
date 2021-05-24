@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../../Css/EsqueciMinhaSenha.css';
 import BtnVoltar from '../../Components/BtnVoltar';
 
+/*eslint-disable */
 export default function EsqueciMinhaSenha() {
     const [email, setEmail] = useState('');
 

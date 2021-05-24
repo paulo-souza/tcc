@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { AuthContext } from '../../Context/AuthProvider';
 import { Link } from 'react-router-dom';
 import '../../Css/SignIn.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 
-
+/*eslint-disable */
 export default function SignIn() {
+    
+    const { acessarSistema } = useContext(AuthContext);
+
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
 
@@ -47,7 +51,7 @@ export default function SignIn() {
                 <input name={'senha'} value={senha} type={'password'}
                     placeholder={'Senha'} onChange={e => setSenha(e.target.value)} />
                 
-                <button type={'button'} id={'signin_button'} onClick={()=> alert(`email: ${email}\nsenha: ${senha}`)}>Entrar</button>
+                <button type={'button'} id={'signin_button'} onClick={()=> acessarSistema(email, senha)}>Entrar</button>
 
                 <div className={'signin_container'}> 
                     <Link to={'/EsqueciMinhaSenha'}>Esqueci minha senha</Link>                   
