@@ -1,18 +1,10 @@
-import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import SignIn from '../Page/SignIn';
-import Cliente from '../Page/Cliente';
-import EsqueciMinhaSenha from '../Page/EsqueciMinhaSenha';
-
+import React, { useContext } from 'react';
+import { AuthContext } from '../Context/AuthProvider';
+import AuthRoutes from './auth.routes';
+import AppRoutes from './app.routes';
 
 export default function Routes() {
-    return(
-        <BrowserRouter>
-            <Switch>
-                <Route exact path={'/'} component={SignIn} />
-                <Route exact path={'/Cliente'} component={Cliente} />
-                <Route exact path={'/EsqueciMinhaSenha'} component={EsqueciMinhaSenha} />
-            </Switch>
-        </BrowserRouter>
-    );
+    const { estaLogado } = useContext(AuthContext);
+
+    return(estaLogado ? <AppRoutes /> : <AuthRoutes />);
 }
