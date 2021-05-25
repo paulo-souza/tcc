@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import Footer from '../../Components/Footer';
 import { AuthContext } from '../../Context/AuthProvider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell, faUser } from '@fortawesome/free-solid-svg-icons';
@@ -20,7 +21,7 @@ export default function Cliente() {
                         <FontAwesomeIcon icon={faBell} color={'#DAA520'} size={'lg'} />  
                     </button>
 
-                    <button type={'button'} title={'Minha Conta'} className={'btnNav'}>
+                    <button type={'button'} title={'Gerenciar conta de usuário'} className={'btnNav'}>
                         <FontAwesomeIcon icon={faUser} color={'#4682B4'} size={'lg'} />  
                     </button>
                 </div>
@@ -30,12 +31,7 @@ export default function Cliente() {
                 <h1>Aqui é o Body</h1>
             </div>
 
-            <footer>
-                <span className={'footer'}>Faculdade Estácio de Sá - FESGO.</span>
-                <span className={'footer'}>Discente: Paulo Henrique Clemente de Souza.</span>
-                <span className={'footer'}>Prof.º Esp. Saul Matuzinhos de Moura.</span>
-                <span className={'footer'}>Curso Análise e Desenvolvimento de Sistemas.</span>
-            </footer>
+            <Footer />
         </div>
     );
 
