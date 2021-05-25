@@ -3,10 +3,10 @@ import Footer from '../../Components/Footer';
 import { AuthContext } from '../../Context/AuthProvider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell, faUser } from '@fortawesome/free-solid-svg-icons';
-
+import ModalUsuario from '../../Components/Modal/Usuario';
 
 export default function Cliente() {
-    const { container } = useContext(AuthContext);
+    const { container, toogleModalUsuario, abrirModalUsuario } = useContext(AuthContext);
 
 
     return(
@@ -21,7 +21,7 @@ export default function Cliente() {
                         <FontAwesomeIcon icon={faBell} color={'#DAA520'} size={'lg'} />  
                     </button>
 
-                    <button type={'button'} title={'Gerenciar conta de usuário'} className={'btnNav'}>
+                    <button type={'button'} title={'Gerenciar conta de usuário'} className={'btnNav'} onClick={toogleModalUsuario}>
                         <FontAwesomeIcon icon={faUser} color={'#4682B4'} size={'lg'} />  
                     </button>
                 </div>
@@ -30,6 +30,8 @@ export default function Cliente() {
             <div className={'body'}>
                 <h1>Aqui é o Body</h1>
             </div>
+            
+            { abrirModalUsuario && <ModalUsuario /> }
 
             <Footer />
         </div>

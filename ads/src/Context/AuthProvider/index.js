@@ -6,7 +6,8 @@ export const AuthContext = createContext({});
 /*eslint-disable */
 export default function AutProvider({children}) {
     const [usuario, setUsuario] = useState(null);
-    
+    const [abrirModalUsuario, setAbrirModalUsuario] = useState(false);
+
     const container = {
         display: '-moz-flex',
         display: '-webkit-flex',
@@ -19,12 +20,16 @@ export default function AutProvider({children}) {
         alignItems: 'center'
     };
 
+    const toogleModalUsuario = ()=>  setAbrirModalUsuario(!abrirModalUsuario);
+
     function acessarSistema(email, senha) {
         SignIn({ email, senha, setUsuario });
     }
 
     return(
-        <AuthContext.Provider value={{estaLogado: !!usuario, usuario, container, acessarSistema}}>
+        <AuthContext.Provider value={{estaLogado: !!usuario, usuario,
+            abrirModalUsuario, container, 
+            acessarSistema, toogleModalUsuario}}>
             {children}
         </AuthContext.Provider>
     );
