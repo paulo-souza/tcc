@@ -1,17 +1,38 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../Context/AuthProvider';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBell, faUser } from '@fortawesome/free-solid-svg-icons';
+
 
 export default function Cliente() {
-    const { usuario } = useContext(AuthContext);
+    const { container } = useContext(AuthContext);
 
-    console.log('====================================');
-    console.log('Usuario logado:')
-    console.log(usuario);
-    console.log('====================================');
 
     return(
-        <div>
-            <h2>Clientes</h2>
+        <div style={container}>
+            <nav>
+                <div className={'container_title'}>
+                    <h2 className={'titulo'}>Clientes</h2>
+                </div>
+
+                <div className={'container_buttons'}>
+                    <button type={'button'} title={'Notificações'} className={'btnNav'}>
+                        <FontAwesomeIcon icon={faBell} color={'#DAA520'} size={'lg'} />  
+                    </button>
+
+                    <button type={'button'} title={'Minha Conta'} className={'btnNav'}>
+                        <FontAwesomeIcon icon={faUser} color={'#4682B4'} size={'lg'} />  
+                    </button>
+                </div>
+            </nav>
+
+            <div className={'body'}>
+                <h1>Aqui é o Body</h1>
+            </div>
+
+            <footer>
+                <h2>Footer</h2>
+            </footer>
         </div>
     );
 
