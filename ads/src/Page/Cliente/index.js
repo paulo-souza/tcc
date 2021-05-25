@@ -31,7 +31,10 @@ export default function Cliente() {
             </div>
 
             <footer>
-                <h2>Footer</h2>
+                <span className={'footer'}>Faculdade Estácio de Sá - FESGO.</span>
+                <span className={'footer'}>Discente: Paulo Henrique Clemente de Souza.</span>
+                <span className={'footer'}>Prof.º Esp. Saul Matuzinhos de Moura.</span>
+                <span className={'footer'}>Curso Análise e Desenvolvimento de Sistemas.</span>
             </footer>
         </div>
     );
