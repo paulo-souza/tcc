@@ -8,26 +8,11 @@ import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 /*eslint-disable */
 export default function SignIn() {
     
-    const { acessarSistema } = useContext(AuthContext);
+    const { acessarSistema, container } = useContext(AuthContext);
 
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
 
-    const altura = window.innerHeight;
-    
-    const container = {
-        display: '-moz-flex',
-        display: '-webkit-flex',
-        display: '-ms-flex',
-        display: 'flex',
-        flexDirection: 'column',
-        height: `${altura}px`,  
-        backgroundColor: '#F5FFFA',
-        justifyContent: 'center',
-        alignItems: 'center'
-    };
-
-    
 
     return (
         <div style={container}>            

@@ -1,25 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { AuthContext } from '../../Context/AuthProvider';
 import '../../Css/EsqueciMinhaSenha.css';
 import BtnVoltar from '../../Components/BtnVoltar';
 
 /*eslint-disable */
 export default function EsqueciMinhaSenha() {
+    const { container } = useContext(AuthContext);
     const [email, setEmail] = useState('');
-
-    const altura = window.innerHeight;
-    
-    const container = {
-        display: '-moz-flex',
-        display: '-webkit-flex',
-        display: '-ms-flex',
-        display: 'flex',
-        flexDirection: 'column',
-        height: `${altura}px`,  
-        backgroundColor: '#F5FFFA',
-        justifyContent: 'center',
-        alignItems: 'center'
-    };
-
+   
     return(
         <div style={container}>
             <nav className={'reset_senha_nav'}>
