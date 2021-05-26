@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../../Context/AuthProvider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faUser, faPen } from '@fortawesome/free-solid-svg-icons';
 import '../../../Css/ModalUsuario.css';
 
 export default function ModalUsuario() {
@@ -15,8 +15,12 @@ export default function ModalUsuario() {
                     </button>
                     
                     <div className={'containerFotoModalUsuario'}>
-                        <button className={'btnFotoModalUsuario'} type={'button'} title={'Alterar foto'}>
+                        <div className={'fotoModalUsuario'}>
                             <FontAwesomeIcon icon={faUser} color={'#4682B4'} size={'5x'} />
+                        </div>
+
+                        <button id={'btnEditarFotoUsuario'} type={'button'} title={'Alterar foto'} onClick={()=> console.log('Ação de editar foto')}>
+                            <FontAwesomeIcon icon={faPen} color={'#5D4037'} size={'lg'} />
                         </button>
 
                         <span id={'txtModalUsuarioNome'}>{usuario.nome}</span>
