@@ -1,5 +1,6 @@
 import React, { createContext, useState } from 'react';
 import SignIn from '../../Helper/Firebase/SignIn';
+import SignOut from '../../Helper/Firebase/SignOut';
 
 export const AuthContext = createContext({});
 
@@ -26,9 +27,13 @@ export default function AutProvider({children}) {
         SignIn({ email, senha, setUsuario });
     }
 
+    function sairSistema() {
+        SignOut(setUsuario);
+    }
+
     return(
         <AuthContext.Provider value={{estaLogado: !!usuario, usuario,
-            abrirModalUsuario, container, 
+            abrirModalUsuario, container, sairSistema,
             acessarSistema, toogleModalUsuario}}>
             {children}
         </AuthContext.Provider>

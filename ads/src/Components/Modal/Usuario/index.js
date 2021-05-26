@@ -5,7 +5,7 @@ import { faTimes, faUser } from '@fortawesome/free-solid-svg-icons';
 import '../../../Css/ModalUsuario.css';
 
 export default function ModalUsuario() {
-    const { toogleModalUsuario, usuario } = useContext(AuthContext);
+    const { toogleModalUsuario, usuario, sairSistema } = useContext(AuthContext);
 
     return(
         <div className={'modalUsuario'}>
@@ -31,7 +31,7 @@ export default function ModalUsuario() {
                     </div>
 
                     <div id={'containerBtnSair'}>
-                        <button id={'btnSair'} type={'button'} title={'Sair do sistema'}>Sair</button>
+                        <button id={'btnSair'} type={'button'} title={'Sair do sistema'} onClick={sairSistema}>Sair</button>
                     </div>
 
             </div>
