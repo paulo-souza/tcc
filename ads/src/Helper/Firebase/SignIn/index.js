@@ -7,6 +7,8 @@ export default async function SignIn(login) {
         return false;
     };
 
+    login.setEstaCarregando(true);
+
     await auth.signInWithEmailAndPassword(login.email, login.senha)
     .then(async ({user}) => {
 
@@ -25,5 +27,6 @@ export default async function SignIn(login) {
         })
         .catch(error=> console.log(error, error.code));
     })
-    .catch(error=> console.log(error, error.code));
+    .catch(error=> console.log(error, error.code))
+    .finally(()=> login.setEstaCarregando(false));
 }

@@ -1,19 +1,18 @@
 import { auth } from '../../../Service/Firebase';
 
-export default async function SignOut(setUsuario) {
+export default async function SignOut(setUsuario, setEstaCarregando) {
     let desejaSair = window.confirm('Tem certeza que deseja sair do sistema?');
 
     if(!desejaSair) return false;
 
+    setEstaCarregando(true);
+
     await auth.signOut()
         .then(() => {
-            console.log('Saindo do sistema ...');
-
             window.sessionStorage.setItem('usuario', '');
-            setUsuario(null);
-            
-            console.log('Pronto.');
+            setUsuario(null);            
         })
-        .catch(error => console.log(error, error.code));
+        .catch(error => console.log(error, error.code))
+        .finally(()=> setEstaCarregando(false));
 
 }

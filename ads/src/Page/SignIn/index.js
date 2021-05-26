@@ -4,18 +4,22 @@ import { Link } from 'react-router-dom';
 import '../../Css/SignIn.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import Loading from '../../Components/Loading';
+
 
 /*eslint-disable */
 export default function SignIn() {
     
-    const { acessarSistema, container } = useContext(AuthContext);
+    const { acessarSistema, container, estaCarregando } = useContext(AuthContext);
 
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
 
 
     return (
-        <div style={container}>            
+        <div style={container}> 
+            { estaCarregando && <Loading /> }
+
             <div id={'signin_background'}>
 
                 <div className={'signin_container'}>
