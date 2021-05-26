@@ -12,12 +12,16 @@ export default async function SignIn(login) {
 
         await database.ref('usuario').child(user.uid).once('value')
         .then(async (snapshot) => {
-            login.setUsuario({
+            
+            let usuarioAutentico = {
                 nome: snapshot.val().nome,
                 email: snapshot.val().email,
                 tipo: snapshot.val().tipo,
                 uid: user.uid
-            }); 
+            }
+
+            window.sessionStorage.setItem('usuario', JSON.stringify(usuarioAutentico));
+            login.setUsuario(usuarioAutentico); 
         })
         .catch(error=> console.log(error, error.code));
     })

@@ -14,6 +14,7 @@ export default function Cliente() {
 
             <div className={'body'}>
                 <h1>Aqui é o Body</h1>
+
             </div>
             
             { abrirModalUsuario && <ModalUsuario /> }

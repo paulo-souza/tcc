@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 import SignIn from '../../Helper/Firebase/SignIn';
 import SignOut from '../../Helper/Firebase/SignOut';
 
@@ -20,6 +20,13 @@ export default function AutProvider({children}) {
         justifyContent: 'center',
         alignItems: 'center'
     };
+
+    useEffect(()=>{
+        let usuarioAutentico = window.sessionStorage.getItem('usuario');
+
+        if(usuarioAutentico) setUsuario(JSON.parse(usuarioAutentico));
+        console.log('usuario =', usuarioAutentico);
+    }, []);
 
     const toogleModalUsuario = ()=>  setAbrirModalUsuario(!abrirModalUsuario);
 
