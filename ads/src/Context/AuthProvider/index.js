@@ -8,6 +8,7 @@ export const AuthContext = createContext({});
 export default function AutProvider({children}) {
     const [usuario, setUsuario] = useState(null);
     const [abrirModalUsuario, setAbrirModalUsuario] = useState(false);
+    const [estaCarregando, setEstaCarregando] = useState(false);
 
     const container = {
         display: '-moz-flex',
@@ -22,6 +23,7 @@ export default function AutProvider({children}) {
     };
 
     useEffect(()=>{
+
         let usuarioAutentico = window.sessionStorage.getItem('usuario');
 
         if(usuarioAutentico) setUsuario(JSON.parse(usuarioAutentico));
@@ -31,17 +33,17 @@ export default function AutProvider({children}) {
     const toogleModalUsuario = ()=>  setAbrirModalUsuario(!abrirModalUsuario);
 
     function acessarSistema(email, senha) {
-        SignIn({ email, senha, setUsuario });
+        SignIn({ email, senha, setUsuario, setEstaCarregando });
     }
 
     function sairSistema() {
-        SignOut(setUsuario);
+        SignOut(setUsuario, setEstaCarregando);
     }
 
     return(
         <AuthContext.Provider value={{estaLogado: !!usuario, usuario,
             abrirModalUsuario, container, sairSistema,
-            acessarSistema, toogleModalUsuario}}>
+            acessarSistema, toogleModalUsuario, estaCarregando}}>
             {children}
         </AuthContext.Provider>
     );
