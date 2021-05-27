@@ -85,7 +85,6 @@ body {
     align-items: center;
   }
 
-
   footer {
     width: 100%;
     height: 75px;
@@ -114,13 +113,8 @@ body {
       width: 20%;
       background-color: transparent;
     }
- 
     
-  .btnNav {
-    background: #E0E0E0;    
-    border: 2px solid #CCCCCE;
-    border-radius: 35px; 
-    color: #616165;
+  .btnAdd, .btnNav {
     display: '-moz-flex';
     display: '-webkit-flex';
     display: '-ms-flex';
@@ -130,7 +124,25 @@ body {
     margin-left: 15px;
     margin-right: 15px;  
     text-align: center;
-    text-decoration: none;       
+    text-decoration: none;  
+    border-radius: 35px;
+  }  
+
+  .btnAdd{
+    background: #070719;    
+    border: 2px solid #CCCCCE;         
+    color: #070719;        
+    width: 55px;
+    height: 55px;
+    position: absolute;
+    bottom: 95px;
+    right: 40px;
+  }  
+    
+  .btnNav {
+    background: #E0E0E0;    
+    border: 2px solid #CCCCCE;
+    color: #616165;      
     width: 35px;
     height: 35px;
   }
@@ -142,8 +154,7 @@ body {
     left: 0;
     right: 0;
     top: 0;
-    padding: 5px;
-   
+    padding: 5px;   
 }
 
 .btnNav:after {
@@ -152,8 +163,7 @@ body {
     bottom: 15px;
     left: 0px;
     right: 0px;
-    top: 0px;
-    
+    top: 0px;    
 }
 
 .btnNav:active {
