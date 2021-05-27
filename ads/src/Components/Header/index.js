@@ -3,13 +3,13 @@ import { AuthContext } from '../../Context/AuthProvider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell, faUser } from '@fortawesome/free-solid-svg-icons';
 
-export default function Header() {
+export default function Header(props) {
     const { toogleModalUsuario } = useContext(AuthContext);
 
     return (
         <nav>
             <div className={'container_title'}>
-                <h2 className={'titulo'}>Clientes</h2>
+                <h2 className={'titulo'}>{props.title}</h2>
             </div>
 
             <div className={'container_buttons'}>
