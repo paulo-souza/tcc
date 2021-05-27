@@ -13,7 +13,7 @@ export default function Cliente() {
 
     return(
         <div style={container}>
-            <Header />
+            <Header title={'Clientes'} />
             { estaCarregando && <Loading /> }
 
             <div className={'body'}>
@@ -23,7 +23,7 @@ export default function Cliente() {
             
             { abrirModalUsuario && <ModalUsuario /> }
 
-            <BtnAdd title={'Novo cliente'} action={()=> console.log('Aqui entra o formulário com tabs')} />
+            <BtnAdd title={'Novo cliente'} path={'/Clientes/Novo'} />
             <Footer />
         </div>
     );
