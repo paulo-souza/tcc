@@ -1,0 +1,77 @@
+  h2.tituloTabs{
+    text-align: center;
+    color: var(--color-primary);
+    margin-bottom: 50px;
+  }
+
+  .tabordion {
+    color: #333;
+    display: block;
+    font-family: arial, sans-serif;
+    margin: auto;
+    position: relative;
+    width: 80%;
+  }
+  
+  .tabordion input[name="sections"] {
+    left: -9999px;
+    position: absolute;
+    top: -9999px;
+  }
+  
+  .tabordion section {
+    display: block;
+  }
+  
+  .tabordion section label {
+    background: rgb(224, 223, 223);
+    border:1px solid #fff;
+    cursor: pointer;
+    display: block;
+    font-size: 1.2em;
+    font-weight: bold;
+    padding: 15px 20px;
+    position: relative;
+    width: 180px;
+    z-index:100;
+  }
+  
+  .tabordion section article {
+    display: none;
+    left: 230px;
+    min-width: 300px;
+    padding-top: 0;
+    padding-right: 21px;
+    padding-bottom: 0;
+    padding-left: 21px;
+    position: absolute;  
+    top: 0;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #999;
+  }
+
+  .tabordion section article:after {
+    background-color: transparent;
+    bottom: 0;
+    content: "";
+    display: block;
+    left:-229px;
+    position: absolute;
+    top: 0;
+    width: 220px;
+    z-index:1;
+  }
+  
+
+  .tabordion input[name="sections"]:checked + label { 
+    background-color: var(--color-primary);
+    color: var(--color-white);    
+  }
+  
+  .tabordion input[name="sections"]:checked ~ article {
+    display: block;
+  }
+  
+  
+  
