@@ -19,35 +19,19 @@
     top: 10px;
 }
 
-#btnEditarFotoUsuario {
-    display: '-moz-flex';
-    display: '-webkit-flex';
-    display: '-ms-flex';
+#containerTxtModalUsuario {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    width: 35px;
-    height: 35px;
-    text-align: center;
-    text-decoration: none; 
-    border: 2px solid #78909C;
-    border-radius: 35px;
-    background-color: #78909C;
-    position: absolute;
-    right: 33%;
+    justify-content: center; 
 }
 
-#txtModalUsuarioNome {
-    margin-top: 5px;
-    margin-bottom: 5px;
+#txtModalUsuarioNome {   
     font-weight: bold;
     font-size: 16px;
     font-family: var(--font-family);
-}
-
-#txtModalUsuarioEmail {
-    margin-top: 5px;
-    margin-bottom: 5px;
+    margin-top: 20px;
+    margin-bottom: 15px;
 }
 
 #containerBtnSair {
@@ -55,16 +39,6 @@
     align-items: center;
     justify-content: center;
     background-color: transparent;
-}
-
-.containerFotoModalUsuario {
-    display: flex;
-    margin: 5% 3% 1% 3%;    
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: transparent;
-
 }
 
 .containerLinksModalUsuario{
@@ -86,21 +60,6 @@
     background: rgba(0,0,0,0.6);
     z-index: 99;
 }
-
-.fotoModalUsuario {
-    width: 110px;
-    height: 110px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 70px;
-    border-width: 1px;
-    border-style: solid;
-    border-color: #999;
-    margin-bottom: 15px;
-    background-color: var(--color-white);
-}
-
 
 .modalUsuario .containerModalUsuario {
     position: fixed;

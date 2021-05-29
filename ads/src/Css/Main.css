@@ -11,13 +11,13 @@ html, body, #rood {
     min-height: 100%;
 }
 
-body, input, button {
+body, input, button, select {
     color: var(--color-black);
     font-size: var(--font-size);
     font-family: var(--fontfamily);
 }
 
-input, input:focus {
+input, input:focus, select, select:focus {
     width: 95%;
     margin-top: 0.3%;
     margin-bottom: 3%;
@@ -26,12 +26,17 @@ input, input:focus {
     border-style: solid;
     border-radius: 0.5em;
     border-color: #DCDCDC;
-    padding-left: 2%;
+    padding-left: 5px;
     padding-right: 2%;
     font-size: 1.1em;
     background-color: #F8F8FF;
     box-shadow: 0 0 0 0;
     outline: 0;
+}
+
+select, select:focus {
+    width: 100%;
+    height: 38px;
 }
 
 body {
@@ -70,7 +75,6 @@ body {
 
   label {
     width: 100%;    
-    padding-left: 2%;
     font-size: 1.2em;
     color: #4F4F4F;
   }
@@ -121,6 +125,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     margin-left: 15px;
     margin-right: 15px;  
     text-align: center;
