@@ -10,7 +10,7 @@
     font-family: arial, sans-serif;
     margin: auto;
     position: relative;
-    width: 80%;
+    width: 78%;
   }
   
   .tabordion input[name="sections"] {
@@ -20,10 +20,14 @@
   }
   
   .tabordion section {
-    display: block;
+    display: block;   
+  }
+
+  .tabordion input {
+    width: 97%;
   }
   
-  .tabordion section label {
+  .tabordion section .labelTabs {
     background: rgb(224, 223, 223);
     border:1px solid #fff;
     cursor: pointer;
@@ -39,16 +43,18 @@
   .tabordion section article {
     display: none;
     left: 230px;
-    min-width: 300px;
-    padding-top: 0;
-    padding-right: 21px;
-    padding-bottom: 0;
-    padding-left: 21px;
+    width: 72%;  
+    height: 100%;    
+    padding-top: 21px;
+    padding-bottom: 21;
+    padding-left: 5%;
+    padding-right: 5%;
     position: absolute;  
     top: 0;
     border-width: 1px;
     border-style: solid;
     border-color: #999;
+    overflow-y: auto;    
   }
 
   .tabordion section article:after {
@@ -56,15 +62,14 @@
     bottom: 0;
     content: "";
     display: block;
-    left:-229px;
+    left: -229px;
     position: absolute;
     top: 0;
     width: 220px;
     z-index:1;
   }
-  
 
-  .tabordion input[name="sections"]:checked + label { 
+  .tabordion input[name="sections"]:checked + .labelTabs { 
     background-color: var(--color-primary);
     color: var(--color-white);    
   }
@@ -72,6 +77,4 @@
   .tabordion input[name="sections"]:checked ~ article {
     display: block;
   }
-  
-  
   

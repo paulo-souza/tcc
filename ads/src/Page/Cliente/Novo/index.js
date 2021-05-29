@@ -1,6 +1,10 @@
 import React from 'react';
+import BtnFoto from '../../../Components/BtnFoto';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSave, faCloudUploadAlt } from '@fortawesome/free-solid-svg-icons';
 import '../../../Css/Tabs.css';
+import '../../../Css/Cliente.css';
 
 
 export default function Novo(props) {
@@ -15,116 +19,265 @@ export default function Novo(props) {
 
             <h2 className={'tituloTabs'}>Novo Cliente</h2>
 
-
+            
             <div className={'tabordion'}>
                 <section id={'section1'}>
                     <input type={'radio'} name={'sections'} id={'option1'} defaultChecked />
-                        <label htmlFor={'option1'}>John Lennon</label>
+                    <label className={'labelTabs'} htmlFor={'option1'}>Pessoais</label>
 
-                        <article>
-                            <h2>John Lennon</h2>
+                    <article>
+                        <div className={'containerTituloAvalistas'}>
+                            <h3>Pessoa Jurídica*</h3>
+                            <button className={'btnNovoCliente'} title={'Novo cliente'} type={'button'}>Novo</button>
+                        </div>
 
-                            <p>
-                                John Ono Lennon, (born John Winston Lennon; 9 October 1940 – 8 December 1980), 
-                                was an English musician, singer and songwriter who rose to worldwide fame as a 
-                                founder member of the rock band the Beatles, the most commercially successful band 
-                                in the history of popular music. With Paul McCartney, he formed a songwriting 
-                                partnership that is one of the most celebrated of the 20th century.
-                            </p>
+                        <hr />
 
-                            <p>
-                                Born and raised in Liverpool, as a teenager Lennon became involved in the skiffle craze;
-                                 his first band, the Quarrymen, evolved into the Beatles in 1960. When the group disbanded
-                                  in 1970, Lennon embarked on a solo career that produced the critically acclaimed albums 
-                                  John Lennon/Plastic Ono Band and Imagine, and iconic songs such as Give Peace a Chance 
-                                  and Working Class Hero. After his marriage to Yoko Ono in 1969, he changed his name to 
-                                  John Ono Lennon. Lennon disengaged himself from the music business in 1975 to raise his 
-                                  infant son Sean, but re-emerged with Ono in 1980 with the new album Double Fantasy. He was 
-                                  murdered three weeks after its release.
-                            </p>
-                        </article>
+                        <div className={'containerAvalistas'}>
+                            <a href={'#'}>Soluções Express</a> 
+                        </div>
+
+                        <hr />
+                        
+                        <hr id={'linhaSeparadoraCliente'} />
+                        
+                        <div className={'containerTituloAvalistas'}>
+                            <h3>Sócio(s)*</h3>
+                            <button className={'btnNovoCliente'} title={'Novo sócio'} type={'button'}>Novo</button>
+                        </div>
+
+                        <hr />
+
+                        <div className={'containerAvalistas'}>
+                            <a href={'#'}>Vitor Emanuel da Mata</a> 
+                            <a href={'#'}>Mateus Marcos Vínicius Cavalcante</a> 
+                        </div>
+
+                        <hr />    
+                       
+
+                    </article>
                 </section>
 
                 <section id={'section2'}>
                     <input type={'radio'} name={'sections'} id={'option2'} />
-                        <label htmlFor={'option2'}>Paul McCartney</label>
-                        <article>
-                            <h2>Paul McCartney</h2>
+                    <label className={'labelTabs'} htmlFor={'option2'}>Endereço</label>
 
-                            <p>
-                                Sir James Paul McCartney, (born 18 June 1942), is an English musician, 
-                                singer, songwriter, multi-instrumentalist, and composer. With John Lennon,
-                                 George Harrison and Ringo Starr, he gained worldwide fame as a member of 
-                                 the Beatles, widely regarded as one of the most popular and influential 
-                                 acts in the history of rock music; his songwriting partnership with Lennon 
-                                 is one of the most celebrated of the 20th century. After the band's break-up,
-                                  he pursued a solo career and later formed Wings with his first wife, Linda, 
-                                  and Denny Laine.
-                            </p>
+                    <article >
+                        <div >
+                            <div style={{marginTop: 0, marginBottom: 25, width: 150, height: 25, display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+                                <input style={{width: 'auto', padding: 0, margin:0}} type={'checkbox'} id={'imovelProprio'} name={'imovelProprio'} value={false} checked={false} />
+                                <label style={{marginLeft: 8}} htmlFor={'imovelProprio'}>Imóvel próprio?</label>
+                            </div>
 
-                            <p>
-                                McCartney has been recognised as one of the most successful composers and performers
-                                 of all time, with 60 gold discs and sales of over 100 million albums and 100 million 
-                                 singles of his work with the Beatles and as a solo artist.[2] More than 2,200 artists 
-                                 have covered his Beatles song 'Yesterday', more than any other copyrighted song in history.
-                                  Wings' 1977 release 'Mull of Kintyre' is one of the all-time best-selling singles in the UK. Inducted into the Rock and Roll Hall of Fame as a solo artist in March 1999, McCartney has written, or co-written 32 songs that have reached number one on the Billboard Hot 100, and as of 2014 he has sold more than 15.5 million RIAA-certified units in the United States. McCartney, Lennon, Harrison and Starr received MBEs in 1965, and in 1997, McCartney was knighted htmlFor his services to music.</p>
-                            <p>
-                                McCartney has released an extensive catalogue of songs as a solo artist and has composed 
-                                classical and electronic music. He has taken part in projects to promote international 
-                                charities related to such subjects as animal rights, seal hunting, land mines, vegetarianism, 
-                                rty, and music education. He has married three times and is the father of five children.
-                            </p>
-                        </article>
+                            <label htmlFor={'cep'}>CEP*</label>
+                            <input id={'cep'} name={'cep'} value={''} type={'text'} placeholder={'CEP'} v-model={'cep'} maxlength={'8'} />
+                            
+                            <div>
+                                <label htmlFor={'uf'}>UF*</label>
+                            </div>
+                            <select name={'uf'} id={'uf'}>
+                                <option value={'ap'} selected={true}>Ap</option>
+                                <option value={'am'} selected={false}>AM</option>
+                                <option value={'ba'} selected={false}>BA</option>
+                                <option value={'df'} selected={false}>DF</option>
+                                <option value={'go'} selected={false}>GO</option>
+                            </select>
+
+                            <label htmlFor={'cidade'}>Cidade*</label>
+                            <input id={'cidade'} name={'cidade'} value={''} type={'text'} placeholder={'Cidade'}  />
+
+                            <label htmlFor={'logradouro'}>Logradouro*</label>
+                            <input id={'logradouro'} name={'logradouro'} 
+                                value={''} type={'text'} placeholder={'Rua, Avenida, Viela, Rodovia, ...'}  />
+
+                            <label htmlFor={'complemento'}>Complemento</label>
+                            <input id={'complemento'} name={'complemento'} value={''} type={'text'} placeholder={'Quadra, Lote'}  />
+
+                            <label htmlFor={'bairro'}>Bairro*</label>
+                            <input id={'bairro'} name={'bairro'} value={''} type={'text'} placeholder={'Bairro'}  />
+
+                            <label htmlFor={'numero'}>Número</label>
+                            <input id={'numero'} name={'numero'} value={''} type={'text'} placeholder={'Número'}  />
+                        </div>
+                    </article>
                 </section>
 
                 <section id={'section3'}>
                     <input type={'radio'} name={'sections'} id={'option3'} />
-                        <label htmlFor={'option3'}>George Harrison</label>
-                        <article>
-                            <h2>George Harrison</h2>
+                    <label className={'labelTabs'} htmlFor={'option3'}>Contato</label>
 
-                            <p>
-                                George Harrison, (25 February 1943 – 29 November 2001), was an English musician, 
-                                multi-instrumentalist, singer and songwriter who achieved international fame as the 
-                                lead guitarist of the Beatles. Although John Lennon and Paul McCartney were the band's 
-                                primary songwriters, most of their albums included at least one Harrison composition, 
-                                including 'While My Guitar Gently Weeps', 'Here Comes the Sun' and 'Something', which 
-                                became the Beatles' second-most-covered song.
-                            </p>
+                    <article>
 
-                        </article>
+                        <label htmlFor={'email1'}>E-mail1*</label>
+                        <input id={'email1'} name={'email1'} value={''} type={'email'} placeholder={'E-mail obrigatório'}  />
+                       
+                        <label htmlFor={'email2'}>E-mail2</label>
+                        <input id={'email2'} name={'email2'} value={''} type={'email'} placeholder={'E-mail opcional'}  />
+
+                        <label htmlFor={'telefone1'}>Telefone1*</label>
+                        <input id={'telefone1'} name={'telefone1'} value={''} type={'tel'} placeholder={'Número de telefone obrigatório'}  />
+                        
+                        <label htmlFor={'telefone2'}>Telefone2</label>
+                        <input id={'telefone2'} name={'telefone2'} value={''} type={'tel'} placeholder={'Número de telefone opcional'}  />
+                        
+                        <label htmlFor={'celular1'}>Celular1*</label>
+                        <input id={'celular1'} name={'celular1'} value={''} type={'tel'} placeholder={'Número de celular obrigatório'}  />
+                        
+                        <label htmlFor={'celular2'}>Celular2</label>
+                        <input id={'celular2'} name={'celular2'} value={''} type={'tel'} placeholder={'Número de celular opcional'}  />
+                        
+
+                    </article>
                  </section>
 
                 <section id={'section4'}>
                     <input type={'radio'} name={'sections'} id={'option4'} />
-                        <label htmlFor={'option4'}>Ringo Starr</label>
-                        <article>
-                            <h2>Ringo Starr</h2>
+                    <label className={'labelTabs'} htmlFor={'option4'}>Anexos</label>
 
-                            <p>
-                                Richard Starkey, (born 7 July 1940), better known by his stage name Ringo Starr,
-                                 is an English musician, singer, songwriter, and actor who gained worldwide fame
-                                  as the drummer htmlFor The Beatles. On most of the band's albums, he sang lead vocals
-                                   htmlFor one song, including 'With a Little Help from My Friends', 'Yellow Submarine'
-                                    and their cover of 'Act Naturally'. He also wrote the Beatles' songs 'Don't Pass 
-                                    Me By' and 'Octopus's Garden', and is credited as a co-writer of others, such as 
-                                    'What Goes On' and 'Flying'.
-                            </p>
+                    <article>
+                        <div id={'containerAnexos'}>
+                            
+                            <div className={'containerClienteAnexos'}>
+                                <BtnFoto abrirPreVisualizacao={true} />
+                                <span>Foto*</span>
+                            </div>
+                            
+                            <div className={'containerClienteAnexos'}>
+                                <div className={'areaUpload'}>
+                                    <div>
+                                        <FontAwesomeIcon icon={faCloudUploadAlt} color={'#000'} size={'5x'} />
+                                    </div>
+                                    
+                                    <div id={'divUploadPdf'}>
+                                        <label id={'labelUploadPdf'} htmlFor={'fileUpload'} title={'Upload do contrato em formato .pdf'}>PDF</label>
+                                        <input type={'file'} id={'fileUpload'} value={''} name={'arquivoContrato'} accept={'application/pdf'} />
+                                    </div>
+                                </div>
+                                <span style={{marginTop: 10}}>Contrato*</span>
+                            </div>
 
-                            <p>
-                                Starr was twice afflicted by life-threatening illnesses during his childhood, and as a 
-                                result of prolonged hospitalisations, fell behind scholastically. In 1955, he entered 
-                                the workforce and briefly held a position with British Rail before securing an
-                                 apprenticeship at a Liverpool equipment manufacturer. Soon afterwards, he became 
-                                 interested in the UK skiffle craze, developing a fervent admiration htmlFor the genre. In 1957, 
-                                 he cofounded his first band, the Eddie Clayton Skiffle Group, which earned several 
-                                 prestigious local bookings before the fad succumbed to American rock and roll by early 1958.
-                            </p>
+                        </div>
+     
+                    </article>
+                </section>
 
-                        </article>
+                <section id={'section5'}>
+                    <input type={'radio'} name={'sections'} id={'option5'} />
+                    <label className={'labelTabs'} htmlFor={'option5'}>Avalistas</label>
+                    
+                    <article>
+                        <div className={'containerTituloAvalistas'}>
+                            <h3>Avalistas*</h3>
+                            <button className={'btnNovoCliente'} title={'Novo avalista'} type={'button'}>Novo</button>
+                        </div>
+
+                        <hr />
+
+                        <div className={'containerAvalistas'}>
+                            <a href={'#'}>Fulano de Tal</a>
+                            <a href={'#'}>Beltrano de Tal</a>
+                            <a href={'#'}>Cicrano de Tal</a>
+                        </div>
+
+                        <hr />
+                    </article>
+                </section>
+
+                <section id={'section6'}>
+                    <input type={'radio'} name={'sections'} id={'option6'} />
+                    <label className={'labelTabs'} htmlFor={'option6'}>Crédito</label>
+                    
+                    <article>
+                        <div>
+                            <label htmlFor={'opCredito'}>Operação de crédito*</label>
+                        </div>
+
+                        <select name={'opCredito'} id={'opCredito'}>
+                            <option value={'emprestimo'} selected={true}>Empréstimo</option>
+                            <option value={'financiamento'} selected={false}>Financiamento</option>
+                            <option value={'desconto'} selected={false}>Desconto de título</option>
+                        </select>
+
+                        <div>
+                            <label htmlFor={'tipoJuros'}>Tipo de Juros*</label>
+                        </div>
+
+                        <select name={'tipoJuros'} id={'tipoJuros'}>
+                            <option value={'simples'} selected={true}>Simples</option>
+                            <option value={'composto'} selected={false}>Composto</option>
+                        </select>
+
+                        <label htmlFor={'valorEmprestimo'}>Valor empréstimo <strong>R$*</strong></label>
+                        <input id={'valorEmprestimo'} name={'valorEmprestimo'} value={''} type={'text'} placeholder={'ex.: R$ 10.000,00'} />
+                        
+                        <label htmlFor={'taxaJuros'}>Taxa de juros <strong>%*</strong></label>
+                        <input id={'taxaJuros'} name={'taxaJuros'} value={''} type={'text'} placeholder={'ex.: 10%'} />
+                        
+                        <div>
+                            <label htmlFor={'prazo'}>Prazo*</label>
+                        </div>
+
+                        <select name={'prazo'} id={'prazo'}>
+                            <option value={'anual'} selected={true}>Anual</option>
+                            <option value={'mensal'} selected={false}>Mensal</option>
+                            <option value={'trimestral'} selected={false}>Trimestral</option>
+                            <option value={'semestral'} selected={false}>Semestral</option>
+                        </select>
+
+                        <label htmlFor={'qtdPrazo'}>QTD Prazo*</label>
+                        <input id={'qtdPrazo'} name={'qtdPrazo'} value={''} type={'number'} placeholder={'ex.: 3 meses'} />
+
+                        <label htmlFor={'montante'}>Montante <strong>R$*</strong></label>
+                        <input id={'montante'} name={'montante'} value={''} type={'text'} placeholder={'ex.: R$ 10.550,00'} />
+                    </article>
+                </section>
+
+                <section id={'section7'}>
+                    <input type={'radio'} name={'sections'} id={'option7'} />
+                    <label className={'labelTabs'} htmlFor={'option7'}>Detalhes</label>
+                    
+                    <article>
+
+                        <div>
+                            <label htmlFor={'pagamento'}>Pagamento</label>
+                            <select name={'pagamento'} id={'pagamento'}>
+                                <option value={'ok'} selected={true}>Em dia</option>
+                                <option value={'pendente'} selected={false}>Pendente</option>
+                                <option value={'inadimplente'} selected={false}>Inadimplente</option>
+                            </select>
+                        </div>
+
+
+                        <div>
+                            <label htmlFor={'tipoJuros'}>Tipo de Juros*</label>
+                        </div>
+
+                        <select name={'tipoJuros'} id={'tipoJuros'}>
+                            <option value={'simples'} selected={true}>Simples</option>
+                            <option value={'composto'} selected={false}>Composto</option>
+                        </select>
+
+                        <label htmlFor={'valorEmprestimo'}>Valor empréstimo <strong>R$*</strong></label>
+                        <input id={'valorEmprestimo'} name={'valorEmprestimo'} value={''} 
+                            type={'text'} disabled />
+
+                        <label htmlFor={'taxaJuros'}>Taxa de juros <strong>%*</strong></label>
+                        <input id={'taxaJuros'} name={'taxaJuros'} value={''} type={'text'} disabled />
+
+                        <label htmlFor={'prazoDetalhe'}>Prazo</label>                        
+                        <input id={'prazoDetalhe'} name={'prazoDetalhe'} value={''} type={'text'}  placeholder={'1 semestre(s)'} disabled />
+
+                        //TODO Tabela de histórico da situação
+                    </article>
                 </section>
             </div>
-
+           
+           
+            <button type={'button'} title={'Salvar novo cliente'} className={'btnAdd btnSalvarCliente'}>
+                <FontAwesomeIcon icon={faSave} color={'#fff'} size={'lg'} />                
+            </button>
+           
         </div>
     );
 }
