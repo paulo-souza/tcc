@@ -1,0 +1,34 @@
+.tabCnpjCliente, .tabPagamentoCliente, .tabNomeCliente {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+table.tabela .tabNomeCliente {
+    text-align: left;
+    width: 60%;    
+}
+
+
+table.tabela .tabCnpjCliente{
+    width: 25%;
+}
+
+table.tabela .tabPagamentoCliente {
+    width: 15%;
+    text-align: left;
+}
+
+table.tabela .tabPagamentoPendente {
+    color: purple;
+    font-weight: bold;
+}
+
+table.tabela .tabPagamentoInadimplente {
+    color: red;
+    font-weight: bold;
+}
+
+table.tabela .tabPagamentoEmDia {
+    color: green;
+    font-weight: bold;
+}

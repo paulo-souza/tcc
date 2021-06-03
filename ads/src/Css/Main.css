@@ -7,7 +7,7 @@
     --font-size: 14px;
 }
 
-html, body, #rood {
+html, body, #root {
     min-height: 100%;
 }
 
