@@ -1,3 +1,16 @@
+.containerTabelaCliente {    
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+}
+
+.tabela {
+    margin-bottom: 20px;
+}
+
 .tabCnpjCliente, .tabPagamentoCliente, .tabNomeCliente {
     padding-left: 10px;
     padding-right: 10px;
@@ -7,7 +20,6 @@ table.tabela .tabNomeCliente {
     text-align: left;
     width: 60%;    
 }
-
 
 table.tabela .tabCnpjCliente{
     width: 25%;
@@ -31,4 +43,24 @@ table.tabela .tabPagamentoInadimplente {
 table.tabela .tabPagamentoEmDia {
     color: green;
     font-weight: bold;
+}
+
+ul.pagination {    
+    background-color: transparent;    
+    border-style: solid;
+    border-color: #999; 
+    border-width: 1px 1px 1px 0;
+}
+
+li.page-item a {
+    background-color: transparent;
+    border-style: solid;
+    border-color: #999; 
+    border-width: 0 0 0 1px;
+}
+
+li.page-item.active a {
+    color: var(--color-white);
+    background-color: var(--color-primary);
+    font-weight: bold;    
 }

@@ -1,4 +1,6 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import Header from '../../Components/Header';
 import Footer from '../../Components/Footer';
 import Loading from '../../Components/Loading';
@@ -9,16 +11,27 @@ import TabelaCliente from '../../Components/TabelaCliente';
 
 export default function Cliente() {
     const { container, abrirModalUsuario, estaCarregando } = useContext(AuthContext);
+    const [buscarCliente, setBuscarCliente] = useState(null);
 
     return (
         <div style={container}>
             <Header title={'Clientes'} />
-            { estaCarregando && <Loading />}
-
+            
             <div className={'body'}>
-                <h1>Aqui é o Body</h1>
+             { estaCarregando && <Loading /> }
+
+                <div className={'containerBuscarCliente'}>
+                    <input id={'buscarCliente'} name={'buscarCliente'} value={buscarCliente} type={'search'}
+                         placeholder={'Buscar cliente...'} onChange={e => setBuscarCliente(e.target.value)} />
+
+                    <button style={{marginBottom: 10}} className={'btnBuscar'} type={'button'} title={'Buscar cliente'}
+                        onClick={()=> console.log('hora de buscar um cliente')}>
+                        <FontAwesomeIcon icon={faSearch} color={'#fff'} size={'1x'} />
+                    </button>
+                </div>
 
                 <TabelaCliente />
+                
             </div>
 
             { abrirModalUsuario && <ModalUsuario />}

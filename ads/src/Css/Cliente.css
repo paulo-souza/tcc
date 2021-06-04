@@ -5,6 +5,12 @@
     border-style: dashed;
 }
 
+#buscarCliente{
+    width: 400px;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+}
+
 #containerAnexos {
     height: 100%;
     display: flex;
@@ -40,7 +46,16 @@
     display: flex;
     flex-direction: column;
     align-items: center;     
-    justify-content: flex-start;
+    justify-content: center;
+}
+
+.btnBuscar {
+    background-color: var(--color-primary);
+    width: 39px;
+    height: 34px; 
+    border: var(--color-primary) 1px solid; 
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;    
 }
 
 .btnSalvarCliente{
@@ -63,6 +78,15 @@
     font-weight: bold;
     margin-left: 5px;
 
+}
+
+.containerBuscarCliente {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    margin-bottom: 20px;
 }
 
 .containerTituloAvalistas {
