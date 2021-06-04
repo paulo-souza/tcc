@@ -43,7 +43,8 @@ export default function AutProvider({children}) {
     return(
         <AuthContext.Provider value={{estaLogado: !!usuario, usuario,
             abrirModalUsuario, container, sairSistema,
-            acessarSistema, toogleModalUsuario, estaCarregando}}>
+            acessarSistema, toogleModalUsuario, estaCarregando,
+            setEstaCarregando}}>
             {children}
         </AuthContext.Provider>
     );
