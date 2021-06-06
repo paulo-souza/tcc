@@ -9,7 +9,7 @@ import { AuthContext } from '../../Context/AuthProvider';
 import ModalUsuario from '../../Components/Modal/Usuario';
 import TabelaCliente from '../../Components/TabelaCliente';
 
-export default function Cliente() {
+export default function Clientes() {
     const { container, abrirModalUsuario, estaCarregando } = useContext(AuthContext);
     const [buscarCliente, setBuscarCliente] = useState(null);
 

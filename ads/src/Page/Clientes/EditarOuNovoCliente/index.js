@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PJMaisSocios from '../../../Components/PJMaisSocios';
 import Endereco from '../../../Components/Endereco';
 import Contato from '../../../Components/Contato';
@@ -6,14 +6,22 @@ import AnexosCliente from '../../../Components/AnexosCliente';
 import AvalistasDeCliente from '../../../Components/AvalistasDeCliente';
 import Credito from '../../../Components/Credito';
 import DetalhesCliente from '../../../Components/DetalhesCliente';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave } from '@fortawesome/free-solid-svg-icons';
 import '../../../Css/Tabs.css';
 import '../../../Css/Cliente.css';
 
 
-export default function Novo(props) {
+
+export default function EditarOuNovoCliente(props) {
+    const { uid } = useParams();
+    let ehNovoCliente = !uid;
+    
+
+    useEffect(()=>{
+     //
+    }, []);
 
     return (
         <div>
@@ -29,7 +37,7 @@ export default function Novo(props) {
             <div className={'tabordion'}>
                 
                 <PJMaisSocios />
-                <Endereco />
+                <Endereco ehNovoCliente={ehNovoCliente} />
                 <Contato />
                 <AnexosCliente />
                 <AvalistasDeCliente />
