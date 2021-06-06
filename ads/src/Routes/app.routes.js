@@ -1,14 +1,15 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Cliente from '../Page/Cliente';
-import NovoCliente from '../Page/Cliente/Novo';
+import Clientes from '../Page/Clientes';
+import EditarOuNovoCliente from '../Page/Clientes/EditarOuNovoCliente';
 
 export default function AppRoutes() {
     return(
         <BrowserRouter>
             <Switch>
-                <Route exact path={'/'} component={Cliente} />
-                <Route exact path={'/Clientes/Novo'} component={NovoCliente} />
+                <Route exact path={'/'} component={Clientes} />
+                <Route exact path={'/Clientes/Novo'} component={EditarOuNovoCliente} />
+                <Route exact path={'/Clientes/Editar/:uid'} component={EditarOuNovoCliente} />
             </Switch>
         </BrowserRouter>
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../../Context/AuthProvider';
+import { Link } from 'react-router-dom';
 import JwPagination from 'jw-react-pagination';
 import getClientes from '../../Helper/Firebase/TabelaCliente';
 import '../../Css/TabelaDefault.css';
@@ -46,8 +47,12 @@ export default function TabelaCliente(){
                             let cnpjFormatado = cliente.cnpj?.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5");
                             return(
                                 <tr key={cliente.uid}>
-                                    <td className={'tabCnpjCliente'}>{cnpjFormatado}</td>
-                                    <td className={'tabNomeCliente'}>{cliente.nome_fantazia}</td>
+                                    <td className={'tabCnpjCliente'}>
+                                        <Link to={`/Clientes/Editar/${cliente.uid}`}>{cnpjFormatado}</Link>                                        
+                                    </td>
+                                    <td className={'tabNomeCliente'}>
+                                        <Link to={`/Clientes/Editar/${cliente.uid}`}>{cliente.nome_fantazia}</Link>                                        
+                                    </td>
                                     <td className={`tabPagamentoCliente ${classNamePagamento['pendente']}`}>Pendente</td>
                                 </tr>
                             );
