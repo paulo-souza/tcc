@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PJMaisSocios from '../../../Components/PJMaisSocios';
 import Endereco, { EnderecoDefault } from '../../../Components/Endereco';
-import Contato from '../../../Components/Contato';
+import Contato, { ContatoDefault } from '../../../Components/Contato';
 import AnexosCliente from '../../../Components/AnexosCliente';
 import AvalistasDeCliente from '../../../Components/AvalistasDeCliente';
 import Credito from '../../../Components/Credito';
@@ -19,25 +19,33 @@ export default function EditarOuNovoCliente(props) {
     let ehNovoCliente = !uid;
     let titulo = ehNovoCliente ? 'Novo' : 'Editar';
 
-    
-
     const [endereco, setEndereco] = useState(EnderecoDefault);
+    const [contato, setContato] = useState(ContatoDefault);
 
     useEffect(()=>{
-     // endereço de teste
+     // Dados de teste
 
-        if(!ehNovoCliente) //Aqui será realizado a busca do endereço no firebase
-        setEndereco({
-            imovel_proprio: true,
-            cep: "44694344",
-            uf: "GO",
-            cidade: "Goiânia",
-            logradouro: "866 Manley Harbors",
-            complemento: "maiores",
-            bairro: "Setor Marista",
-            numero: 416
-        });
+        if(!ehNovoCliente) { //Aqui será realizado a busca do endereço no firebase
+            setEndereco({
+                imovel_proprio: true,
+                cep: "44694344",
+                uf: "GO",
+                cidade: "Goiânia",
+                logradouro: "866 Manley Harbors",
+                complemento: "maiores",
+                bairro: "Setor Marista",
+                numero: 416
+            });
 
+            setContato({
+                email1: "jayce_weissnat@hotmail.com",
+                email2: "ashly_franecki@yahoo.com",
+                telefone1: "6253875180",
+                telefone2: "6266684300",
+                celular1: "62997834381",
+                celular2: "629941844076"
+            });
+        }
     }, []);
 
     return (
@@ -55,7 +63,7 @@ export default function EditarOuNovoCliente(props) {
                 
                 <PJMaisSocios />
                 <Endereco endereco={endereco} setEndereco={setEndereco} />
-                <Contato />
+                <Contato contato={contato} setContato={setContato} />
                 <AnexosCliente />
                 <AvalistasDeCliente />
                 <Credito />
