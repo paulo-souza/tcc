@@ -77,8 +77,10 @@
     color: var(--color-white);
     font-weight: bold;
     margin-left: 5px;
-
+    text-decoration: none;
+    cursor: pointer;
 }
+
 
 .containerBuscarCliente {
     display: flex;

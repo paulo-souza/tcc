@@ -61,7 +61,7 @@ export default function EditarOuNovoCliente(props) {
             
             <div className={'tabordion'}>
                 
-                <PJMaisSocios />
+                <PJMaisSocios uid={uid}/>
                 <Endereco endereco={endereco} setEndereco={setEndereco} />
                 <Contato contato={contato} setContato={setContato} />
                 <AnexosCliente />

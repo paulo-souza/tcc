@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function PJMaisSocios(props) {
     return (
@@ -9,16 +10,22 @@ export default function PJMaisSocios(props) {
             <article>
                 <div className={'containerClienteSubTitulo'}>
                     <h3>Pessoa Jurídica*</h3>
-                    <button className={'btnNovoCliente'} title={'Novo cliente'} type={'button'}>Novo</button>
+                    {
+                        !props.uid &&
+                        <Link className={'btnNovoCliente'} to={'/Clientes/Novo/PessoaJuridica'} title={'Novo cliente'}>Novo</Link>
+                    }
                 </div>
 
                 <hr />
 
-                <div className={'containerCliente'}>
-                    <a href={'#'}>Soluções Express</a>
-                </div>
+                { 
+                    props.uid &&
+                    <div className={'containerCliente'}>
+                        <Link to={`/Clientes/Editar/${props.uid}/PessoaJuridica`}>Soluções Express</Link>
+                    </div>
+                }
 
-                <hr />
+                { props.uid && <hr /> }
 
                 <hr id={'linhaSeparadoraCliente'} />
 
@@ -29,12 +36,15 @@ export default function PJMaisSocios(props) {
 
                 <hr />
 
-                <div className={'containerCliente'}>
-                    <a href={'#'}>Vitor Emanuel da Mata</a>
-                    <a href={'#'}>Mateus Marcos Vínicius Cavalcante</a>
-                </div>
+                {
+                    props.uid &&
+                    <div className={'containerCliente'}>
+                        <a href={'#'}>Vitor Emanuel da Mata</a>
+                        <a href={'#'}>Mateus Marcos Vínicius Cavalcante</a>
+                    </div>
+                }
 
-                <hr />
+                { props.uid && <hr /> }
             </article>
         </section>
     );
