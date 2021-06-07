@@ -1,0 +1,16 @@
+.btnSalvarPJ {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border-radius: 0.5em;
+    border-color: var(--color-primary);
+    font-size: 1.2em;
+    width: 100%;
+}
+
+input.pj {
+    width: 97%;
+}
+
+select.pj {
+    width: 100%;
+}

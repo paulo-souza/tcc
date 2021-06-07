@@ -206,3 +206,22 @@ body {
 .breadcumb .separadorNiveis{
     color: grey;
 }
+
+fieldset.formulario {
+    height: 100%;
+    background-color: #F2FEFF;
+    border-width: 1px;
+    border-color: #999;
+    border-style: solid;
+    box-shadow: 9px 7px 5px rgba(50, 50, 50, 0.77);
+    margin-top: auto;
+    margin-bottom: 3%;
+    margin-left: 20%;
+    margin-right: 20%;
+    padding: 3%;
+}
+
+legend.formulario {
+    color: var(--color-primary);
+    font-size: 30px;        
+}
