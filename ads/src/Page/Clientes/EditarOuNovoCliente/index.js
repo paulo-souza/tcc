@@ -13,14 +13,15 @@ import '../../../Css/Tabs.css';
 import '../../../Css/Cliente.css';
 
 
-
 export default function EditarOuNovoCliente(props) {
-    const { uid } = useParams();
-    let ehNovoCliente = !uid;
+    const { uidCliente } = useParams();
+    let ehNovoCliente = !uidCliente;
     let titulo = ehNovoCliente ? 'Novo' : 'Editar';
 
     const [endereco, setEndereco] = useState(EnderecoDefault);
     const [contato, setContato] = useState(ContatoDefault);
+    const [socios, setSocios] = useState([]);
+    
 
     useEffect(()=>{
      // Dados de teste
@@ -45,6 +46,39 @@ export default function EditarOuNovoCliente(props) {
                 celular1: "62997834381",
                 celular2: "629941844076"
             });
+
+            setSocios([
+                {
+                    uid: "9093393a-1ba9-4b12-bc6f-45e7089714f5",
+                    data_nascimento: "05/27/1989",
+                    nacionalidade: "Brasileira",
+                    uf_nascimento: "PR",
+                    naturalidade: "Londrina",
+                    estado_civil: "Casado(a)",
+                    conjuge: "Paul Severino Gonçalves Medeiros",
+                    rg: {numero: "504092983", orgao_expedidor: "SSP", uf_expedidor: "PR"},
+                    cpf: "01945849096",
+                    mae: "Bethany Kshlerin",
+                    nome: "Luiza Macedo Cardoso",
+                    sexo: "Feminino",
+                    pai: "Antônio Iago Fernandes"
+                },
+                {
+                    uid: "501536ce-a2a6-49e8-a63c-c069c8ac4dde",
+                    data_nascimento: "07/22/1988",
+                    nacionalidade: "Brasileira",
+                    uf_nascimento: "RJ",
+                    naturalidade: "Rio de Janeiro",
+                    estado_civil: "Divorciado(a)",
+                    conjuge: "",
+                    rg: {numero: "980475250", orgao_expedidor: "SSP", uf_expedidor: "RJ"},
+                    cpf: "34571746016",
+                    mae: "Julian McKenzie Silva",
+                    nome: "Dalila Costa Silva",
+                    sexo: "Feminino",
+                    pai: "Enrico Ian Oliver Pinto"
+                }
+            ])
         }
     }, []);
 
@@ -61,7 +95,7 @@ export default function EditarOuNovoCliente(props) {
             
             <div className={'tabordion'}>
                 
-                <PJMaisSocios uid={uid}/>
+                <PJMaisSocios uidCliente={uidCliente} socios={socios} />
                 <Endereco endereco={endereco} setEndereco={setEndereco} />
                 <Contato contato={contato} setContato={setContato} />
                 <AnexosCliente />

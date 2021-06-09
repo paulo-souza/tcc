@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 
 
 export default function PJMaisSocios(props) {
+    const existeSocios =  props.socios.length > 0;
+    const pathNovoSocio = props.uidCliente ? `/Clientes/Editar/${props.uidCliente}/Socio` : '/Clientes/Novo/Socio'; 
+
     return (
         <section id={'section1'}>
             <input type={'radio'} name={'sections'} id={'option1'} defaultChecked />
@@ -12,7 +15,7 @@ export default function PJMaisSocios(props) {
                 <div className={'containerClienteSubTitulo'}>
                     <h3>Pessoa Jurídica*</h3>
                     {
-                        !props.uid &&
+                        !props.uidCliente &&
                         <Link className={'btnNovoCliente'} to={'/Clientes/Novo/PessoaJuridica'} title={'Novo cliente'}>Novo</Link>
                     }
                 </div>
@@ -20,32 +23,40 @@ export default function PJMaisSocios(props) {
                 <hr />
 
                 { 
-                    props.uid &&
+                    props.uidCliente &&
                     <div className={'containerCliente'}>
-                        <Link to={`/Clientes/Editar/${props.uid}/PessoaJuridica`}>Soluções Express</Link>
+                        <Link to={`/Clientes/Editar/${props.uidCliente}/PessoaJuridica`}>Soluções Express</Link>
                     </div>
                 }
 
-                { props.uid && <hr /> }
+                { props.uidCliente && <hr /> }
 
                 <hr id={'linhaSeparadoraCliente'} />
 
                 <div className={'containerClienteSubTitulo'}>
                     <h3>Sócio(s)*</h3>
-                    <button className={'btnNovoCliente'} title={'Novo sócio'} type={'button'}>Novo</button>
+                    <Link to={pathNovoSocio} className={'btnNovoCliente'} title={'Novo sócio'}>Novo</Link>
                 </div>
 
                 <hr />
 
                 {
-                    props.uid &&
+                    existeSocios &&
                     <div className={'containerCliente'}>
-                        <a href={'#'}>Vitor Emanuel da Mata</a>
-                        <a href={'#'}>Mateus Marcos Vínicius Cavalcante</a>
+                        
+                        {
+                            props.socios.map(socio=> {
+                                return(
+                                    <Link key={socio.uid} to={`/Clientes/Editar/${props.uidCliente}/Socio/${socio.uid}`}>
+                                        {socio.nome}
+                                    </Link>
+                                );
+                            })
+                        }
                     </div>
                 }
 
-                { props.uid && <hr /> }
+                { existeSocios && <hr /> }
             </article>
         </section>
     );
