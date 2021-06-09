@@ -12,21 +12,12 @@
     width: 450px;
     height: 210px;
     padding-top: 15px;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 25px;
+    padding-right: 29px;
     background-color: var(--color-white);
     border-width: 1px;
     border-color: #4F4F4F;
     border-style: solid;  
-}
-
-#reset_senha_button {   
-    background-color: var(--color-primary);
-    color: var(--color-white);
-    border-radius: 0.5em;
-    border-color: var(--color-primary);
-    font-size: 1.2em;
-    margin-top: 3%;    
 }
 
 .reset_senha_nav {

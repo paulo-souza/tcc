@@ -18,7 +18,7 @@ body, input, button, select {
 }
 
 input, input:focus, select, select:focus {
-    width: 95%;
+    width: 97%;
     margin-top: 0.3%;
     margin-bottom: 3%;
     height: 34px;
@@ -133,6 +133,14 @@ body {
     border-radius: 35px;
   }  
 
+  .btnSubmit {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border-radius: 0.5em;
+    border-color: var(--color-primary);
+    font-size: 1.2em;
+    width: 100%;
+}
   .btnAdd{
     background: #070719;    
     border: 2px solid #CCCCCE;         

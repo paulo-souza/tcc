@@ -93,7 +93,7 @@ export default function Socio(props) {
                 <label htmlFor={'pai'}>Nome do Pai</label>
                 <input id={'pai'} name={'pai'} value={''} type={'text'} placeholder={'Nome completo'} />
 
-                <button type={'button'} onClick={salvarCliente}>Salvar</button>
+                <button className={'btnSubmit'} type={'button'} onClick={salvarCliente}>Salvar</button>
 
             </fieldset>
         </div>

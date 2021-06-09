@@ -24,7 +24,7 @@ export default function EsqueciMinhaSenha() {
                     <input name={'email'} value={email} type={'email'} placeholder={'E-mail'}
                         autoFocus={true} onChange={e => setEmail(e.target.value) } />
 
-                    <button id={'reset_senha_button'} type={'button'} onClick={()=> console.log('Clicou no botão Enviar!!!')}>
+                    <button className={'btnSubmit'} type={'button'} onClick={()=> console.log('Clicou no botão Enviar!!!')}>
                         Enviar
                     </button>
                 </div>
