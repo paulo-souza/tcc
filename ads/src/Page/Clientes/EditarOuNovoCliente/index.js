@@ -6,21 +6,24 @@ import AnexosCliente from '../../../Components/AnexosCliente';
 import AvalistasDeCliente from '../../../Components/AvalistasDeCliente';
 import Credito from '../../../Components/Credito';
 import DetalhesCliente from '../../../Components/DetalhesCliente';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, Prompt } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave } from '@fortawesome/free-solid-svg-icons';
 import '../../../Css/Tabs.css';
 import '../../../Css/Cliente.css';
 
+const MsgVoltar = 'Ao voltar para página inicial todas os dados fornecidos serão descartados. Tem certeza que deseja isso?';
 
 export default function EditarOuNovoCliente(props) {
     const { uidCliente } = useParams();
     let ehNovoCliente = !uidCliente;
     let titulo = ehNovoCliente ? 'Novo' : 'Editar';
 
+    const [cliente, setCliente] = useState(null);
     const [endereco, setEndereco] = useState(EnderecoDefault);
     const [contato, setContato] = useState(ContatoDefault);
     const [socios, setSocios] = useState([]);
+    const [abreMsgVoltar, setAbreMsgVoltar] = useState(false)
     
 
     useEffect(()=>{
@@ -79,11 +82,28 @@ export default function EditarOuNovoCliente(props) {
                     pai: "Enrico Ian Oliver Pinto"
                 }
             ])
+        }else{
+            let clienteEmCache = window.sessionStorage.getItem('cliente');
+            if(clienteEmCache) {
+                let novoCliente = JSON.parse(clienteEmCache);
+                setCliente({...novoCliente});
+                setAbreMsgVoltar(true);
+            }
+
         }
+
+        console.log('====================================');
+        console.log('cliente:', cliente);
+        console.log('====================================');
+
     }, []);
 
     return (
         <div>
+            <Prompt when={abreMsgVoltar} message={() => {
+                 window.sessionStorage.setItem('cliente', '');
+                 return MsgVoltar }} />
+
             <div className={'breadcumb'}>
                 <Link to={'/'} className={'niveis'}>Clientes</Link>
                 <span className={'niveis separadorNiveis'}>{'>'}</span>

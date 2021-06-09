@@ -23,6 +23,7 @@ export default async function SignIn(login) {
             }
 
             window.sessionStorage.setItem('usuario', JSON.stringify(usuarioAutentico));
+            window.sessionStorage.setItem('cliente', '');
             login.setUsuario(usuarioAutentico); 
         })
         .catch(error=> console.log(error, error.code));
