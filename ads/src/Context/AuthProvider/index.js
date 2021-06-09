@@ -37,7 +37,7 @@ export default function AutProvider({children}) {
     }
 
     function sairSistema() {
-        SignOut(setUsuario, setEstaCarregando);
+        SignOut(setUsuario, setEstaCarregando, toogleModalUsuario);
     }
 
     return(

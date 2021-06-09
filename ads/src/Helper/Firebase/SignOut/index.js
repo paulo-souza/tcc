@@ -1,6 +1,6 @@
 import { auth } from '../../../Service/Firebase';
 
-export default async function SignOut(setUsuario, setEstaCarregando) {
+export default async function SignOut(setUsuario, setEstaCarregando, toogleModalUsuario) {
     let desejaSair = window.confirm('Tem certeza que deseja sair do sistema?');
 
     if(!desejaSair) return false;
@@ -13,6 +13,9 @@ export default async function SignOut(setUsuario, setEstaCarregando) {
             setUsuario(null);            
         })
         .catch(error => console.log(error, error.code))
-        .finally(()=> setEstaCarregando(false));
+        .finally(()=> {
+            toogleModalUsuario();
+            setEstaCarregando(false)
+        });
 
 }
