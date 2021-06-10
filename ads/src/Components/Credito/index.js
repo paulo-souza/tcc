@@ -1,6 +1,22 @@
-import React from 'react';
+import React, { useContext, useCallback } from 'react';
+import { ClienteContext } from '../../Context/ClienteProvider';
+import SomenteNumeros from '../../Utilidades/SomenteNumeros';
 
-export default function Credito(props) {
+export default function Credito() {
+    const { credito, setCredito } = useContext(ClienteContext);
+
+    const ajustaCredito = useCallback(event => {
+        const { name, value } = event.target;
+
+        credito[name] = value;
+        setCredito({ ...credito });
+
+        console.log('====================================');
+        console.log('credito:', credito);
+        console.log('====================================');
+    }, [credito]);
+    
+
     return (
         <section id={'section6'}>
             <input type={'radio'} name={'sections'} id={'option6'} />
@@ -8,46 +24,52 @@ export default function Credito(props) {
 
             <article>
                 <div>
-                    <label htmlFor={'opCredito'}>Operação de crédito*</label>
+                    <label htmlFor={'operacao_credito'}>Operação de crédito*</label>
                 </div>
 
-                <select name={'opCredito'} id={'opCredito'}>
-                    <option value={'emprestimo'} selected={true}>Empréstimo</option>
-                    <option value={'financiamento'} selected={false}>Financiamento</option>
-                    <option value={'desconto'} selected={false}>Desconto de título</option>
+                <select name={'operacao_credito'} id={'operacao_credito'}
+                    value={credito.operacao_credito} onChange={ajustaCredito}>
+                    <option value={'emprestimo'}>Empréstimo</option>
+                    <option value={'financiamento'}>Financiamento</option>
+                    <option value={'desconto'}>Desconto de título</option>
                 </select>
 
                 <div>
-                    <label htmlFor={'tipoJuros'}>Tipo de Juros*</label>
+                    <label htmlFor={'tipo_juros'}>Tipo de Juros*</label>
                 </div>
 
-                <select name={'tipoJuros'} id={'tipoJuros'}>
-                    <option value={'simples'} selected={true}>Simples</option>
-                    <option value={'composto'} selected={false}>Composto</option>
+                <select name={'tipo_juros'} id={'tipo_juros'}
+                    value={credito.tipo_juros} onChange={ajustaCredito}>
+                    <option value={'simples'}>Simples</option>
+                    <option value={'composto'}>Composto</option>
                 </select>
 
-                <label htmlFor={'valorEmprestimo'}>Valor empréstimo <strong>R$*</strong></label>
-                <input id={'valorEmprestimo'} name={'valorEmprestimo'} value={''} type={'text'} placeholder={'ex.: R$ 10.000,00'} />
+                <label htmlFor={'valor_emprestimo'}>Valor empréstimo <strong>R$*</strong></label>
+                <input id={'valor_emprestimo'} name={'valor_emprestimo'} value={credito.valor_emprestimo}
+                    type={'text'} placeholder={'ex.: R$ 10.000,00'} onChange={ajustaCredito} onKeyPress={SomenteNumeros} />
 
-                <label htmlFor={'taxaJuros'}>Taxa de juros <strong>%*</strong></label>
-                <input id={'taxaJuros'} name={'taxaJuros'} value={''} type={'text'} placeholder={'ex.: 10%'} />
+                <label htmlFor={'taxa_juros'}>Taxa de juros <strong>%*</strong></label>
+                <input id={'taxa_juros'} name={'taxa_juros'} value={credito.taxa_juros} min={0}
+                    type={'number'} placeholder={'ex.: 10%'} onChange={ajustaCredito} onKeyPress={SomenteNumeros} />
 
                 <div>
                     <label htmlFor={'prazo'}>Prazo*</label>
                 </div>
 
-                <select name={'prazo'} id={'prazo'}>
-                    <option value={'anual'} selected={true}>Anual</option>
-                    <option value={'mensal'} selected={false}>Mensal</option>
-                    <option value={'trimestral'} selected={false}>Trimestral</option>
-                    <option value={'semestral'} selected={false}>Semestral</option>
+                <select name={'prazo'} id={'prazo'} value={credito.prazo} onChange={ajustaCredito}>
+                    <option value={'anual'}>Anual</option>
+                    <option value={'mensal'}>Mensal</option>
+                    <option value={'trimestral'}>Trimestral</option>
+                    <option value={'semestral'}>Semestral</option>
                 </select>
 
-                <label htmlFor={'qtdPrazo'}>QTD Prazo*</label>
-                <input id={'qtdPrazo'} name={'qtdPrazo'} value={''} type={'number'} placeholder={'ex.: 3 meses'} />
+                <label htmlFor={'qtd_prazo'}>QTD Prazo*</label>
+                <input id={'qtd_prazo'} name={'qtd_prazo'} value={credito.qtd_prazo} onKeyPress={SomenteNumeros}
+                    type={'number'} placeholder={'ex.: 3 meses'} onChange={ajustaCredito} min={0} />
 
                 <label htmlFor={'montante'}>Montante <strong>R$*</strong></label>
-                <input id={'montante'} name={'montante'} value={''} type={'text'} placeholder={'ex.: R$ 10.550,00'} />
+                <input id={'montante'} name={'montante'} value={credito.montante} onKeyPress={SomenteNumeros}
+                    type={'text'} placeholder={'ex.: R$ 10.550,00'} onChange={ajustaCredito} />
             </article>
         </section>
     );
