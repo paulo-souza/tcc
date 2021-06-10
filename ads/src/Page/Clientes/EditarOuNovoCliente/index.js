@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { ClienteContext } from '../../../Context/ClienteProvider';
 import PJMaisSocios from '../../../Components/PJMaisSocios';
 import Endereco, { EnderecoDefault } from '../../../Components/Endereco';
 import Contato, { ContatoDefault } from '../../../Components/Contato';
@@ -16,10 +17,10 @@ const MsgVoltar = 'Ao voltar para p√°gina inicial todas os dados fornecidos ser√
 
 export default function EditarOuNovoCliente(props) {
     const { uidCliente } = useParams();
-    let ehNovoCliente = !uidCliente;
-    let titulo = ehNovoCliente ? 'Novo' : 'Editar';
-
-    const [cliente, setCliente] = useState(null);
+    const ehNovoCliente = !uidCliente;
+    const titulo = ehNovoCliente ? 'Novo' : 'Editar';
+    
+    const {cliente, setCliente, clienteDefault} = useContext(ClienteContext);
     const [endereco, setEndereco] = useState(EnderecoDefault);
     const [contato, setContato] = useState(ContatoDefault);
     const [socios, setSocios] = useState([]);
@@ -82,13 +83,10 @@ export default function EditarOuNovoCliente(props) {
                     pai: "Enrico Ian Oliver Pinto"
                 }
             ])
-        }else{
-            let clienteEmCache = window.sessionStorage.getItem('cliente');
-            if(clienteEmCache) {
-                let novoCliente = JSON.parse(clienteEmCache);
-                setCliente({...novoCliente});
-                setAbreMsgVoltar(true);
-            }
+        }else {
+            let adicionouAlgo = cliente.cnpj && cliente.razao_social;
+
+            if(adicionouAlgo) setAbreMsgVoltar(true);           
 
         }
 
@@ -98,11 +96,12 @@ export default function EditarOuNovoCliente(props) {
 
     }, []);
 
+    // <Prompt when={abreMsgVoltar} message={() => {
+    //     setCliente(clienteDefault);
+    //     return MsgVoltar }} />
     return (
         <div>
-            <Prompt when={abreMsgVoltar} message={() => {
-                 window.sessionStorage.setItem('cliente', '');
-                 return MsgVoltar }} />
+            
 
             <div className={'breadcumb'}>
                 <Link to={'/'} className={'niveis'}>Clientes</Link>

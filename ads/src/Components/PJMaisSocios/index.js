@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { ClienteContext } from '../../Context/ClienteProvider';
 import { Link } from 'react-router-dom';
+import SaoIguais from '../../Utilidades/SaoIguais';
 
 
 export default function PJMaisSocios(props) {
+    const {cliente, clienteDefault} = useContext(ClienteContext);
+
     const existeSocios =  props.socios.length > 0;
     const pathNovoSocio = props.uidCliente ? `/Clientes/Editar/${props.uidCliente}/Socio` : '/Clientes/Novo/Socio'; 
+    const pathEditarPJ = !SaoIguais(cliente, clienteDefault) && !props.uidCliente ? '/Clientes/Novo/PessoaJuridica' : `/Clientes/Editar/${props.uidCliente}/PessoaJuridica`;
+
 
     return (
         <section id={'section1'}>
@@ -15,7 +21,7 @@ export default function PJMaisSocios(props) {
                 <div className={'containerClienteSubTitulo'}>
                     <h3>Pessoa Jurídica*</h3>
                     {
-                        !props.uidCliente &&
+                        SaoIguais(cliente, clienteDefault) &&
                         <Link className={'btnNovoCliente'} to={'/Clientes/Novo/PessoaJuridica'} title={'Novo cliente'}>Novo</Link>
                     }
                 </div>
@@ -23,13 +29,13 @@ export default function PJMaisSocios(props) {
                 <hr />
 
                 { 
-                    props.uidCliente &&
+                    !SaoIguais(cliente, clienteDefault) &&
                     <div className={'containerCliente'}>
-                        <Link to={`/Clientes/Editar/${props.uidCliente}/PessoaJuridica`}>Soluções Express</Link>
+                        <Link to={pathEditarPJ}>{cliente.nome_fantasia}</Link>
                     </div>
                 }
 
-                { props.uidCliente && <hr /> }
+                { !SaoIguais(cliente, clienteDefault) && <hr /> }
 
                 <hr id={'linhaSeparadoraCliente'} />
 

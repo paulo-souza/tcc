@@ -1,30 +1,16 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback, useContext } from 'react';
+import { ClienteContext } from '../../../Context/ClienteProvider';
 import { useParams, Link, useHistory } from 'react-router-dom';
-
-const ClienteDefault = {
-    uid: '',
-    data_registro: '',
-    razao_social: '',
-    nome_fantasia: '',
-    cnae: '',
-    cnpj: '',
-    inscricao_municipal: '',
-    inscricao_estadual: '',
-    natureza_juridica: 'Ltda',
-    porte_empresa: 'ME',
-    situacao_empresa: 'ativo'
-};
 
 export default function PessoaJuridica(props) {
     
     const history = useHistory();
-    const[cliente, setCliente] = useState(ClienteDefault);
+    const { cliente, setCliente } = useContext(ClienteContext);
 
     const {uidCliente} = useParams();
     const ehNovoCliente = !uidCliente;
     const pathSubNivel = ehNovoCliente ? '/Clientes/Novo' : `/Clientes/Editar/${uidCliente}`;
-
-    const restaurarCampos = ()=> setCliente({...ClienteDefault});
+    
 
     const ajustaCliente = useCallback(event=> {
         const { name, value } = event.target; 
@@ -35,18 +21,11 @@ export default function PessoaJuridica(props) {
 
     function salvarCliente(event) {
         //Falta implementar a função de editar
-        let dataFormatada = new Date(`${cliente.data_registro} 00:01:00`);
-        cliente.data_registro = dataFormatada.toLocaleDateString();
+        // let dataFormatada = new Date(`${cliente.data_registro} 00:01:00`);
+        // cliente.data_registro = dataFormatada.toLocaleDateString();
 
-        setCliente({...cliente});
-        
-        if(ehNovoCliente) {
-            window.sessionStorage.setItem('cliente', JSON.stringify(cliente));
-            console.log('cliente adicionado com sucesso');
-            //TODO restaurarCampos
-            restaurarCampos();
-        }
-        
+        setCliente({...cliente});        
+       
         history.goBack();
 
     }
