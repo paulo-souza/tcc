@@ -7,13 +7,14 @@ import AnexosCliente from '../../../Components/AnexosCliente';
 import AvalistasDeCliente from '../../../Components/AvalistasDeCliente';
 import Credito from '../../../Components/Credito';
 import DetalhesCliente from '../../../Components/DetalhesCliente';
-import { Link, useParams, Prompt } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave } from '@fortawesome/free-solid-svg-icons';
+import SaoIguais from '../../../Utilidades/SaoIguais';
 import '../../../Css/Tabs.css';
 import '../../../Css/Cliente.css';
 
-const MsgVoltar = 'Ao voltar para página inicial todas os dados fornecidos serão descartados. Tem certeza que deseja isso?';
+const MsgVoltar = 'Ao voltar para página inicial todos os dados fornecidos serão descartados. Tem certeza que deseja prosseguir?';
 
 export default function EditarOuNovoCliente(props) {
     const { uidCliente } = useParams();
@@ -24,7 +25,7 @@ export default function EditarOuNovoCliente(props) {
     const [endereco, setEndereco] = useState(EnderecoDefault);
     const [contato, setContato] = useState(ContatoDefault);
     const [socios, setSocios] = useState([]);
-    const [abreMsgVoltar, setAbreMsgVoltar] = useState(false)
+    
     
 
     useEffect(()=>{
@@ -83,34 +84,31 @@ export default function EditarOuNovoCliente(props) {
                     pai: "Enrico Ian Oliver Pinto"
                 }
             ])
-        }else {
-            let adicionouAlgo = cliente.cnpj && cliente.razao_social;
-
-            if(adicionouAlgo) setAbreMsgVoltar(true);           
-
         }
-
-        console.log('====================================');
-        console.log('cliente:', cliente);
-        console.log('====================================');
 
     }, []);
 
-    // <Prompt when={abreMsgVoltar} message={() => {
-    //     setCliente(clienteDefault);
-    //     return MsgVoltar }} />
+    function ehParaVoltar(event) {
+
+        if(!SaoIguais(cliente, clienteDefault)) {            
+            if(window.confirm(MsgVoltar)){
+                setCliente(clienteDefault);
+            } else {
+                event.preventDefault();
+            }
+        }
+    }
+  
     return (
-        <div>
-            
+        <div>            
 
             <div className={'breadcumb'}>
-                <Link to={'/'} className={'niveis'}>Clientes</Link>
+                <Link to={'/'} className={'niveis'} onClick={ehParaVoltar}>Clientes</Link>
                 <span className={'niveis separadorNiveis'}>{'>'}</span>
                 <span className={'niveis'}>{titulo}</span>
             </div>
 
             <h2 className={'tituloTabs'}>{`${titulo} Cliente`}</h2>
-
             
             <div className={'tabordion'}>
                 
@@ -122,8 +120,7 @@ export default function EditarOuNovoCliente(props) {
                 <Credito />
                 <DetalhesCliente />
 
-            </div>
-           
+            </div>           
            
             <button type={'button'} title={'Salvar novo cliente'} className={'btnAdd btnSalvarCliente'}>
                 <FontAwesomeIcon icon={faSave} color={'#fff'} size={'lg'} />                
