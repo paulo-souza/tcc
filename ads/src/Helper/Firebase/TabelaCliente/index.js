@@ -26,7 +26,6 @@ export default async function getClientes(setClientes, setEstaCarregando) {
                     });
                 }
             });
-            console.log(clientes);
             setClientes(clientes);
          });
         
