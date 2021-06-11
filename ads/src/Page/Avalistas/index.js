@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSave } from '@fortawesome/free-solid-svg-icons';
+import PessoaFisica from '../../Components/PessoaFisica';
 import Endereco, { EnderecoDefault } from '../../Components/Endereco';
 import Contato, { ContatoDefault } from '../../Components/Contato';
 import '../../Css/Tabs.css';
@@ -29,17 +28,8 @@ export default function Avalistas(props) {
                     <input type={'radio'} name={'sections'} id={'option1'} defaultChecked />
                     <label className={'labelTabs'} htmlFor={'option1'}>Pessoais</label>
 
-                    <article>
-                        <div className={'containerClienteSubTitulo'}>
-                            <h3>Avalista*</h3>                    
-                        </div>
-
-                        <hr />
-
-                            Nome, rg, cpf, data de nascimento e etc...
-
-                        <hr /> 
-                    
+                    <article>                        
+                           <PessoaFisica />                      
                     </article>
                 </section>           
                 
