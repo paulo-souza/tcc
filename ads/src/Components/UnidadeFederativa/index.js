@@ -15,7 +15,7 @@ export default function UnidadeFederativa(props) {
     return(
         <div>
             <div>
-                <label htmlFor={'uf'}>UF*</label>
+                <label htmlFor={'uf'}>{props.title || 'UF*'}</label>
             </div>
             <select name={'uf'} id={'uf'} value={props.valueUf} onChange={props.action}>
                 <option value={''}>Selecione uma UF</option>
