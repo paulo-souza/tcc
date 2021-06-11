@@ -10,10 +10,7 @@ export default function Credito() {
 
         credito[name] = value;
         setCredito({ ...credito });
-
-        console.log('====================================');
-        console.log('credito:', credito);
-        console.log('====================================');
+        
     }, [credito]);
     
 

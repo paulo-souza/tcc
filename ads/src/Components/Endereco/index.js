@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
+import UnidadeFederativa from '../UnidadeFederativa';
+import SomenteNumeros from '../../Utilidades/SomenteNumeros';
 
 export const EnderecoDefault = {
     imovel_proprio: false,
@@ -12,19 +14,9 @@ export const EnderecoDefault = {
 };
 
 export default function Endereco(props) {
-
-    const [ufs, setUfs] = useState([]);
-    const [interval, setInterval] = useState(1500);
     
-    useEffect(()=>{
-        let urlApiUF = 'https://servicodados.ibge.gov.br/api/v1/localidades/estados/11|12|13|14|15|16|17|21|22|23|24|25|26|27|28|29|31|32|33|35|41|42|43|50|51|52|53';
-        fetch(urlApiUF)
-        .then(r=> r.json())
-        .then(json=> setUfs(json))
-        .catch(error=> console.log('Erro ao buscar UF na api: ', error));
-
-    }, []);
- 
+    const [interval, setInterval] = useState(1200);
+   
     const ajustaEndereco = useCallback(event=> {
         const { name, value } = event.target; 
         let valor = value;
@@ -42,7 +34,7 @@ export default function Endereco(props) {
 
         if(cepParaBuscar.length == TotalDeCaracteresCep){
             clearTimeout(interval);
-            let newInterval = setTimeout(()=> buscarCep(cepParaBuscar), 1500);
+            let newInterval = setTimeout(()=> buscarCep(cepParaBuscar), 1200);
             setInterval(newInterval);
         }
     }
@@ -81,22 +73,11 @@ export default function Endereco(props) {
                     </div>
 
                     <label htmlFor={'cep'}>CEP*</label>
-                    <input id={'cep'} name={'cep'} type={'text'} onChange={ajustaEndereco}
+                    <input id={'cep'} name={'cep'} type={'text'} onChange={ajustaEndereco} onKeyPress={SomenteNumeros}
                          placeholder={'CEP'} maxLength={8} value={props.endereco.cep} onKeyUp={e=> jaDigitouCep(e.target.value)} />
+
                     
-                    <div>
-                        <label htmlFor={'uf'}>UF*</label>
-                    </div>
-                    <select name={'uf'} id={'uf'} value={props.endereco.uf} onChange={ajustaEndereco}>
-                        <option value={''}>Selecione uma UF</option>
-                        {
-                            ufs.map(item=> {
-                                return(
-                                    <option key={item.id} value={item.sigla}>{`${item.sigla}/${item.nome}`}</option>
-                                );
-                            })
-                        }
-                    </select>
+                    <UnidadeFederativa valueUf={props.endereco.uf} action={ajustaEndereco} />
 
                     <label htmlFor={'cidade'}>Cidade*</label>
                     <input id={'cidade'} name={'cidade'} value={props.endereco.cidade}

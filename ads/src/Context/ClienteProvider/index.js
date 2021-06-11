@@ -23,6 +23,7 @@ export default function ClienteProvider({children}) {
     };
 
     const creditoDefault = {
+        uid: '',
         operacao_credito: 'emprestimo',
         tipo_juros: 'simples',
         valor_emprestimo: '',
