@@ -28,9 +28,8 @@ export default function ClienteProvider({children}) {
         tipo_juros: 'simples',
         valor_emprestimo: '',
         taxa_juros: '',
-        prazo: 'anual',
-        qtd_prazo: '',
-        montante: '',
+        prazo: 'mensal',
+        qtd_prazo: ''
     }
     
     const[cliente, setCliente] = useState(clienteDefault);
