@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function AvalistasDeCliente(props) {
     return (
@@ -9,7 +10,7 @@ export default function AvalistasDeCliente(props) {
             <article>
                 <div className={'containerClienteSubTitulo'}>
                     <h3>Avalistas*</h3>
-                    <button className={'btnNovoCliente'} title={'Novo avalista'} type={'button'}>Novo</button>
+                    <Link to={'/Clientes/Novo/Avalistas'} className={'btnNovoCliente'} title={'Novo avalista'}>Novo</Link>                    
                 </div>
 
                 <hr />
