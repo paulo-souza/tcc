@@ -17,22 +17,26 @@ export default function Clientes() {
 
     return (
         <div style={container}>
-            <Header title={'Clientes'} />
-            
+            <Header title={'Clientes'} />           
+               
             <div className={'body'}>
-             { estaCarregando && <Loading /> }
+            
+                { 
+                    estaCarregando ? <Loading /> 
+                    :  
+                    <div className={'containerBuscarCliente'}>
+                        <input id={'buscarCliente'} name={'buscarCliente'} value={buscarCliente} type={'search'}
+                            placeholder={'Buscar cliente...'} onChange={e => setBuscarCliente(e.target.value)} />
 
-                <div className={'containerBuscarCliente'}>
-                    <input id={'buscarCliente'} name={'buscarCliente'} value={buscarCliente} type={'search'}
-                         placeholder={'Buscar cliente...'} onChange={e => setBuscarCliente(e.target.value)} />
+                        <button style={{marginBottom: 10}} className={'btnBuscar'} type={'button'} title={'Buscar cliente'}
+                            onClick={()=> console.log('hora de buscar um cliente')}>
+                            <FontAwesomeIcon icon={faSearch} color={'#fff'} size={'1x'} />
+                        </button>
+                    </div>
 
-                    <button style={{marginBottom: 10}} className={'btnBuscar'} type={'button'} title={'Buscar cliente'}
-                        onClick={()=> console.log('hora de buscar um cliente')}>
-                        <FontAwesomeIcon icon={faSearch} color={'#fff'} size={'1x'} />
-                    </button>
-                </div>
+                }
 
-                <TabelaCliente />
+                 { !estaCarregando && <TabelaCliente /> }            
                 
             </div>
 

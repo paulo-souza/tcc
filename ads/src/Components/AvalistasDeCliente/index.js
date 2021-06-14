@@ -1,7 +1,16 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { ClienteContext } from '../../Context/ClienteProvider';
 import { Link } from 'react-router-dom';
 
-export default function AvalistasDeCliente(props) {
+export default function AvalistasDeCliente({uidCliente}) {
+    const{avalistas: avalistaMap} = useContext(ClienteContext);
+    const ehParaEditar = uidCliente;    
+    const[avalistas, setAvalistas] = useState([]);
+
+    useEffect(()=> {
+        if(ehParaEditar) setAvalistas(avalistaMap.get(uidCliente));
+    },[]);
+
     return (
         <section id={'section5'}>
             <input type={'radio'} name={'sections'} id={'option5'} />
@@ -16,9 +25,13 @@ export default function AvalistasDeCliente(props) {
                 <hr />
 
                 <div className={'containerCliente'}>
-                    <a href={'#'}>Fulano de Tal</a>
-                    <a href={'#'}>Beltrano de Tal</a>
-                    <a href={'#'}>Cicrano de Tal</a>
+                   {
+                       avalistas.map(avalista=> {
+                           return(
+                               <Link key={avalista.uid} to={`/Clientes/Editar/${uidCliente}/Avalista/${avalista.uid}`}>{avalista.nome}</Link>
+                           );
+                       })
+                   }
                 </div>
 
                 <hr />

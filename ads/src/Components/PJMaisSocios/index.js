@@ -1,17 +1,27 @@
-import React, { useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { ClienteContext } from '../../Context/ClienteProvider';
 import { Link } from 'react-router-dom';
 import SaoIguais from '../../Utilidades/SaoIguais';
 
 
-export default function PJMaisSocios(props) {
-    const {cliente, clienteDefault} = useContext(ClienteContext);
+export default function PJMaisSocios({uidCliente}) {
+    const {clienteDefault, clientes, socios: sociosMap} = useContext(ClienteContext);
 
-    const existeSocios =  props.socios.length > 0;
-    const pathNovoSocio = props.uidCliente ? `/Clientes/Editar/${props.uidCliente}/Socio` : '/Clientes/Novo/Socio'; 
-    const pathEditarPJ = !SaoIguais(cliente, clienteDefault) && !props.uidCliente ? '/Clientes/Novo/PessoaJuridica' : `/Clientes/Editar/${props.uidCliente}/PessoaJuridica`;
+    const[socios, setSocios] = useState([]);
+    const[cliente, setCliente] = useState(clienteDefault);
 
+    const ehParaEditar = uidCliente;
+    const existeSocios = sociosMap.size > 0;
+    const pathNovoSocio = uidCliente ? `/Clientes/Editar/${uidCliente}/Socio` : '/Clientes/Novo/Socio'; 
+    const pathEditarPJ = !SaoIguais(cliente, clienteDefault) && !uidCliente ? '/Clientes/Novo/PessoaJuridica' : `/Clientes/Editar/${uidCliente}/PessoaJuridica`;
 
+    useEffect(()=> {
+        if(ehParaEditar && existeSocios) {
+            setCliente(clientes.get(uidCliente));
+            setSocios(sociosMap.get(uidCliente));
+        }
+    }, []);
+ 
     return (
         <section id={'section1'}>
             <input type={'radio'} name={'sections'} id={'option1'} defaultChecked />
@@ -51,9 +61,9 @@ export default function PJMaisSocios(props) {
                     <div className={'containerCliente'}>
                         
                         {
-                            props.socios.map(socio=> {
+                            socios.map(socio=> {
                                 return(
-                                    <Link key={socio.uid} to={`/Clientes/Editar/${props.uidCliente}/Socio/${socio.uid}`}>
+                                    <Link key={socio.uid} to={`/Clientes/Editar/${uidCliente}/Socio/${socio.uid}`}>
                                         {socio.nome}
                                     </Link>
                                 );

@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import PessoaFisica from '../../Components/PessoaFisica';
-import Endereco, { EnderecoDefault } from '../../Components/Endereco';
-import Contato, { ContatoDefault } from '../../Components/Contato';
+import Endereco from '../../Components/Endereco';
+import Contato from '../../Components/Contato';
 import '../../Css/Tabs.css';
 import '../../Css/Cliente.css';
 
 export default function Avalistas(props) {
-    const[endereco, setEndereco] = useState(EnderecoDefault);
-    const[contato, setContato] = useState(ContatoDefault);
+    const{uidAvalista, uidCliente} = useParams();
 
     const titulo = 'Novo'
 
@@ -33,8 +32,8 @@ export default function Avalistas(props) {
                     </article>
                 </section>           
                 
-                <Endereco endereco={endereco} setEndereco={setEndereco} />
-                <Contato contato={contato} setContato={setContato} />
+                <Endereco  uid={uidAvalista} tipoPessoa={'avalista'} />
+                <Contato uid={uidAvalista} tipoPessoa={'avalista'} />
             </div>           
         
             <div style={{marginTop: 65, marginLeft: '25.5%', marginRight: '10.5%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>

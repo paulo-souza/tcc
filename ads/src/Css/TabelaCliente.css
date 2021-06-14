@@ -33,16 +33,19 @@ table.tabela .tabPagamentoCliente {
 table.tabela .tabPagamentoPendente {
     color: purple;
     font-weight: bold;
+    text-transform: capitalize;
 }
 
 table.tabela .tabPagamentoInadimplente {
     color: red;
     font-weight: bold;
+    text-transform: capitalize;
 }
 
 table.tabela .tabPagamentoEmDia {
     color: green;
     font-weight: bold;
+    text-transform: capitalize;
 }
 
 ul.pagination {    

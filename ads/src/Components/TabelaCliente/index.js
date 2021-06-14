@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { AuthContext } from '../../Context/AuthProvider';
+import { ClienteContext } from '../../Context/ClienteProvider';
 import { Link } from 'react-router-dom';
 import JwPagination from 'jw-react-pagination';
-import getClientes from '../../Helper/Firebase/TabelaCliente';
+
 import '../../Css/TabelaDefault.css';
 import '../../Css/TabelaCliente.css';
 
@@ -12,20 +12,18 @@ const customLabels = {
     previous: 'Anterior',
     next: 'Próximo'        
 };
+                       
 
-
-export default function TabelaCliente(){
-    const { setEstaCarregando } = useContext(AuthContext);
-    
-    const [clientes, setClientes] = useState([]);
-    const [itens, setItens] = useState([]);
+export default function TabelaCliente(){      
+    const{ clientes:clientesMap } = useContext(ClienteContext);
+    const[itens, setItens] = useState([]);
+    const[clientes, setClientes] = useState([]);
 
     const classNamePagamento = {'em dia': 'tabPagamentoEmDia', pendente: 'tabPagamentoPendente', inadimplente: 'tabPagamentoInadimplente'};
 
     useEffect(()=> {
-        getClientes(setClientes,setEstaCarregando);
-    },[]);
-
+        setClientes(Array.from(clientesMap.values()));
+    }, []);
 
     return(
 
@@ -42,8 +40,9 @@ export default function TabelaCliente(){
 
                 <tbody>
                     {
-                        itens.map(cliente=>{
-                            // let pagamento = cliente.pagamento.toLowerCase();
+                        
+                        itens.map(cliente=> {
+                            
                             let cnpjFormatado = cliente.cnpj?.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5");
                             return(
                                 <tr key={cliente.uid}>
@@ -51,20 +50,20 @@ export default function TabelaCliente(){
                                         <Link to={`/Clientes/Editar/${cliente.uid}`}>{cnpjFormatado}</Link>                                        
                                     </td>
                                     <td className={'tabNomeCliente'}>
-                                        <Link to={`/Clientes/Editar/${cliente.uid}`}>{cliente.nome_fantazia}</Link>                                        
+                                        <Link to={`/Clientes/Editar/${cliente.uid}`}>{cliente.nome_fantasia}</Link>                                        
                                     </td>
-                                    <td className={`tabPagamentoCliente ${classNamePagamento['pendente']}`}>Pendente</td>
+                                    <td className={`tabPagamentoCliente ${classNamePagamento[cliente.pagamento]}`}>{cliente.pagamento}</td>
                                 </tr>
                             );
                         })
+
                     }
 
                 </tbody>
 
             </table>
 
-            <JwPagination items={clientes} labels={customLabels}
-                    onChangePage={pagina=> setItens(pagina)} />
+            { <JwPagination items={clientes} labels={customLabels} onChangePage={pagina=> setItens(pagina)} /> }
 
         </div>
 
