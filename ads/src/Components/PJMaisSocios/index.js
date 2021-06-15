@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { ClienteContext } from '../../Context/ClienteProvider';
 import { Link } from 'react-router-dom';
-import SaoIguais from '../../Utilidades/SaoIguais';
+import SaoIguais from '../../Helper/Utilidades/SaoIguais';
 
 
 export default function PJMaisSocios() {

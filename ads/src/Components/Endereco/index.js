@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useContext, useEffect } from 'react';
 import { ClienteContext } from '../../Context/ClienteProvider';
 import UnidadeFederativa from '../UnidadeFederativa';
-import SomenteNumeros from '../../Utilidades/SomenteNumeros';
+import SomenteNumeros from '../../Helper/Utilidades/SomenteNumeros';
 
 export default function Endereco(props) {
    

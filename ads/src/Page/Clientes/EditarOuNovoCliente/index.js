@@ -10,7 +10,7 @@ import DetalhesCliente from '../../../Components/DetalhesCliente';
 import { Link, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave } from '@fortawesome/free-solid-svg-icons';
-import SaoIguais from '../../../Utilidades/SaoIguais';
+import SaoIguais from '../../../Helper/Utilidades/SaoIguais';
 import '../../../Css/Tabs.css';
 import '../../../Css/Cliente.css';
 

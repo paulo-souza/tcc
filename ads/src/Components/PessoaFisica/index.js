@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import UnidadeFederativa from '../UnidadeFederativa';
-import SomenteNumeros from '../../Utilidades/SomenteNumeros';
+import SomenteNumeros from '../../Helper/Utilidades/SomenteNumeros';
 
 export const pessoaFisicaDefault = {
     uid: '',

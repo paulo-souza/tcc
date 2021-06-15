@@ -1,7 +1,7 @@
 import React, {useState, useContext, useCallback } from 'react';
 import { ClienteContext } from '../../Context/ClienteProvider';
-import SomenteNumeros from '../../Utilidades/SomenteNumeros';
-import ParseToMoedaBRL, { ParseToMoedaUSA, ParseToNumber} from '../../Utilidades/ParseToMoedaBRL';
+import SomenteNumeros from '../../Helper/Utilidades/SomenteNumeros';
+import ParseToMoedaBRL, { ParseToMoedaUSA, ParseToNumber} from '../../Helper/Utilidades/ParseToMoedaBRL';
 
 export default function Credito() {
     const { credito, setCredito } = useContext(ClienteContext);
