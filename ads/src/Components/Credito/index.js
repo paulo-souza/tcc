@@ -1,20 +1,44 @@
-import React, {useState, useContext, useCallback } from 'react';
+import React, {useState, useEffect, useContext, useCallback } from 'react';
 import { ClienteContext } from '../../Context/ClienteProvider';
 import SomenteNumeros from '../../Helper/Utilidades/SomenteNumeros';
 import ParseToMoedaBRL, { ParseToMoedaUSA, ParseToNumber} from '../../Helper/Utilidades/ParseToMoedaBRL';
 
 export default function Credito() {
-    const { credito, setCredito } = useContext(ClienteContext);
+    const { credito, setCredito, todosCreditos, cliente } = useContext(ClienteContext);
+
     let [valorParcela, setValorParcela] = useState(null);
     let [montante, setMontante] = useState(null);
+
+    cliente.uid && setCredito(todosCreditos.get(cliente.uid));    
+
+
+    useEffect(()=> {
+        credito.uid && calculaMontanteEValorCadaParcela();
+    });
+
+
+    const camposEstaoPreenchidos = () => {
+        let expressao = credito.valor_emprestimo && credito.taxa_juros && credito.qtd_prazo;
+        
+        if(expressao) return true;
+       
+        return  false;
+    }
 
     const ajustaCredito = useCallback(event => {
         const { name, value } = event.target;
 
         credito[name] = value;
         setCredito({ ...credito });
-        
-        if(camposEstaoPreenchidos()) {            
+
+        calculaMontanteEValorCadaParcela();
+
+    }, [credito]); 
+
+    function calculaMontanteEValorCadaParcela() {        
+
+            if(!camposEstaoPreenchidos()) return;
+
             let valor_emprestimo = ParseToMoedaUSA(credito.valor_emprestimo);
             let taxa_juros = ParseToMoedaUSA(credito.taxa_juros);
             let qtd_prazo = ParseToMoedaUSA(credito.qtd_prazo);
@@ -39,15 +63,10 @@ export default function Credito() {
 
             setValorParcela(ParseToMoedaBRL(valorParcela));
             setMontante(ParseToMoedaBRL(montante));
-        }
-    }, [credito]);
-    
-    const camposEstaoPreenchidos = () => {
+        
+    } 
 
-        return credito.valor_emprestimo &&
-               credito.taxa_juros &&
-               credito.qtd_prazo;
-    }
+    
 
     return (
         <section id={'section6'}>
@@ -104,6 +123,10 @@ export default function Credito() {
                         </select>
                     </div>
                 </div>
+
+                <label htmlFor={'data_parcela1'}>Data 1ª parcela*</label>
+                <input id={'data_parcela1'} name={'data_parcela1'} value={credito.data_parcela1} 
+                type={'date'} onChange={ajustaCredito} />
 
                 <label htmlFor={'valor_parcela'}>Valor parcela <strong>R$*</strong></label>
                 <input id={'valor_parcela'} name={'valor_parcela'} value={valorParcela}

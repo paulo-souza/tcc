@@ -30,7 +30,8 @@ export const creditoDefault = {
     valor_emprestimo: '',
     taxa_juros: '',
     prazo: 'mensal',
-    qtd_prazo: ''
+    qtd_prazo: '',
+    data_parcela1: ''
 }
 
 export const enderecoDefault = {

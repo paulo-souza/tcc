@@ -1,24 +1,28 @@
 import { database } from '../../../Service/Firebase';
 
-export default async function getCreditos(setCreditos) {
+export default async function getCreditos(setTodosCreditos) {
     
     await database.ref('credito').once('value').then(creditosObtidos=> {
-        let creditos = [];
+        let creditos = new Map();
 
-        creditosObtidos.forEach(credito=> {
-            creditos.push({
-                uidCliente: credito.key,
-                uid: credito.val().uid,
-                operacao_credito: credito.val().operacao_credito,
-                tipo_juros: credito.val().tipo_juros,
-                valor_emprestimo: credito.val().valor_emprestimo,
-                taxa_juros: credito.val().taxa_juros,
-                prazo: credito.val().prazo,
-                qtd_prazo: credito.val().qtd_prazo
-            });
+        creditosObtidos.forEach(creditoObtido=> {
+            if(creditoObtido) {
+                let credito = {
+                    data_parcela1: creditoObtido.val().data_parcela1,
+                    uid: creditoObtido.val().uid,
+                    operacao_credito: creditoObtido.val().operacao_credito,
+                    tipo_juros: creditoObtido.val().tipo_juros,
+                    valor_emprestimo: creditoObtido.val().valor_emprestimo,
+                    taxa_juros: creditoObtido.val().taxa_juros,
+                    prazo: creditoObtido.val().prazo,
+                    qtd_prazo: creditoObtido.val().qtd_prazo
+                };
+
+                creditos.set(creditoObtido.key, credito)
+            }            
         });
 
-        setCreditos(creditos);
+        setTodosCreditos(creditos);
     })
     .catch(error=> console.log('Erro ao buscar creditos dos clientes!', error));
 }

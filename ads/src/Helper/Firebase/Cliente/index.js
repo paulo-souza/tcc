@@ -9,7 +9,7 @@ export default async function getClientes(setClientes) {
             snapshot.forEach(clienteObtido=> { 
                 if(clienteObtido) {
                     let cliente = {
-                        uid: clienteObtido.val().uid,
+                        uid: clienteObtido.key,
                         data_registro: clienteObtido.val().data_registro,
                         razao_social: clienteObtido.val().razao_social,
                         nome_fantasia: clienteObtido.val().nome_fantasia,
@@ -23,7 +23,7 @@ export default async function getClientes(setClientes) {
                         pagamento: clienteObtido.val().pagamento                      
                     };
 
-                    clientes.set(clienteObtido.val().uid, cliente);
+                    clientes.set(clienteObtido.key, cliente);
 
                 }
     

@@ -17,12 +17,12 @@ export default function ClienteProvider({children}) {
     const [clientes, setClientes] = useState(new Map());
     const [todosSocios, setTodosSocios] = useState(new Map());
     const [avalistas, setAvalistas] = useState(new Map());
+    const [todosCreditos, setTodosCreditos] = useState(new Map());
     const [socios, setSocios] = useState([]);
     const [contatoClientes, setContatoClientes] = useState([]);
     const [contatoAvalistas, setContatoAvalistas] = useState([]);
     const [enderecoClientes, setEnderecoClientes] = useState([]);
     const [enderecoAvalistas, setEnderecoAvalistas] = useState([]);
-    const [creditos, setCreditos] = useState([]);
     const [detalheCreditos, setDetalheCreditos] = useState([]);
     const [cliente, setCliente] = useState(clienteDefault);
     const [credito, setCredito] = useState(creditoDefault);
@@ -39,17 +39,16 @@ export default function ClienteProvider({children}) {
         getContatos('contato_avalista', setContatoAvalistas);
         getEnderecos('endereco_cliente', setEnderecoClientes);
         getEnderecos('endereco_avalista', setEnderecoAvalistas);
-        getCreditos(setCreditos);
+        getCreditos(setTodosCreditos);
         getDetalheCreditos(setDetalheCreditos, setEstaCarregando);
 
     }, []);
 
 
     return(
-        <ClienteContext.Provider value={{ todosSocios, avalistas,
-            credito, clientes, socios, cliente,
-            enderecoClientes, enderecoAvalistas,
-            contatoClientes, contatoAvalistas,
+        <ClienteContext.Provider value={{ todosSocios, avalistas, credito, 
+            clientes, socios, cliente, enderecoClientes, enderecoAvalistas,
+            contatoClientes, contatoAvalistas, todosCreditos,
             setAvalistas, setClientes, setCredito, setSocios, setCliente}}>
             {children}
         </ClienteContext.Provider>
