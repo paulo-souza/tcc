@@ -20,7 +20,7 @@ export default async function getClientes(setClientes) {
                         situacao_empresa: clienteObtido.val().situacao_empresa,
                         natureza_juridica: clienteObtido.val().natureza_juridica,
                         porte_empresa: clienteObtido.val().porte_empresa,
-                        pagamento: 'pendente'                       
+                        pagamento: clienteObtido.val().pagamento                      
                     };
 
                     clientes.set(clienteObtido.val().uid, cliente);
