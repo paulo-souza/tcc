@@ -1,15 +1,16 @@
 import React, { useState, useCallback, useContext, useEffect } from 'react';
 import { ClienteContext } from '../../Context/ClienteProvider';
 import UnidadeFederativa from '../UnidadeFederativa';
+import { enderecoDefault } from '../../Helper/ObjetoDefault';
 import SomenteNumeros from '../../Helper/Utilidades/SomenteNumeros';
 
 export default function Endereco(props) {
    
-    const {enderecoDefault, enderecoClientes, enderecoAvalistas} = useContext(ClienteContext);
+    const {enderecoClientes, enderecoAvalistas} = useContext(ClienteContext);
 
     const ehParaEditarEndereco = props.uid;
-    const[endereco, setEndereco] = useState(enderecoDefault);
-    const[interval, setInterval] = useState(1200);
+    const [endereco, setEndereco] = useState(enderecoDefault);
+    const [interval, setInterval] = useState(1200);
 
     useEffect(()=> {
         if(ehParaEditarEndereco) setEndereco(obtenhaEnderecoPeloTipoPessoa(props.tipoPessoa.toLowerCase()));        

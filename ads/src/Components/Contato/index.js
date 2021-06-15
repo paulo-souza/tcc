@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { ClienteContext } from '../../Context/ClienteProvider';
+import {contatoDefault} from '../../Helper/ObjetoDefault';
 
 export default function Contato(props) {
 
     const ehParaEditarContato = props.uid;
-    const{contatoDefault, contatoClientes, contatoAvalistas} = useContext(ClienteContext);
-    const[contato, setContato] = useState(contatoDefault);
+    const {contatoClientes, contatoAvalistas} = useContext(ClienteContext);
+    const [contato, setContato] = useState(contatoDefault);
 
     useEffect(()=> {
         if(ehParaEditarContato) setContato(buscarContatoPeloTipoPessoa(props.tipoPessoa));

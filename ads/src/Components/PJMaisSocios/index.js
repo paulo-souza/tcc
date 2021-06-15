@@ -1,11 +1,12 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import { ClienteContext } from '../../Context/ClienteProvider';
 import { Link } from 'react-router-dom';
+import clienteDefault from '../../Helper/ObjetoDefault';
 import SaoIguais from '../../Helper/Utilidades/SaoIguais';
 
 
 export default function PJMaisSocios() {
-    const {clienteDefault, cliente, todosSocios, socios, setSocios} = useContext(ClienteContext);
+    const {cliente, todosSocios, socios, setSocios} = useContext(ClienteContext);
     
     cliente.uid && setSocios(todosSocios.get(cliente.uid));   
 

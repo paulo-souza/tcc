@@ -10,6 +10,7 @@ import DetalhesCliente from '../../../Components/DetalhesCliente';
 import { Link, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave } from '@fortawesome/free-solid-svg-icons';
+import clienteDefault from '../../../Helper/ObjetoDefault';
 import SaoIguais from '../../../Helper/Utilidades/SaoIguais';
 import '../../../Css/Tabs.css';
 import '../../../Css/Cliente.css';
@@ -21,7 +22,7 @@ export default function EditarOuNovoCliente(props) {
     const ehNovoCliente = !uidCliente;
     const titulo = ehNovoCliente ? 'Novo' : 'Editar';
     
-    const{clienteDefault, clientes, cliente, setCliente, setSocios} = useContext(ClienteContext); 
+    const {clientes, cliente, setCliente, setSocios} = useContext(ClienteContext); 
     
     !ehNovoCliente && setCliente(clientes.get(uidCliente));
     

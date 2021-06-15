@@ -1,5 +1,6 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
 import { AuthContext } from '../AuthProvider';
+import clienteDefault, {creditoDefault} from '../../Helper/ObjetoDefault';
 import getClientes from '../../Helper/Firebase/Cliente';
 import getPessoasFisica from '../../Helper/Firebase/PessoaFisica';
 import getContatos from '../../Helper/Firebase/Contato';
@@ -11,7 +12,7 @@ export const ClienteContext = createContext({});
 
 /*eslint-disable */
 export default function ClienteProvider({children}) {
-    const {estaCarregando, setEstaCarregando} = useContext(AuthContext);
+    const {setEstaCarregando} = useContext(AuthContext);
 
     const [clientes, setClientes] = useState(new Map());
     const [todosSocios, setTodosSocios] = useState(new Map());
@@ -23,56 +24,8 @@ export default function ClienteProvider({children}) {
     const [enderecoAvalistas, setEnderecoAvalistas] = useState([]);
     const [creditos, setCreditos] = useState([]);
     const [detalheCreditos, setDetalheCreditos] = useState([]);
-    
-
-    const clienteDefault = {
-        uid: '',
-        data_registro: '',
-        razao_social: '',
-        nome_fantasia: '',
-        cnae: '',
-        cnpj: '',
-        inscricao_municipal: '',
-        inscricao_estadual: '',
-        natureza_juridica: 'Ltda',
-        porte_empresa: 'ME',
-        situacao_empresa: 'ativo'
-    };
-
-    const creditoDefault = {
-        uid: '',
-        operacao_credito: 'emprestimo',
-        tipo_juros: 'simples',
-        valor_emprestimo: '',
-        taxa_juros: '',
-        prazo: 'mensal',
-        qtd_prazo: ''
-    }
-    
-    const enderecoDefault = {
-        uid: '',
-        imovel_proprio: false,
-        cep: '',
-        uf: '',
-        cidade: '',
-        logradouro: '',
-        complemento: '',
-        bairro: '',
-        numero: '',
-    };
-
-    const contatoDefault = {
-        uid: '',
-        email1: '',
-        email2: '',
-        telefone1: '',
-        telefone2: '',
-        celular1: '',
-        celular2: ''
-    }
-    
     const [cliente, setCliente] = useState(clienteDefault);
-    const[credito, setCredito] = useState(creditoDefault);
+    const [credito, setCredito] = useState(creditoDefault);
 
 
     useEffect(()=> {        
@@ -93,10 +46,10 @@ export default function ClienteProvider({children}) {
 
 
     return(
-        <ClienteContext.Provider value={{ todosSocios, avalistas, clienteDefault,
-            credito, creditoDefault, clientes, socios, cliente,
-            enderecoDefault, enderecoClientes, enderecoAvalistas,
-            contatoDefault, contatoClientes, contatoAvalistas,
+        <ClienteContext.Provider value={{ todosSocios, avalistas,
+            credito, clientes, socios, cliente,
+            enderecoClientes, enderecoAvalistas,
+            contatoClientes, contatoAvalistas,
             setAvalistas, setClientes, setCredito, setSocios, setCliente}}>
             {children}
         </ClienteContext.Provider>
