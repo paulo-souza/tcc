@@ -4,24 +4,16 @@ import { Link } from 'react-router-dom';
 import SaoIguais from '../../Utilidades/SaoIguais';
 
 
-export default function PJMaisSocios({uidCliente}) {
-    const {clienteDefault, clientes, socios: sociosMap} = useContext(ClienteContext);
+export default function PJMaisSocios() {
+    const {clienteDefault, cliente, todosSocios, socios, setSocios} = useContext(ClienteContext);
+    
+    cliente.uid && setSocios(todosSocios.get(cliente.uid));   
 
-    const[socios, setSocios] = useState([]);
-    const[cliente, setCliente] = useState(clienteDefault);
+    const existeSocios = socios.length > 0;
+    const pathNovoSocio = cliente.uid ? `/Clientes/Editar/${cliente.uid}/Socio` : '/Clientes/Novo/Socio'; 
+    const pathEditarPJ = !SaoIguais(cliente, clienteDefault) && !cliente.uid ? '/Clientes/Novo/PessoaJuridica' : `/Clientes/Editar/${cliente.uid}/PessoaJuridica`;
 
-    const ehParaEditar = uidCliente;
-    const existeSocios = sociosMap.size > 0;
-    const pathNovoSocio = uidCliente ? `/Clientes/Editar/${uidCliente}/Socio` : '/Clientes/Novo/Socio'; 
-    const pathEditarPJ = !SaoIguais(cliente, clienteDefault) && !uidCliente ? '/Clientes/Novo/PessoaJuridica' : `/Clientes/Editar/${uidCliente}/PessoaJuridica`;
-
-    useEffect(()=> {
-        if(ehParaEditar && existeSocios) {
-            setCliente(clientes.get(uidCliente));
-            setSocios(sociosMap.get(uidCliente));
-        }
-    }, []);
- 
+    
     return (
         <section id={'section1'}>
             <input type={'radio'} name={'sections'} id={'option1'} defaultChecked />
@@ -63,7 +55,7 @@ export default function PJMaisSocios({uidCliente}) {
                         {
                             socios.map(socio=> {
                                 return(
-                                    <Link key={socio.uid} to={`/Clientes/Editar/${uidCliente}/Socio/${socio.uid}`}>
+                                    <Link key={socio.uid} to={`/Clientes/Editar/${cliente.uid}/Socio/${socio.uid}`}>
                                         {socio.nome}
                                     </Link>
                                 );

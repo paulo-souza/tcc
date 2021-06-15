@@ -13,15 +13,17 @@ export const ClienteContext = createContext({});
 export default function ClienteProvider({children}) {
     const {estaCarregando, setEstaCarregando} = useContext(AuthContext);
 
-    const[clientes, setClientes] = useState(new Map());
-    const[socios, setSocios] = useState(new Map());
-    const[avalistas, setAvalistas] = useState(new Map());
-    const[contatoClientes, setContatoClientes] = useState([]);
-    const[contatoAvalistas, setContatoAvalistas] = useState([]);
-    const[enderecoClientes, setEnderecoClientes] = useState([]);
-    const[enderecoAvalistas, setEnderecoAvalistas] = useState([]);
-    const[creditos, setCreditos] = useState([]);
-    const[detalheCreditos, setDetalheCreditos] = useState([]);
+    const [clientes, setClientes] = useState(new Map());
+    const [todosSocios, setTodosSocios] = useState(new Map());
+    const [avalistas, setAvalistas] = useState(new Map());
+    const [socios, setSocios] = useState([]);
+    const [contatoClientes, setContatoClientes] = useState([]);
+    const [contatoAvalistas, setContatoAvalistas] = useState([]);
+    const [enderecoClientes, setEnderecoClientes] = useState([]);
+    const [enderecoAvalistas, setEnderecoAvalistas] = useState([]);
+    const [creditos, setCreditos] = useState([]);
+    const [detalheCreditos, setDetalheCreditos] = useState([]);
+    
 
     const clienteDefault = {
         uid: '',
@@ -69,6 +71,7 @@ export default function ClienteProvider({children}) {
         celular2: ''
     }
     
+    const [cliente, setCliente] = useState(clienteDefault);
     const[credito, setCredito] = useState(creditoDefault);
 
 
@@ -77,7 +80,7 @@ export default function ClienteProvider({children}) {
         setEstaCarregando(true);
 
         getClientes(setClientes);
-        getPessoasFisica('socio', setSocios);
+        getPessoasFisica('socio', setTodosSocios);
         getPessoasFisica('avalista', setAvalistas);
         getContatos('contato_cliente', setContatoClientes);
         getContatos('contato_avalista', setContatoAvalistas);
@@ -90,11 +93,11 @@ export default function ClienteProvider({children}) {
 
 
     return(
-        <ClienteContext.Provider value={{ socios, avalistas, clienteDefault,
-            credito, creditoDefault, clientes,
+        <ClienteContext.Provider value={{ todosSocios, avalistas, clienteDefault,
+            credito, creditoDefault, clientes, socios, cliente,
             enderecoDefault, enderecoClientes, enderecoAvalistas,
             contatoDefault, contatoClientes, contatoAvalistas,
-            setSocios, setAvalistas, setClientes, setCredito}}>
+            setAvalistas, setClientes, setCredito, setSocios, setCliente}}>
             {children}
         </ClienteContext.Provider>
     )

@@ -2,7 +2,8 @@ import React, { useState, useCallback } from 'react';
 import UnidadeFederativa from '../UnidadeFederativa';
 import SomenteNumeros from '../../Utilidades/SomenteNumeros';
 
-export const PessoaFisicaDefault = {
+export const pessoaFisicaDefault = {
+    uid: '',
     nome: '',
     data_nascimento: '',
     uf_nascimento: '',
@@ -27,7 +28,7 @@ const styleContainerRg = {
 
 export default function PessoaFisica(props) {
 
-    const [pessoaFisica, setPessoaFisica] = useState(PessoaFisicaDefault);    
+    const [pessoaFisica, setPessoaFisica] = useState(props.pessoa ? props.pessoa : pessoaFisicaDefault);    
 
        
     const ajustaPessoaFisica = useCallback(event=> {

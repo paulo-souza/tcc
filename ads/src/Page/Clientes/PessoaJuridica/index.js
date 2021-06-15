@@ -1,15 +1,13 @@
-import React, { useCallback, useContext } from 'react';
+import React, {useCallback, useContext } from 'react';
 import { ClienteContext } from '../../../Context/ClienteProvider';
-import { useParams, Link, useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 export default function PessoaJuridica(props) {
     
     const history = useHistory();
     const { cliente, setCliente } = useContext(ClienteContext);
-
-    const {uidCliente} = useParams();
-    const ehNovoCliente = !uidCliente;
-    const pathSubNivel = ehNovoCliente ? '/Clientes/Novo' : `/Clientes/Editar/${uidCliente}`;
+   
+    const pathSubNivel = !cliente.uid ? '/Clientes/Novo' : `/Clientes/Editar/${cliente.uid}`;    
     
 
     const ajustaCliente = useCallback(event=> {
@@ -19,15 +17,10 @@ export default function PessoaJuridica(props) {
         setCliente({...cliente});
     },[cliente]);
 
-    function salvarCliente(event) {
-        //Falta implementar a função de editar
-        // let dataFormatada = new Date(`${cliente.data_registro} 00:01:00`);
-        // cliente.data_registro = dataFormatada.toLocaleDateString();
+    function salvarCliente(event) {                     
+       //TODO Emitir mensagen de  salvo ou editado c/ sucesso.
 
-        setCliente({...cliente});        
-       
         history.goBack();
-
     }
 
     return(
@@ -35,13 +28,13 @@ export default function PessoaJuridica(props) {
             <div className={'breadcumb'}>
                 <Link to={'/'} className={'niveis'}>Clientes</Link>
                 <span className={'niveis separadorNiveis'}>{'>'}</span>
-                <Link to={pathSubNivel} className={'niveis'}>{ ehNovoCliente ? 'Novo' : 'Editar' }</Link>
+                <Link to={pathSubNivel} className={'niveis'}>{ !cliente.uid ? 'Novo' : 'Editar' }</Link>
                 <span className={'niveis separadorNiveis'}>{'>'}</span>
                 <span className={'niveis'}>Pessoa Jurídica</span>
             </div>
 
             <fieldset className={'formulario'}>
-                <legend align={'center'} className={'formulario'}>{ ehNovoCliente ? 'Novo Cliente' : 'Editar Cliente' }</legend>
+                <legend align={'center'} className={'formulario'}>{ !cliente.uid ? 'Novo Cliente' : 'Editar Cliente' }</legend>
                 
                 <div>
                     <label htmlFor={'situacao_empresa'}>Situação da empresa*</label>              

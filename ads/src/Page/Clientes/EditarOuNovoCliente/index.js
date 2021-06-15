@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { ClienteContext } from '../../../Context/ClienteProvider';
 import PJMaisSocios from '../../../Components/PJMaisSocios';
 import Endereco from '../../../Components/Endereco';
@@ -21,23 +21,17 @@ export default function EditarOuNovoCliente(props) {
     const ehNovoCliente = !uidCliente;
     const titulo = ehNovoCliente ? 'Novo' : 'Editar';
     
-    const{clienteDefault, clientes} = useContext(ClienteContext); 
-    const[cliente, setCliente] = useState(clienteDefault);    
-
-    useEffect(()=>{
-     // Dados de teste
-
-        if(!ehNovoCliente) { //Aqui será realizado a busca do endereço no firebase
-            setCliente(clientes.get(uidCliente));
-        }
-
-    }, []);
+    const{clienteDefault, clientes, cliente, setCliente, setSocios} = useContext(ClienteContext); 
+    
+    !ehNovoCliente && setCliente(clientes.get(uidCliente));
+    
 
     function ehParaVoltar(event) {
 
         if(!SaoIguais(cliente, clienteDefault)) {            
             if(window.confirm(MsgVoltar)){
                 setCliente(clienteDefault);
+                setSocios([]);
             } else {
                 event.preventDefault();
             }
@@ -57,7 +51,7 @@ export default function EditarOuNovoCliente(props) {
             
             <div className={'tabordion'}>
                 
-                <PJMaisSocios uidCliente={uidCliente} />
+                <PJMaisSocios />
                 <Endereco uid={uidCliente} tipoPessoa={'cliente'} />
                 <Contato uid={uidCliente} tipoPessoa={'cliente'} />
                 <AnexosCliente />
