@@ -1,21 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import UnidadeFederativa from '../UnidadeFederativa';
+import { pessoaFisicaDefault } from '../../Helper/ObjetoDefault';
 import SomenteNumeros from '../../Helper/Utilidades/SomenteNumeros';
-
-export const pessoaFisicaDefault = {
-    uid: '',
-    nome: '',
-    data_nascimento: '',
-    uf_nascimento: '',
-    naturalidade: '',
-    sexo: 'M',
-    estado_civil: 'solteiro',
-    conjuge: '',
-    cpf: '',
-    rg: { numero: '', orgao_expedidor: '', uf: ''},
-    mae: '',
-    pai: ''
-};
 
 const styleContainerRg = {
     display: 'flex',
@@ -24,7 +10,6 @@ const styleContainerRg = {
     backgroundColor: 'transparent',
     marginBottom: 20
 };
-
 
 export default function PessoaFisica(props) {
 

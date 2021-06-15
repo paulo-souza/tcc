@@ -1,7 +1,9 @@
 import React, { useContext } from 'react';
 import { ClienteContext } from '../../../Context/ClienteProvider';
 import { useParams, useHistory, Link } from 'react-router-dom';
-import PessoaFisica, { pessoaFisicaDefault } from '../../../Components/PessoaFisica';
+import { pessoaFisicaDefault } from '../../../Helper/ObjetoDefault';
+import PessoaFisica from '../../../Components/PessoaFisica';
+
 
 export default function Socio(props) {
     const {uidSocio, uidCliente} = useParams();

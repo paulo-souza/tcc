@@ -1,3 +1,18 @@
+export const pessoaFisicaDefault = {
+    uid: '',
+    nome: '',
+    data_nascimento: '',
+    uf_nascimento: '',
+    naturalidade: '',
+    sexo: 'M',
+    estado_civil: 'solteiro',
+    conjuge: '',
+    cpf: '',
+    rg: { numero: '', orgao_expedidor: '', uf: ''},
+    mae: '',
+    pai: ''
+};
+
 export const contatoDefault = {
     uid: '',
     email1: '',
