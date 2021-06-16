@@ -1,17 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { ClienteContext } from '../../Context/ClienteProvider';
 import { Link } from 'react-router-dom';
+import { customLabels } from '../../Helper/ObjetoDefault';
 import JwPagination from 'jw-react-pagination';
-
 import '../../Css/TabelaDefault.css';
 import '../../Css/TabelaCliente.css';
-
-const customLabels = {        
-    first: '<<',
-    last: '>>',
-    previous: 'Anterior',
-    next: 'Próximo'        
-};
                        
 
 export default function TabelaCliente(){      

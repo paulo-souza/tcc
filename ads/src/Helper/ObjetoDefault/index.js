@@ -21,7 +21,7 @@ export const contatoDefault = {
     telefone2: '',
     celular1: '',
     celular2: ''
-}
+};
 
 export const creditoDefault = {
     uid: '',
@@ -32,7 +32,18 @@ export const creditoDefault = {
     prazo: 'mensal',
     qtd_prazo: '',
     data_parcela1: ''
-}
+};
+
+export const detalheCreditoDefault = {
+    numero_parcela: '',
+    tipo_credito: '',
+    data_vencimento: '',
+    valor_parcela: '',
+    valor_pago: '',
+    situacao: '',
+    uidCredito: '',
+    uid: ''
+};
 
 export const enderecoDefault = {
     uid: '',
@@ -44,6 +55,13 @@ export const enderecoDefault = {
     complemento: '',
     bairro: '',
     numero: '',
+};
+
+export const customLabels = {        
+    first: '<<',
+    last: '>>',
+    previous: 'Anterior',
+    next: 'Próximo'        
 };
 
 const clienteDefault = {
