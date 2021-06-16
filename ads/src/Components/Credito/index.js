@@ -3,22 +3,34 @@ import { ClienteContext } from '../../Context/ClienteProvider';
 import SomenteNumeros from '../../Helper/Utilidades/SomenteNumeros';
 import ParseToMoedaBRL, { ParseToMoedaUSA, ParseToNumber} from '../../Helper/Utilidades/ParseToMoedaBRL';
 
-export default function Credito() {
-    const { credito, setCredito, todosCreditos, cliente } = useContext(ClienteContext);
+export default function Credito({uidCliente}) {
+    const { setCreditoContext, todosCreditos } = useContext(ClienteContext);
 
     let [valorParcela, setValorParcela] = useState(null);
     let [montante, setMontante] = useState(null);
 
-    cliente.uid && setCredito(todosCreditos.get(cliente.uid));    
-
+    const [credito, setCredito] = useState(null);
+    const [passouUmaVez, setPassouUmaVez] = useState(false);
+    const [ehParaCalcular, setEhParaCalcular] = useState(false);
 
     useEffect(()=> {
-        credito.uid && calculaMontanteEValorCadaParcela();
-    });
+
+        if(!passouUmaVez) {
+            setCredito(todosCreditos.get(uidCliente));
+            setPassouUmaVez(true);
+            setEhParaCalcular(naoEh=> !naoEh);            
+        }
+
+        if(credito?.uid ){
+            calculaMontanteEValorCadaParcela();
+            setCreditoContext(credito);
+        }
+        
+    },[ehParaCalcular]);
 
 
     const camposEstaoPreenchidos = () => {
-        let expressao = credito.valor_emprestimo && credito.taxa_juros && credito.qtd_prazo;
+        let expressao = credito?.valor_emprestimo && credito?.taxa_juros && credito?.qtd_prazo;
         
         if(expressao) return true;
        
@@ -31,7 +43,7 @@ export default function Credito() {
         credito[name] = value;
         setCredito({ ...credito });
 
-        calculaMontanteEValorCadaParcela();
+        setEhParaCalcular(naoEh=> !naoEh);
 
     }, [credito]); 
 
@@ -39,13 +51,13 @@ export default function Credito() {
 
             if(!camposEstaoPreenchidos()) return;
 
-            let valor_emprestimo = ParseToMoedaUSA(credito.valor_emprestimo);
-            let taxa_juros = ParseToMoedaUSA(credito.taxa_juros);
-            let qtd_prazo = ParseToMoedaUSA(credito.qtd_prazo);
+            let valor_emprestimo = ParseToMoedaUSA(credito?.valor_emprestimo);
+            let taxa_juros = ParseToMoedaUSA(credito?.taxa_juros);
+            let qtd_prazo = ParseToMoedaUSA(credito?.qtd_prazo);
             let juros = 0;
             let capitalEJuros = 0;
 
-            if(credito.tipo_juros === 'simples'){
+            if(credito?.tipo_juros === 'simples'){
 
                 juros = ParseToNumber(valor_emprestimo) * ParseToNumber(taxa_juros) / 100 * ParseToNumber(qtd_prazo);
                 
@@ -74,12 +86,13 @@ export default function Credito() {
             <label className={'labelTabs'} htmlFor={'option6'}>Crédito</label>
 
             <article>
+
                 <div>
                     <label htmlFor={'operacao_credito'}>Operação de crédito*</label>
                 </div>
 
                 <select name={'operacao_credito'} id={'operacao_credito'}
-                    value={credito.operacao_credito} onChange={ajustaCredito}>
+                    value={credito?.operacao_credito} onChange={ajustaCredito}>
                     <option value={'emprestimo'}>Empréstimo</option>
                     <option value={'financiamento'}>Financiamento</option>
                     <option value={'desconto'}>Desconto de título</option>
@@ -90,23 +103,23 @@ export default function Credito() {
                 </div>
 
                 <select name={'tipo_juros'} id={'tipo_juros'}
-                    value={credito.tipo_juros} onChange={ajustaCredito}>
+                    value={credito?.tipo_juros} onChange={ajustaCredito}>
                     <option value={'simples'}>Simples</option>
                     <option value={'composto'}>Composto</option>
                 </select>
 
                 <label htmlFor={'valor_emprestimo'}>Valor empréstimo <strong>R$*</strong></label>
-                <input id={'valor_emprestimo'} name={'valor_emprestimo'} value={credito.valor_emprestimo}
+                <input id={'valor_emprestimo'} name={'valor_emprestimo'} value={credito?.valor_emprestimo}
                     type={'text'} placeholder={'ex.: R$ 10.000,00'} onChange={ajustaCredito} onKeyPress={SomenteNumeros} />
 
                 <label htmlFor={'taxa_juros'}>Taxa de juros <strong>%*</strong></label>
-                <input id={'taxa_juros'} name={'taxa_juros'} value={credito.taxa_juros} min={0}
+                <input id={'taxa_juros'} name={'taxa_juros'} value={credito?.taxa_juros} min={0}
                     type={'number'} placeholder={'ex.: 10%'} onChange={ajustaCredito} onKeyPress={SomenteNumeros} />
 
                 <div style={{height: 62, padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'flex-start', marginBottom: 25}}>
                     <div style={{width: '20%'}}>
                         <label htmlFor={'qtd_prazo'}>Em quantas vezes?</label>
-                        <input id={'qtd_prazo'} name={'qtd_prazo'} value={credito.qtd_prazo} onKeyPress={SomenteNumeros}
+                        <input id={'qtd_prazo'} name={'qtd_prazo'} value={credito?.qtd_prazo} onKeyPress={SomenteNumeros}
                             type={'number'} placeholder={'ex.: 3x'} onChange={ajustaCredito} min={0} />
                     </div>
 
@@ -115,7 +128,7 @@ export default function Credito() {
                             <label htmlFor={'prazo'}>Prazo*</label>
                         </div>
 
-                        <select name={'prazo'} id={'prazo'} value={credito.prazo} onChange={ajustaCredito}>
+                        <select name={'prazo'} id={'prazo'} value={credito?.prazo} onChange={ajustaCredito}>
                             <option value={'mensal'}>Mensal</option>
                             <option value={'trimestral'}>Trimestral</option>
                             <option value={'semestral'}>Semestral</option>
@@ -125,7 +138,7 @@ export default function Credito() {
                 </div>
 
                 <label htmlFor={'data_parcela1'}>Data 1ª parcela*</label>
-                <input id={'data_parcela1'} name={'data_parcela1'} value={credito.data_parcela1} 
+                <input id={'data_parcela1'} name={'data_parcela1'} value={credito?.data_parcela1} 
                 type={'date'} onChange={ajustaCredito} />
 
                 <label htmlFor={'valor_parcela'}>Valor parcela <strong>R$*</strong></label>

@@ -1,6 +1,6 @@
 import { database } from '../../../Service/Firebase';
 
-export default async function getCreditos(setTodosCreditos) {
+export default async function getCreditos(setTodosCreditos, setEstaCarregando) {
     
     await database.ref('credito').once('value').then(creditosObtidos=> {
         let creditos = new Map();
@@ -24,5 +24,6 @@ export default async function getCreditos(setTodosCreditos) {
 
         setTodosCreditos(creditos);
     })
-    .catch(error=> console.log('Erro ao buscar creditos dos clientes!', error));
+    .catch(error=> console.log('Erro ao buscar creditos dos clientes!', error))
+    .finally(()=> setEstaCarregando(false));
 }

@@ -57,7 +57,7 @@ export default function EditarOuNovoCliente(props) {
                 <Contato uid={uidCliente} tipoPessoa={'cliente'} />
                 <AnexosCliente />
                 <AvalistasDeCliente uidCliente={uidCliente}/>
-                <Credito />
+                <Credito uidCliente={uidCliente} />
                 <DetalhesCliente />
 
             </div>           

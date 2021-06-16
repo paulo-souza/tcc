@@ -23,13 +23,12 @@ export default function ClienteProvider({children}) {
     const [contatoAvalistas, setContatoAvalistas] = useState([]);
     const [enderecoClientes, setEnderecoClientes] = useState([]);
     const [enderecoAvalistas, setEnderecoAvalistas] = useState([]);
-    const [detalheCreditos, setDetalheCreditos] = useState([]);
+    const [detalhesCreditoContext, setDetalhesCreditoContext] = useState([]);
     const [cliente, setCliente] = useState(clienteDefault);
-    const [credito, setCredito] = useState(creditoDefault);
+    const [creditoContext, setCreditoContext] = useState(creditoDefault);
 
-
+    
     useEffect(()=> {        
-        
         setEstaCarregando(true);
 
         getClientes(setClientes);
@@ -39,17 +38,20 @@ export default function ClienteProvider({children}) {
         getContatos('contato_avalista', setContatoAvalistas);
         getEnderecos('endereco_cliente', setEnderecoClientes);
         getEnderecos('endereco_avalista', setEnderecoAvalistas);
-        getCreditos(setTodosCreditos);
-        getDetalheCreditos(setDetalheCreditos, setEstaCarregando);
-
+        getCreditos(setTodosCreditos, setEstaCarregando);
+        
     }, []);
 
+    function busqueDetalhesSobreCredito() {
+        getDetalheCreditos(creditoContext, setDetalhesCreditoContext);       
+    }
 
     return(
-        <ClienteContext.Provider value={{ todosSocios, avalistas, credito, 
+        <ClienteContext.Provider value={{ todosSocios, avalistas, creditoContext, 
             clientes, socios, cliente, enderecoClientes, enderecoAvalistas,
-            contatoClientes, contatoAvalistas, todosCreditos,
-            setAvalistas, setClientes, setCredito, setSocios, setCliente}}>
+            contatoClientes, contatoAvalistas, todosCreditos, detalhesCreditoContext,
+            setAvalistas, setClientes, setDetalhesCreditoContext, setCliente, 
+            setSocios, setCreditoContext, busqueDetalhesSobreCredito}}>
             {children}
         </ClienteContext.Provider>
     )

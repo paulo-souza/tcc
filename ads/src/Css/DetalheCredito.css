@@ -1,0 +1,42 @@
+#divBtnSituacao {
+    width: 170px;
+    margin-bottom: 27px;
+}
+
+#btnSituacao {
+    background-color: #FF8C40;
+    border-radius: 8px;
+    border-color: #FFB570;
+    color: var(--color-white);
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.containerDetalheCredito {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    background-color: rgba(199, 249, 248, 0.5);
+    margin-bottom: 25px;
+    font-size: 17px;
+    border-radius: 10px;
+}
+
+.detalhesCredito {
+    margin-top: 6.5px;
+    margin-bottom: 6.5px;
+    padding-left: 10px;
+}
+
+.containerTabelaDetalhesCredito {    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+}
+table.tabela .camposDetalhes {   
+    width: 10%;
+}
