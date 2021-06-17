@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { ClienteContext } from '../../Context/ClienteProvider';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { customLabels } from '../../Helper/ObjetoDefault';
 import JwPagination from 'jw-react-pagination';
@@ -7,16 +6,11 @@ import '../../Css/TabelaDefault.css';
 import '../../Css/TabelaCliente.css';
                        
 
-export default function TabelaCliente(){      
-    const{ clientes:clientesMap } = useContext(ClienteContext);
+export default function TabelaCliente({clientes}){     
+
     const[itens, setItens] = useState([]);
-    const[clientes, setClientes] = useState([]);
 
     const classNamePagamento = {'em dia': 'tabPagamentoEmDia', pendente: 'tabPagamentoPendente', inadimplente: 'tabPagamentoInadimplente'};
-
-    useEffect(()=> {
-        setClientes(Array.from(clientesMap.values()));
-    }, []);
 
     return(
 
