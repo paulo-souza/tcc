@@ -1,18 +1,14 @@
-import React, { useContext } from 'react';
-import { ClienteContext } from '../../Context/ClienteProvider';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import clienteDefault from '../../Helper/ObjetoDefault';
 import SaoIguais from '../../Helper/Utilidades/SaoIguais';
 
 
-export default function PJMaisSocios() {
-    const {cliente, todosSocios, socios, setSocios} = useContext(ClienteContext);
-    
-    cliente.uid && setSocios(todosSocios.get(cliente.uid));   
+export default function PJMaisSocios(props) {
 
-    const existeSocios = socios.length > 0;
-    const pathNovoSocio = cliente.uid ? `/Clientes/Editar/${cliente.uid}/Socio` : '/Clientes/Novo/Socio'; 
-    const pathEditarPJ = !SaoIguais(cliente, clienteDefault) && !cliente.uid ? '/Clientes/Novo/PessoaJuridica' : `/Clientes/Editar/${cliente.uid}/PessoaJuridica`;
+    const existeSocios = props.socios.length > 0;
+    const pathNovoSocio = props.cliente.uid ? `/Clientes/Editar/${props.cliente.uid}/Socio` : '/Clientes/Novo/Socio'; 
+    const pathEditarPJ = !SaoIguais(props.cliente, clienteDefault) && !props.cliente.uid ? '/Clientes/Novo/PessoaJuridica' : `/Clientes/Editar/${props.cliente.uid}/PessoaJuridica`;
 
     
     return (
@@ -24,7 +20,7 @@ export default function PJMaisSocios() {
                 <div className={'containerClienteSubTitulo'}>
                     <h3>Pessoa Jurídica*</h3>
                     {
-                        SaoIguais(cliente, clienteDefault) &&
+                        SaoIguais(props.cliente, clienteDefault) &&
                         <Link className={'btnNovoCliente'} to={'/Clientes/Novo/PessoaJuridica'} title={'Novo cliente'}>Novo</Link>
                     }
                 </div>
@@ -32,13 +28,13 @@ export default function PJMaisSocios() {
                 <hr />
 
                 { 
-                    !SaoIguais(cliente, clienteDefault) &&
+                    !SaoIguais(props.cliente, clienteDefault) &&
                     <div className={'containerCliente'}>
-                        <Link to={pathEditarPJ}>{cliente.nome_fantasia}</Link>
+                        <Link to={pathEditarPJ}>{props.cliente.nome_fantasia}</Link>
                     </div>
                 }
 
-                { !SaoIguais(cliente, clienteDefault) && <hr /> }
+                { !SaoIguais(props.cliente, clienteDefault) && <hr /> }
 
                 <hr id={'linhaSeparadoraCliente'} />
 
@@ -54,9 +50,9 @@ export default function PJMaisSocios() {
                     <div className={'containerCliente'}>
                         
                         {
-                            socios.map(socio=> {
+                            props.socios.map(socio=> {
                                 return(
-                                    <Link key={socio.uid} to={`/Clientes/Editar/${cliente.uid}/Socio/${socio.uid}`}>
+                                    <Link key={socio.uid} to={`/Clientes/Editar/${props.cliente.uid}/Socio/${socio.uid}`}>
                                         {socio.nome}
                                     </Link>
                                 );

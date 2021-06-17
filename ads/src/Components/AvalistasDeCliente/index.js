@@ -1,15 +1,7 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { ClienteContext } from '../../Context/ClienteProvider';
+import React  from 'react';
 import { Link } from 'react-router-dom';
 
-export default function AvalistasDeCliente({uidCliente}) {
-    const{avalistas: avalistaMap} = useContext(ClienteContext);
-    const ehParaEditar = uidCliente;    
-    const[avalistas, setAvalistas] = useState([]);
-
-    useEffect(()=> {
-        if(ehParaEditar) setAvalistas(avalistaMap.get(uidCliente));
-    },[]);
+export default function AvalistasDeCliente(props) {
 
     return (
         <section id={'section5'}>
@@ -26,9 +18,9 @@ export default function AvalistasDeCliente({uidCliente}) {
 
                 <div className={'containerCliente'}>
                    {
-                       avalistas.map(avalista=> {
+                       props.avalistas.map(avalista=> {
                            return(
-                               <Link key={avalista.uid} to={`/Clientes/Editar/${uidCliente}/Avalista/${avalista.uid}`}>{avalista.nome}</Link>
+                               <Link key={avalista.uid} to={`/Clientes/Editar/${props.uidCliente}/Avalista/${avalista.uid}`}>{avalista.nome}</Link>
                            );
                        })
                    }

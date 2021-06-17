@@ -1,13 +1,13 @@
 import { database } from '../../../Service/Firebase';
 
-export default async function getDetalheCreditos(credito, setDetalhesCredito) {
+export default async function getDetalhesCredito(uidCredito, setDetalhesCredito) {
     
-    await database.ref('detalhe_credito').once('value').then(detalhesObtidos=> {
+    await database.ref('detalhe_credito').once('value').then(snapshot=> {
         let detalheCreditos = [];
 
-        detalhesObtidos.forEach(detalhe=> {
+        snapshot.forEach(detalhe=> {
 
-            if(credito.uid === detalhe.val().uidCredito) {
+            if(uidCredito === detalhe.val().uidCredito) {
                 detalheCreditos.push({
                     numero_parcela: detalhe.val().numero_parcela,
                     tipo_credito: detalhe.val().tipo_credito,

@@ -1,27 +1,20 @@
 import { database } from '../../../Service/Firebase';
 
-export default async function getEnderecos(path, setEnderecos) {
+export default async function getEndereco(path, uid, setEndereco) {
     
-    await database.ref(path).once('value').then(enderecosObtidos=> {
-        let enderecos = [];
-
-        enderecosObtidos.forEach(enderecoObtido=> {
-            let endereco = {
-                uid: enderecoObtido.key,
-                imovel_proprio: enderecoObtido.val().imovel_proprio,
-                cep: enderecoObtido.val().cep,
-                uf: enderecoObtido.val().uf,
-                cidade: enderecoObtido.val().cidade,
-                logradouro: enderecoObtido.val().logradouro,
-                complemento: enderecoObtido.val().complemento,
-                bairro: enderecoObtido.val().bairro,
-                numero: enderecoObtido.val().numero
-            };
-            
-            enderecos = [...enderecos, endereco];
+    await database.ref(path).child(uid).once('value').then(snapshot=> {
+        setEndereco({
+            uid: snapshot.key,
+            imovel_proprio: snapshot.val().imovel_proprio,
+            cep: snapshot.val().cep,
+            uf: snapshot.val().uf,
+            cidade: snapshot.val().cidade,
+            logradouro: snapshot.val().logradouro,
+            complemento: snapshot.val().complemento,
+            bairro: snapshot.val().bairro,
+            numero: snapshot.val().numero
         });
-
-        setEnderecos(enderecos);
+            
     })
     .catch(error=> console.log('Erro ao buscar endereços!', error));
 }

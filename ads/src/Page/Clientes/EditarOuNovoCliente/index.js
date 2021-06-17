@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { ClienteContext } from '../../../Context/ClienteProvider';
 import PJMaisSocios from '../../../Components/PJMaisSocios';
 import Endereco from '../../../Components/Endereco';
@@ -10,22 +10,42 @@ import DetalhesCliente from '../../../Components/DetalhesCliente';
 import { Link, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave } from '@fortawesome/free-solid-svg-icons';
-import clienteDefault from '../../../Helper/ObjetoDefault';
+import clienteDefault, { creditoDefault, enderecoDefault, contatoDefault } from '../../../Helper/ObjetoDefault';
+import getContato from '../../../Helper/Firebase/Contato';
+import getEndereco from '../../../Helper/Firebase/Endereco';
+import getCredito from '../../../Helper/Firebase/Credito';
+import getPessoasFisica from '../../../Helper/Firebase/PessoaFisica';
 import SaoIguais from '../../../Helper/Utilidades/SaoIguais';
 import '../../../Css/Tabs.css';
 import '../../../Css/Cliente.css';
 
 const MsgVoltar = 'Ao voltar para página inicial todos os dados fornecidos serão descartados. Tem certeza que deseja prosseguir?';
 
-export default function EditarOuNovoCliente(props) {
+export default function EditarOuNovoCliente() {
     const { uidCliente } = useParams();
+    const { todosClientes } = useContext(ClienteContext); 
     const ehNovoCliente = !uidCliente;
     const titulo = ehNovoCliente ? 'Novo' : 'Editar';
     
-    const {clientes, cliente, setCliente, setSocios} = useContext(ClienteContext); 
+    const [cliente, setCliente] = useState(clienteDefault);
+    const [socios, setSocios] = useState([]);
+    const [avalistas, setAvalistas] = useState([]);
+    const [credito, setCredito] = useState(creditoDefault);
+    const [endereco, setEndereco] = useState(enderecoDefault);
+    const [contato, setContato] = useState(contatoDefault);
+
+     
     
-    !ehNovoCliente && setCliente(clientes.get(uidCliente));
-    
+    useEffect(()=> {
+        if(!ehNovoCliente){
+            setCliente(todosClientes.get(uidCliente));
+            getContato('contato_cliente', uidCliente, setContato);
+            getEndereco('endereco_cliente', uidCliente, setEndereco);
+            getCredito(uidCliente, setCredito);
+            getPessoasFisica('socio', uidCliente, setSocios);
+            getPessoasFisica('avalista', uidCliente, setAvalistas);
+        }
+    }, []);
 
     function ehParaVoltar(event) {
 
@@ -52,13 +72,13 @@ export default function EditarOuNovoCliente(props) {
             
             <div className={'tabordion'}>
                 
-                <PJMaisSocios />
-                <Endereco uid={uidCliente} tipoPessoa={'cliente'} />
-                <Contato uid={uidCliente} tipoPessoa={'cliente'} />
+                <PJMaisSocios socios={socios} cliente={cliente}/>
+                <Endereco endereco={endereco} setEndereco={setEndereco} />
+                <Contato contato={contato} setContato={setContato} />
                 <AnexosCliente />
-                <AvalistasDeCliente uidCliente={uidCliente}/>
-                <Credito uidCliente={uidCliente} />
-                <DetalhesCliente />
+                <AvalistasDeCliente avalistas={avalistas} uidCliente={uidCliente} />
+                <Credito credito={credito} setCredito={setCredito} />
+                <DetalhesCliente credito={credito} />
 
             </div>           
            

@@ -1,9 +1,8 @@
 import { database } from '../../../Service/Firebase';
 
-export default async function getClientes(setClientes) {
-
-    try {
-        await database.ref('cliente').on('value', snapshot => {
+export default async function getClientes(setTodosClientes, setClientes, setEstaCarregando) {
+    
+        await database.ref('cliente').once('value').then(snapshot => {
             let clientes = new Map(); 
     
             snapshot.forEach(clienteObtido=> { 
@@ -28,12 +27,11 @@ export default async function getClientes(setClientes) {
                 }
     
             });
+            setTodosClientes(clientes);
+            setClientes(Array.from(clientes.values()));
+        })
+        .catch(error=> console.log(`Error ao Buscar Todos os clientes - ${error} - error.code => ${error.code}`))
+        .finally(()=> setEstaCarregando(false));
  
-            setClientes(clientes);
-        });
-    } catch (error) {
-        console.log(`Error ao Buscar Todos os clientes - ${error} - error.code => ${error.code}`);
-    }        
-  
 }
 
