@@ -18,3 +18,27 @@ export default async function busqueEndereco(path, uid) {
     })
     .catch(error=> console.log('Erro ao buscar endereços!', error));
 }
+
+export async function getAllEnderecosAvalistas(setTodosEnderecoAvalista) {
+    await database.ref('endereco_avalista').once('value').then(snapshot => {
+        let enderecos = new Map();
+
+        snapshot.forEach(endereco=> {
+            let enderecoObtido = {
+                uid: endereco.key,
+                imovel_proprio: endereco.val().imovel_proprio,
+                cep: endereco.val().cep,
+                uf: endereco.val().uf,
+                cidade: endereco.val().cidade,
+                logradouro: endereco.val().logradouro,
+                complemento: endereco.val().complemento,
+                bairro: endereco.val().bairro,
+                numero: endereco.val().numero,
+            };
+            
+            enderecos.set(endereco.key, enderecoObtido);
+        });
+        setTodosEnderecoAvalista(enderecos);
+    })
+    .catch(error=> console.log('Erro ao obter endereços de todos avalistas', error));
+}

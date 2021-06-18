@@ -1,6 +1,8 @@
 import React, { createContext, useState, useEffect } from 'react';
 import SignIn from '../../Helper/Firebase/SignIn';
 import SignOut from '../../Helper/Firebase/SignOut';
+import { getAllEnderecosAvalistas } from '../../Helper/Firebase/Endereco';
+import { getAllContatosAvalistas } from '../../Helper/Firebase/Contato';
 
 export const AuthContext = createContext({});
 
@@ -9,6 +11,8 @@ export default function AutProvider({children}) {
     const [usuario, setUsuario] = useState(null);
     const [abrirModalUsuario, setAbrirModalUsuario] = useState(false);
     const [estaCarregando, setEstaCarregando] = useState(false);
+    const [todosEnderecoAvalista, setTodosEnderecoAvalista] = useState(new Map());
+    const [todosContatoAvalista, setTodosContatoAvalista] = useState(new Map());
 
     const container = {
         display: '-moz-flex',
@@ -40,11 +44,19 @@ export default function AutProvider({children}) {
         SignOut(setUsuario, setEstaCarregando, toogleModalUsuario);
     }
 
+    function busqueTodosEnderecoAvalista() {
+        getAllEnderecosAvalistas(setTodosEnderecoAvalista);
+    }
+
+    function busqueTodosContatoAvalista() {
+        getAllContatosAvalistas(setTodosContatoAvalista);
+    }
+
     return(
-        <AuthContext.Provider value={{estaLogado: !!usuario, usuario,
-            abrirModalUsuario, container, sairSistema,
-            acessarSistema, toogleModalUsuario, estaCarregando,
-            setEstaCarregando}}>
+        <AuthContext.Provider value={{estaLogado: !!usuario, usuario, todosContatoAvalista,
+            abrirModalUsuario, container, todosEnderecoAvalista, estaCarregando,
+            acessarSistema, toogleModalUsuario, busqueTodosEnderecoAvalista,
+            setEstaCarregando, sairSistema, busqueTodosContatoAvalista}}>
             {children}
         </AuthContext.Provider>
     );

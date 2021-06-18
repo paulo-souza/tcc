@@ -13,7 +13,12 @@ import ClienteNaoEncontrado from '../../Components/ClienteNaoEncontrado';
 
 
 export default function Clientes() {
-    const { container, abrirModalUsuario, estaCarregando, setEstaCarregando } = useContext(AuthContext);
+    const { container, 
+        abrirModalUsuario, 
+        estaCarregando, 
+        setEstaCarregando, 
+        busqueTodosEnderecoAvalista, 
+        busqueTodosContatoAvalista } = useContext(AuthContext);
     const [clientes, setClientes] = useState([]);
     const [clientesView, setClientesView] = useState([]);
     const [buscarCliente, setBuscarCliente] = useState('');
@@ -31,7 +36,10 @@ export default function Clientes() {
     };
 
     useEffect(()=> {
+        setEstaCarregando(true);
         carregueSessionStorageCliente();
+        busqueTodosEnderecoAvalista();
+        busqueTodosContatoAvalista();
         getClientes(setClientes, setClientesView, setEstaCarregando);        
     },[]);
 
