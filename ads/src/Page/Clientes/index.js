@@ -35,8 +35,7 @@ export default function Clientes() {
         window.sessionStorage.setItem('detalhes_credito', '');
     };
 
-    useEffect(()=> {
-        setEstaCarregando(true);
+    useEffect(()=> {       
         carregueSessionStorageCliente();
         busqueTodosEnderecoAvalista();
         busqueTodosContatoAvalista();
