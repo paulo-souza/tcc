@@ -49,7 +49,7 @@ export default function Avalistas() {
                 </section>           
                 
                 <Endereco  uid={uidAvalista} tipoPessoa={'avalista'} />
-                <Contato uid={uidAvalista} tipoPessoa={'avalista'} />
+                <Contato  />
             </div>           
         
             <div style={{marginTop: 65, marginLeft: '25.5%', marginRight: '10.5%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>

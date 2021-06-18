@@ -5,6 +5,7 @@ import EditarOuNovoCliente from '../Page/Clientes/EditarOuNovoCliente';
 import PessoaJuridica from '../Components/Form/PessoaJuridica';
 import Socio from '../Page/Clientes/Socio';
 import Avalistas from '../Page/Avalistas';
+import ContatoCliente from '../Components/Form/ContatoCliente';
 
 
 export default function AppRoutes() {
@@ -16,6 +17,7 @@ export default function AppRoutes() {
                     <Route exact path={'/Clientes/Novo'} component={EditarOuNovoCliente} />
                     <Route exact path={'/Clientes/Novo/PessoaJuridica'} component={PessoaJuridica} />
                     <Route exact path={'/Clientes/Novo/Socio'} component={Socio} />
+                    <Route exact path={'/Clientes/Novo/Contato'} component={ContatoCliente} />
                     
                 
                     <Route exact path={'/Clientes/Editar/:uidCliente'} component={EditarOuNovoCliente} />
@@ -23,6 +25,7 @@ export default function AppRoutes() {
                     <Route exact path={'/Clientes/Editar/:uidCliente/Socio/:uidSocio'} component={Socio} />
                     <Route exact path={'/Clientes/Editar/:uidCliente/Socio'} component={Socio} />
                     <Route exact path={'/Clientes/Editar/:uidCliente/Avalista/:uidAvalista'} component={Avalistas} />
+                    <Route exact path={'/Clientes/Editar/:uidCliente/Contato'} component={ContatoCliente} />
                
             </Switch>
         </BrowserRouter>

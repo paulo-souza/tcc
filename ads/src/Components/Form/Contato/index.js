@@ -1,12 +1,8 @@
-import React, {useState, useEffect, useCallback} from 'react';
-import { contatoDefault } from '../../../Helper/ObjetoDefault';
+import React, {useState, useCallback} from 'react';
+
 
 export default function Contato(props) {
-    const [contato, setContato] = useState(contatoDefault);
-
-    useEffect(()=> {
-        //
-    }, []);
+    const [contato, setContato] = useState(props.contato);
 
     const ajustaContato = useCallback(event=> {
         const { name, value } = event.target; 
@@ -41,6 +37,8 @@ export default function Contato(props) {
                 <label htmlFor={'celular2'}>Celular2</label>
                 <input id={'celular2'} name={'celular2'} value={contato.celular2} maxLength={11}
                     type={'tel'} placeholder={'Número de celular opcional'} onChange={ajustaContato} /> 
+
+                    { props.btnAdd && props.btnAdd }
         </div>
     );
 }

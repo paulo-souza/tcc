@@ -31,18 +31,16 @@ export default function ContatoCliente() {
     },[])
 
     const btnContato = (
-        contato.uid ?  <Link className={'btnEditar'} to={'/Clientes/Novo/PessoaJuridica'} title={'Editar contato'}>Editar</Link>
+        contato.uid ?  <Link className={'btnEditar'} to={`/Clientes/Editar/${contato.uid}/Contato`} title={'Editar contato'}>Editar</Link>
         :
-        <Link className={'btnNovoCliente'} to={'/Clientes/Novo/PessoaJuridica'} title={'Novo contato'}>Novo</Link>
+        <Link className={'btnNovoCliente'} to={'/Clientes/Novo/Contato'} title={'Novo contato'}>Novo</Link>
     );
-
 
     const formateNumeroTelefone = useCallback(numero => {
         return numero.replace(/\D/g,"")           
                 .replace(/^(\d{2})(\d)/g,"($1) $2")
                 .replace(/(\d)(\d{4})$/,"$1-$2"); 
     },[contato]);
-
 
   
     return(
