@@ -3,7 +3,7 @@ import BtnFoto from '../BtnFoto';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCloudUploadAlt } from '@fortawesome/free-solid-svg-icons';
 
-export default function AnexosCliente(props) {
+export default function AnexosCliente() {
     return (
         <section id={'section4'}>
             <input type={'radio'} name={'sections'} id={'option4'} />

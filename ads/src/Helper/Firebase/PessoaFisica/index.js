@@ -1,6 +1,6 @@
 import { database } from '../../../Service/Firebase';
 
-export default async function getPessoasFisica(path, uid, setPessoas) {
+export default async function busquePessoasFisica(path, uid) {
   
     await database.ref(path).child(uid).once('value').then(snapshot=> {
         let pessoasFisica = [];
@@ -26,7 +26,7 @@ export default async function getPessoasFisica(path, uid, setPessoas) {
             pessoasFisica = [...pessoasFisica, pessoa];            
         });
 
-        setPessoas(pessoasFisica);
+        window.sessionStorage.setItem(path, JSON.stringify(pessoasFisica));
     })
     .catch(error=> console.log(`Erro ao buscar pessoas físicas -- error => ${error} -- error.code => ${error.code}`));
     

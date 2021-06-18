@@ -1,16 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import clienteDefault from '../../Helper/ObjetoDefault';
 import SaoIguais from '../../Helper/Utilidades/SaoIguais';
 
 
-export default function PJMaisSocios(props) {
+export default function PJMaisSocios() {
 
-    const existeSocios = props.socios.length > 0;
-    const pathNovoSocio = props.cliente.uid ? `/Clientes/Editar/${props.cliente.uid}/Socio` : '/Clientes/Novo/Socio'; 
-    const pathEditarPJ = !SaoIguais(props.cliente, clienteDefault) && !props.cliente.uid ? '/Clientes/Novo/PessoaJuridica' : `/Clientes/Editar/${props.cliente.uid}/PessoaJuridica`;
+    const [cliente, setCliente] = useState(clienteDefault);
+    const [socios, setSocios] = useState([]);
+
+    const existeSocios = socios.length > 0;
+    const pathNovoSocio = cliente.uid ? `/Clientes/Editar/${cliente.uid}/Socio` : '/Clientes/Novo/Socio'; 
+    const pathEditarPJ = !SaoIguais(cliente, clienteDefault) && !cliente.uid ? '/Clientes/Novo/PessoaJuridica' : `/Clientes/Editar/${cliente.uid}/PessoaJuridica`;
 
     
+    useEffect(()=> {
+        let clienteCache = window.sessionStorage.getItem('cliente');
+        let clienteCacheJSON = clienteCache ? JSON.parse(clienteCache) : clienteDefault;
+        setCliente(clienteCacheJSON);
+
+        let sociosCache = window.sessionStorage.getItem('socio');
+        let sociosCacheJSON = sociosCache ? JSON.parse(sociosCache) : [];
+        setSocios(sociosCacheJSON);
+
+    }, []);
+
     return (
         <section id={'section1'}>
             <input type={'radio'} name={'sections'} id={'option1'} defaultChecked />
@@ -20,7 +34,7 @@ export default function PJMaisSocios(props) {
                 <div className={'containerClienteSubTitulo'}>
                     <h3>Pessoa Jurídica*</h3>
                     {
-                        SaoIguais(props.cliente, clienteDefault) &&
+                        SaoIguais(cliente, clienteDefault) &&
                         <Link className={'btnNovoCliente'} to={'/Clientes/Novo/PessoaJuridica'} title={'Novo cliente'}>Novo</Link>
                     }
                 </div>
@@ -28,13 +42,13 @@ export default function PJMaisSocios(props) {
                 <hr />
 
                 { 
-                    !SaoIguais(props.cliente, clienteDefault) &&
+                    !SaoIguais(cliente, clienteDefault) &&
                     <div className={'containerCliente'}>
-                        <Link to={pathEditarPJ}>{props.cliente.nome_fantasia}</Link>
+                        <Link to={pathEditarPJ}>{cliente.nome_fantasia}</Link>
                     </div>
                 }
 
-                { !SaoIguais(props.cliente, clienteDefault) && <hr /> }
+                { !SaoIguais(cliente, clienteDefault) && <hr /> }
 
                 <hr id={'linhaSeparadoraCliente'} />
 
@@ -50,9 +64,9 @@ export default function PJMaisSocios(props) {
                     <div className={'containerCliente'}>
                         
                         {
-                            props.socios.map(socio=> {
+                            socios.map(socio=> {
                                 return(
-                                    <Link key={socio.uid} to={`/Clientes/Editar/${props.cliente.uid}/Socio/${socio.uid}`}>
+                                    <Link key={socio.uid} to={`/Clientes/Editar/${cliente.uid}/Socio/${socio.uid}`}>
                                         {socio.nome}
                                     </Link>
                                 );

@@ -1,6 +1,6 @@
 import { database } from '../../../Service/Firebase';
 
-export default async function getDetalhesCredito(uidCredito, setDetalhesCredito) {
+export default async function getDetalhesCredito(uidCredito) {
     
     await database.ref('detalhe_credito').once('value').then(snapshot=> {
         let detalheCreditos = [];
@@ -22,7 +22,8 @@ export default async function getDetalhesCredito(uidCredito, setDetalhesCredito)
             }
         });
 
-        setDetalhesCredito(detalheCreditos.sort((a, b) => Number(a.numero_parcela) > Number(b.numero_parcela) ? 1 : -1));
+       let detalhes_credito = detalheCreditos.sort((a, b) => Number(a.numero_parcela) > Number(b.numero_parcela) ? 1 : -1);
+       window.sessionStorage.setItem('detalhes_credito', JSON.stringify(detalhes_credito));
     })
     .catch(error=> console.log('Erro ao buscar detalhes dos creditos dos clientes!', error));
     

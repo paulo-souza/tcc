@@ -1,10 +1,9 @@
 import React, {useEffect, useCallback, useState } from 'react';
-import { detalheCreditoDefault } from '../../Helper/ObjetoDefault';
+import { detalheCreditoDefault, creditoDefault } from '../../Helper/ObjetoDefault';
 import SomenteNumeros from '../../Helper/Utilidades/SomenteNumeros';
 import ParseToMoedaBRL from '../../Helper/Utilidades/ParseToMoedaBRL';
 import ParseToDate from '../../Helper/Utilidades/ParseToDate';
 import { customLabels } from '../../Helper/ObjetoDefault';
-import getDetalhesCredito from '../../Helper/Firebase/DetalheCredito';
 import JwPagination from 'jw-react-pagination';
 import '../../Css/TabelaDefault.css';
 import '../../Css/DetalheCredito.css';
@@ -26,12 +25,20 @@ function getTipoPrazo(prazo) {
 export default function DetalhesCliente(props) {
     
     const [detalheCredito, setDetalheCredito] = useState(detalheCreditoDefault);
+    const [credito, setCredito] = useState(creditoDefault);
     const [detalhes, setDetalhes] = useState([]);
     const [itens, setItens] = useState([]);
 
     useEffect(()=> {        
-        if(props.credito.uid) getDetalhesCredito(props.credito.uid, setDetalhes);
-    }, [props.credito]);
+        let detalhesCreditoCache = window.sessionStorage.getItem('detalhes_credito');
+        let detalhesCreditoCacheJSON = detalhesCreditoCache ? JSON.parse(detalhesCreditoCache) : [];
+        setDetalhes(detalhesCreditoCacheJSON);
+
+        let creditoCache = window.sessionStorage.getItem('credito');
+        let creditoCacheJSON = creditoCache ? JSON.parse(creditoCache) : creditoDefault;
+        setCredito(creditoCacheJSON);
+
+    }, []);
 
   
     const ajustaDetalheCredito = useCallback(event => {
@@ -52,16 +59,16 @@ export default function DetalhesCliente(props) {
 
             <article>
                 <div className={'containerDetalheCredito'}>
-                    <span className={'detalhesCredito'}>Valor empréstimo: <strong>{ParseToMoedaBRL(props.credito.valor_emprestimo)}</strong></span>
-                    <span className={'detalhesCredito'}>Tipo de juros: <strong>{props.credito.operacao_credito}</strong></span>
-                    <span className={'detalhesCredito'}>Taxa de juros: <strong>{props.credito.taxa_juros}%</strong></span>
-                    <span className={'detalhesCredito'}>Parcelas: {detalhes.length} por {getTipoPrazo(props.credito.prazo)}</span>
+                    <span className={'detalhesCredito'}>Valor empréstimo: <strong>{ParseToMoedaBRL(credito.valor_emprestimo)}</strong></span>
+                    <span className={'detalhesCredito'}>Tipo de juros: <strong>{credito.operacao_credito}</strong></span>
+                    <span className={'detalhesCredito'}>Taxa de juros: <strong>{credito.taxa_juros}%</strong></span>
+                    <span className={'detalhesCredito'}>Parcelas: {detalhes.length} por {getTipoPrazo(credito.prazo)}</span>
                 </div>
 
 
 
                 <label htmlFor={'numero_parcela'}>Nr Parcela</label>
-                <input id={'numero_parcela'} name={'numero_parcela'} value={props.credito.numero_parcela} min={0}
+                <input id={'numero_parcela'} name={'numero_parcela'} value={credito.numero_parcela} min={0}
                     type={'number'} placeholder={'ex.: 12'} onChange={ajustaDetalheCredito} onKeyPress={SomenteNumeros} />
 
                 <div>

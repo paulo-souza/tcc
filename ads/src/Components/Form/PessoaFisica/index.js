@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from 'react';
-import UnidadeFederativa from '../UnidadeFederativa';
-import { pessoaFisicaDefault } from '../../Helper/ObjetoDefault';
-import SomenteNumeros from '../../Helper/Utilidades/SomenteNumeros';
+import UnidadeFederativa from '../../UnidadeFederativa';
+import SomenteNumeros from '../../../Helper/Utilidades/SomenteNumeros';
 
 const styleContainerRg = {
     display: 'flex',
@@ -12,9 +11,9 @@ const styleContainerRg = {
 };
 
 export default function PessoaFisica(props) {
+    
 
-    const [pessoaFisica, setPessoaFisica] = useState(props.pessoa ? props.pessoa : pessoaFisicaDefault);    
-
+    const [pessoaFisica, setPessoaFisica] = useState(props.pessoa);    
        
     const ajustaPessoaFisica = useCallback(event=> {
         const { name, value } = event.target; 
@@ -34,11 +33,11 @@ export default function PessoaFisica(props) {
         setPessoaFisica({...pessoaFisica});        
     });
 
-    
+       
     return(
         <div>
             <label htmlFor={'nome'}>Nome completo*</label>
-            <input id={'nome'} name={'nome'} value={pessoaFisica.nome} onChange={ajustaPessoaFisica}
+            <input id={'nome'} name={'nome'} value={pessoaFisica.nome} onChange={ajustaPessoaFisica} 
                 type={'text'} placeholder={'Nome completo'} maxLength={254} />
 
             <label htmlFor={'data_nascimento'}>Data nascimento*</label>
@@ -104,8 +103,8 @@ export default function PessoaFisica(props) {
             <input id={'pai'} name={'pai'} value={pessoaFisica.pai} type={'text'} 
                 placeholder={'Nome completo'} maxLength={254} onChange={ajustaPessoaFisica} />              
 
+            { props.btnAdd && props.btnAdd }
 
-                { props.button }
         </div>
     );
 }

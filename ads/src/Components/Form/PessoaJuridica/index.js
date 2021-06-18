@@ -1,13 +1,21 @@
-import React, {useCallback, useContext } from 'react';
-import { ClienteContext } from '../../../Context/ClienteProvider';
+import React, { useEffect, useCallback, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import clienteDefault from '../../../Helper/ObjetoDefault';
 
-export default function PessoaJuridica(props) {
+
+export default function PessoaJuridica() {
     
     const history = useHistory();
-    const { cliente, setCliente } = useContext(ClienteContext);
+    const [cliente, setCliente] = useState(clienteDefault);
    
     const pathSubNivel = !cliente.uid ? '/Clientes/Novo' : `/Clientes/Editar/${cliente.uid}`;    
+    
+    useEffect(()=> {
+        let clienteCache = window.sessionStorage.getItem('cliente');
+        let clienteCacheJSON = clienteCache ? JSON.parse(clienteCache) : clienteDefault;
+
+        setCliente(clienteCacheJSON);
+    },[]);
     
 
     const ajustaCliente = useCallback(event=> {
@@ -19,6 +27,17 @@ export default function PessoaJuridica(props) {
 
     function salvarCliente(event) {                     
        //TODO Emitir mensagen de  salvo ou editado c/ sucesso.
+
+        if(!cliente.uid) {
+            window.sessionStorage.setItem('cliente', JSON.stringify(cliente));
+        } else{
+            //tem que atualizar no banco de dados tbm
+            window.sessionStorage.setItem('cliente', JSON.stringify(cliente));
+        }
+
+        console.log('====================================');
+        console.log('Cliente adicionado com sucesso em cache!!');
+        console.log('====================================');
 
         history.goBack();
     }
@@ -93,7 +112,9 @@ export default function PessoaJuridica(props) {
                 <input id={'inscricao_estadual'} name={'inscricao_estadual'} value={cliente.inscricao_estadual}
                     type={'text'} placeholder={'Inscrição Estadual'} onChange={ajustaCliente} maxLength={11} />
 
-                <button className={'btnSubmit'} type={'button'} onClick={salvarCliente}>Salvar</button>
+                <button className={'btnSubmit'} title={`${!cliente.uid ? 'Adicionar' : 'Atualizar'} cliente`} type={'button'} onClick={salvarCliente}>
+                    {`${!cliente.uid ? 'Adicionar' : 'Atualizar'}`}
+                </button>
             </fieldset>
         </div>
     );

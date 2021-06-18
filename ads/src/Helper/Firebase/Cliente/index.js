@@ -1,37 +1,63 @@
 import { database } from '../../../Service/Firebase';
 
-export default async function getClientes(setTodosClientes, setClientes, setEstaCarregando) {
+export default async function getClientes(setClientes, setClientesView,setEstaCarregando) {
     
-        await database.ref('cliente').once('value').then(snapshot => {
-            let clientes = new Map(); 
+    try {
+        setEstaCarregando(true);
+        await database.ref('cliente').on('value', snapshot => {
+            let clientes = []; 
     
-            snapshot.forEach(clienteObtido=> { 
-                if(clienteObtido) {
+            snapshot.forEach(snapshot=> { 
+                if(snapshot) {
                     let cliente = {
-                        uid: clienteObtido.key,
-                        data_registro: clienteObtido.val().data_registro,
-                        razao_social: clienteObtido.val().razao_social,
-                        nome_fantasia: clienteObtido.val().nome_fantasia,
-                        cnae: clienteObtido.val().cnae,
-                        cnpj: clienteObtido.val().cnpj,
-                        inscricao_municipal: clienteObtido.val().inscricao_municipal,
-                        inscricao_estadual: clienteObtido.val().inscricao_estadual,
-                        situacao_empresa: clienteObtido.val().situacao_empresa,
-                        natureza_juridica: clienteObtido.val().natureza_juridica,
-                        porte_empresa: clienteObtido.val().porte_empresa,
-                        pagamento: clienteObtido.val().pagamento                      
+                        uid: snapshot.key,
+                        data_registro: snapshot.val().data_registro,
+                        razao_social: snapshot.val().razao_social,
+                        nome_fantasia: snapshot.val().nome_fantasia,
+                        cnae: snapshot.val().cnae,
+                        cnpj: snapshot.val().cnpj,
+                        inscricao_municipal: snapshot.val().inscricao_municipal,
+                        inscricao_estadual: snapshot.val().inscricao_estadual,
+                        situacao_empresa: snapshot.val().situacao_empresa,
+                        natureza_juridica: snapshot.val().natureza_juridica,
+                        porte_empresa: snapshot.val().porte_empresa,
+                        pagamento: snapshot.val().pagamento                      
                     };
 
-                    clientes.set(clienteObtido.key, cliente);
-
+                    clientes = [...clientes, cliente];
                 }
     
             });
-            setTodosClientes(clientes);
-            setClientes(Array.from(clientes.values()));
-        })
-        .catch(error=> console.log(`Error ao Buscar Todos os clientes - ${error} - error.code => ${error.code}`))
-        .finally(()=> setEstaCarregando(false));
+            
+            setClientes(clientes);
+            setClientesView(clientes);
+        });
+    } catch (error) {
+        console.log(`Error ao Buscar Todos os clientes - ${error} - error.code => ${error.code}`);
+    }finally {
+        setEstaCarregando(false);
+    }
  
 }
 
+export async function busqueCliente(uid) {
+    await database.ref('cliente').child(uid).once('value').then(snapshot => {
+        let cliente = {
+            uid: snapshot.key,
+            data_registro: snapshot.val().data_registro,
+            razao_social: snapshot.val().razao_social,
+            nome_fantasia: snapshot.val().nome_fantasia,
+            cnae: snapshot.val().cnae,
+            cnpj: snapshot.val().cnpj,
+            inscricao_municipal: snapshot.val().inscricao_municipal,
+            inscricao_estadual: snapshot.val().inscricao_estadual,
+            situacao_empresa: snapshot.val().situacao_empresa,
+            natureza_juridica: snapshot.val().natureza_juridica,
+            porte_empresa: snapshot.val().porte_empresa,
+            pagamento: snapshot.val().pagamento                      
+        };
+
+        window.sessionStorage.setItem('cliente', JSON.stringify(cliente));
+    })
+    .catch(error=> console.log(`Erro ao Buscar o cliente de uid: ${uid}, erro => ${error}, error.code => ${error.code}`));
+}

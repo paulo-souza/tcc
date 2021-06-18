@@ -1,13 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import PessoaFisica from '../../Components/PessoaFisica';
-import Endereco from '../../Components/Endereco';
-import Contato from '../../Components/Contato';
+import PessoaFisica from '../../Components/Form/PessoaFisica';
+import Endereco from '../../Components/Form/Endereco';
+import Contato from '../../Components/Form/Contato';
+import { pessoaFisicaDefault } from '../../Helper/ObjetoDefault';
 import '../../Css/Tabs.css';
 import '../../Css/Cliente.css';
 
-export default function Avalistas(props) {
-    const{uidAvalista, uidCliente} = useParams();
+export default function Avalistas() {
+    const { uidAvalista, uidCliente } = useParams();
+
+    const ehNovoCliente = !uidAvalista && !uidCliente;
+    const ehNovoAvalista = ehNovoCliente || (uidCliente && !uidAvalista);
+
+    const [avalista, setAvalista] = useState(null);
+
+    useEffect(()=> {
+        let avalistasCache = window.sessionStorage.getItem('avalista');
+        let avalistasCacheJSON = avalistasCache && JSON.parse(avalistasCache);
+        let avalistaObtido = pessoaFisicaDefault;
+        
+        if(avalistasCacheJSON) avalistaObtido = avalistasCacheJSON.find(s=> s.uid === uidAvalista);
+
+        setAvalista(avalistaObtido);
+    }, []);
 
     const titulo = 'Novo'
 
@@ -28,7 +44,7 @@ export default function Avalistas(props) {
                     <label className={'labelTabs'} htmlFor={'option1'}>Pessoais</label>
 
                     <article>                        
-                           <PessoaFisica />                      
+                          { avalista && <PessoaFisica pessoa={avalista} ehEditar={!ehNovoAvalista} /> }                     
                     </article>
                 </section>           
                 

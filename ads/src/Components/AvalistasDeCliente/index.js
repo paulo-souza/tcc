@@ -1,7 +1,15 @@
-import React  from 'react';
+import React, { useState, useEffect }  from 'react';
 import { Link } from 'react-router-dom';
 
-export default function AvalistasDeCliente(props) {
+export default function AvalistasDeCliente({uidCliente}) {
+    const [avalistas, setAvalistas] = useState([]);
+    
+    useEffect(()=> {
+        let avalistasCache = window.sessionStorage.getItem('avalista');
+        let avalistasCacheJSON = avalistasCache ? JSON.parse(avalistasCache) : [];
+
+        setAvalistas(avalistasCacheJSON);
+    }, []);
 
     return (
         <section id={'section5'}>
@@ -18,9 +26,9 @@ export default function AvalistasDeCliente(props) {
 
                 <div className={'containerCliente'}>
                    {
-                       props.avalistas.map(avalista=> {
+                       avalistas.map(avalista=> {
                            return(
-                               <Link key={avalista.uid} to={`/Clientes/Editar/${props.uidCliente}/Avalista/${avalista.uid}`}>{avalista.nome}</Link>
+                               <Link key={avalista.uid} to={`/Clientes/Editar/${uidCliente}/Avalista/${avalista.uid}`}>{avalista.nome}</Link>
                            );
                        })
                    }

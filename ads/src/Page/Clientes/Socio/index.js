@@ -1,37 +1,48 @@
-import React, { useContext } from 'react';
-import { ClienteContext } from '../../../Context/ClienteProvider';
-import { useParams, useHistory, Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useParams, Link, useHistory } from 'react-router-dom';
+import PessoaFisica from '../../../Components/Form/PessoaFisica';
 import { pessoaFisicaDefault } from '../../../Helper/ObjetoDefault';
-import PessoaFisica from '../../../Components/PessoaFisica';
 
 
 export default function Socio(props) {
     const {uidSocio, uidCliente} = useParams();
+    const history = useHistory();
     const ehNovoCliente = !uidSocio && !uidCliente;
     const ehNovoSocio = ehNovoCliente || (uidCliente && !uidSocio);
 
-    const { socios, setSocios } = useContext(ClienteContext);
-    const socio = (!ehNovoSocio && uidSocio) ? socios.find(s=> s.uid === uidSocio) : pessoaFisicaDefault;
-
+    const [socio, setSocio] = useState(null);
     const pathSubNivel = ehNovoCliente ? '/Clientes/Novo' : `/Clientes/Editar/${uidCliente}`;
-    const history = useHistory();
- 
+    
+    useEffect(()=> {
+        let sociosCache = window.sessionStorage.getItem('socio');
+        let sociosCacheJSON = sociosCache && JSON.parse(sociosCache);
+        let socioObtido = pessoaFisicaDefault;
+        
+        if(sociosCacheJSON) socioObtido = sociosCacheJSON.find(s=> s.uid === uidSocio);
 
-    function salvarCliente() {
+        setSocio(socioObtido);
+    }, []);
 
-        if(ehNovoCliente) {
-            socio.uid = socios.length + 1;
-            setSocios([...socios, socio]);
+    function adicionarOuAtualizar() {
+        
+        if(ehNovoCliente){
+            console.log('sócio adicionado com sucesso');
         } else{
-            setSocios([...socios.filter(s=> s.uid !== socio.uid), socio]);
+            console.log('sócio atualizado com sucesso!');
         }
+
+        console.log('====================================');
+        console.log('socio => ', socio);
+        console.log('====================================');
 
         history.goBack();
     }
 
-    console.log('socio=> ', socio);
-
-    const btnAddSocio = <button className={'btnSubmit'} type={'button'} onClick={salvarCliente}>Salvar</button>;
+    const btnAdd = (
+        <button className={'btnSubmit'} type={'button'} title={`${!ehNovoSocio ? 'Atualizar' : 'Adicionar'}`} onClick={adicionarOuAtualizar}>
+             {`${!ehNovoSocio ? 'Atualizar' : 'Adicionar'}`}
+        </button>
+    );
 
     return(
         <div>
@@ -46,7 +57,7 @@ export default function Socio(props) {
             <fieldset className={'formulario'}>
                 <legend align={'center'} className={'formulario'}>{ ehNovoSocio ? 'Novo sócio': 'Editar sócio' }</legend>
                 
-                <PessoaFisica button={btnAddSocio} pessoa={socio} />
+                { socio && <PessoaFisica pessoa={socio} btnAdd={btnAdd} /> }
                 
             </fieldset>
         </div>
