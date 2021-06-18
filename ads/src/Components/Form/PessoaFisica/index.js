@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import UnidadeFederativa from '../../UnidadeFederativa';
 import SomenteNumeros from '../../../Helper/Utilidades/SomenteNumeros';
 
@@ -12,50 +12,47 @@ const styleContainerRg = {
 
 export default function PessoaFisica(props) {
     
-
-    const [pessoaFisica, setPessoaFisica] = useState(props.pessoa);    
-       
     const ajustaPessoaFisica = useCallback(event=> {
         const { name, value } = event.target; 
         
-        pessoaFisica[name] = value;
-        setPessoaFisica({...pessoaFisica});
-    },[pessoaFisica]);
+        props.pessoa[name] = value;
+        props.setPessoa({...props.pessoa});
+    },[props.pessoa]);
 
 
     const ajustaRg = useCallback(event=>{
         const {name, value } = event.target;
-        const { rg } = pessoaFisica;
+        const { rg } = props.pessoa;
 
         rg[name] = value;
-        pessoaFisica.rg = rg;
+        props.pessoa.rg = rg;
 
-        setPessoaFisica({...pessoaFisica});        
+        props.setPessoa({...props.pessoa});        
     });
 
        
     return(
         <div>
             <label htmlFor={'nome'}>Nome completo*</label>
-            <input id={'nome'} name={'nome'} value={pessoaFisica.nome} onChange={ajustaPessoaFisica} 
+            <input id={'nome'} name={'nome'} value={props.pessoa.nome} onChange={ajustaPessoaFisica} 
                 type={'text'} placeholder={'Nome completo'} maxLength={254} />
 
             <label htmlFor={'data_nascimento'}>Data nascimento*</label>
-            <input id={'data_nascimento'} name={'data_nascimento'} value={pessoaFisica.data_nascimento} 
+            <input id={'data_nascimento'} name={'data_nascimento'} value={props.pessoa.data_nascimento} 
                 type={'date'} onChange={ajustaPessoaFisica} />
             
             <label htmlFor={'uf_nascimento'}>Estado nascimento*</label>
             <input id={'uf_nascimento'} name={'uf_nascimento'} type={'text'} placeholder={'Estado nascimento'} 
-                value={pessoaFisica.uf_nascimento} maxLength={155} onChange={ajustaPessoaFisica} />
+                value={props.pessoa.uf_nascimento} maxLength={155} onChange={ajustaPessoaFisica} />
 
             <label htmlFor={'naturalidade'}>Naturalidade*</label>
-            <input id={'naturalidade'} name={'naturalidade'} value={pessoaFisica.naturalidade} type={'text'} 
+            <input id={'naturalidade'} name={'naturalidade'} value={props.pessoa.naturalidade} type={'text'} 
                 placeholder={'Naturalidade'} maxLength={155} onChange={ajustaPessoaFisica} />
 
             <div>
                 <label htmlFor={'sexo'}>Sexo*</label>
             </div>
-            <select name={'sexo'} id={'sexo'} value={pessoaFisica.sexo} onChange={ajustaPessoaFisica}>
+            <select name={'sexo'} id={'sexo'} value={props.pessoa.sexo} onChange={ajustaPessoaFisica}>
                 <option value={'M'}>Masculino</option>                    
                 <option value={'F'}>Feminino</option>
             </select>
@@ -63,7 +60,7 @@ export default function PessoaFisica(props) {
             <div>
                 <label htmlFor={'estado_civil'}>Estado civil*</label>
             </div>
-            <select name={'estado_civil'} id={'estado_civil'} value={pessoaFisica.estado_civil} onChange={ajustaPessoaFisica}>
+            <select name={'estado_civil'} id={'estado_civil'} value={props.pessoa.estado_civil} onChange={ajustaPessoaFisica}>
                 <option value={'solteiro'}>Solteiro(a)</option>
                 <option value={'casado'}>Casado(a)</option>
                 <option value={'separado'}>Separado(a)</option>                    
@@ -72,35 +69,35 @@ export default function PessoaFisica(props) {
             </select>
 
             <label htmlFor={'conjuge'}>Nome do cônjuge</label>
-            <input id={'conjuge'} name={'conjuge'} value={pessoaFisica.conjuge} type={'text'} 
+            <input id={'conjuge'} name={'conjuge'} value={props.pessoa.conjuge} type={'text'} 
                 placeholder={'Nome completo'} maxLength={254} onChange={ajustaPessoaFisica} />
             
             <label htmlFor={'cpf'}>CPF*</label>
-            <input id={'cpf'} name={'cpf'} value={pessoaFisica.cpf} type={'text'} placeholder={'CPF'} 
+            <input id={'cpf'} name={'cpf'} value={props.pessoa.cpf} type={'text'} placeholder={'CPF'} 
                 maxLength={11} onKeyPress={SomenteNumeros} onChange={ajustaPessoaFisica} />
             
             <div style={styleContainerRg}>
                 <div>
                     <label htmlFor={'numero'}>RG*</label>
-                    <input id={'numero'} name={'numero'} value={pessoaFisica.rg.numero} type={'text'} placeholder={'Registro Geral'}
+                    <input id={'numero'} name={'numero'} value={props.pessoa.rg.numero} type={'text'} placeholder={'Registro Geral'}
                             maxLength={20} onKeyPress={SomenteNumeros} onChange={ajustaRg}/>
                 </div>
                 
                 <div>
                     <label htmlFor={'orgao_expedidor'}>Orgão Exp.</label>
-                    <input id={'orgao_expedidor'} name={'orgao_expedidor'} value={pessoaFisica.rg.orgao_expedidor} 
+                    <input id={'orgao_expedidor'} name={'orgao_expedidor'} value={props.pessoa.rg.orgao_expedidor} 
                         type={'text'} maxLength={10} placeholder={'Ex.: SSP, DGPC ...'} onChange={ajustaRg} />
                 </div>
                 
-                <UnidadeFederativa valueUf={pessoaFisica.rg.uf} action={ajustaRg} title={'UF Exp.'} />
+                <UnidadeFederativa valueUf={props.pessoa.rg.uf} action={ajustaRg} title={'UF Exp.'} />
             </div>
 
             <label htmlFor={'mae'}>Nome da Mãe*</label>
-            <input id={'mae'} name={'mae'} value={pessoaFisica.mae} type={'text'} 
+            <input id={'mae'} name={'mae'} value={props.pessoa.mae} type={'text'} 
                 placeholder={'Nome completo'} maxLength={254} onChange={ajustaPessoaFisica} />
             
             <label htmlFor={'pai'}>Nome do Pai</label>
-            <input id={'pai'} name={'pai'} value={pessoaFisica.pai} type={'text'} 
+            <input id={'pai'} name={'pai'} value={props.pessoa.pai} type={'text'} 
                 placeholder={'Nome completo'} maxLength={254} onChange={ajustaPessoaFisica} />              
 
             { props.btnAdd && props.btnAdd }

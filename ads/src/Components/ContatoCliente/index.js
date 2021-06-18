@@ -59,11 +59,11 @@ export default function ContatoCliente() {
                     contato.uid &&
                     <div className={'containerVisualizarCampos'}>
                         <span><strong>E-mail(s):</strong> {contato.email1}</span>
-                        <span style={styles.email}>{contato.email2}</span>
+                        { contato.email2 && <span style={styles.email}>{contato.email2}</span> }
                         <span><strong>Telefone(s):</strong> {formateNumeroTelefone(contato.telefone1)}</span>
-                        <span style={styles.telefone}>{formateNumeroTelefone(contato.telefone2)}</span>
+                        { contato.telefone2 && <span style={styles.telefone}>{formateNumeroTelefone(contato.telefone2)}</span> }
                         <span><strong>Celular(es):</strong> {formateNumeroTelefone(contato.celular1)}</span>
-                        <span style={styles.celular}>{formateNumeroTelefone(contato.celular2)} </span>
+                        { contato.celular2 && <span style={styles.celular}>{formateNumeroTelefone(contato.celular2)} </span> }
                     </div>
                 }
 

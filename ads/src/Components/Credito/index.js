@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import {Link} from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { creditoDefault } from '../../Helper/ObjetoDefault';
 import ParseToMoedaBRL, { ParseToMoedaUSA, ParseToNumber } from '../../Helper/Utilidades/ParseToMoedaBRL';
 import ParseToDate from '../../Helper/Utilidades/ParseToDate';
@@ -11,6 +11,7 @@ const styles = {
 };
 
 export default function Credito() {
+    const { uidCliente } = useParams();
 
     const [credito, setCredito] = useState(creditoDefault);
     const [montanteState, setMontanteState] = useState(0);
@@ -66,9 +67,9 @@ export default function Credito() {
     const valorEmprestimo = useMemo(()=> ParseToMoedaBRL(credito.valor_emprestimo), [credito]);
    
     const btnCredito = (
-        credito.uid ? <Link className={'btnEditar'} to={'/Clientes/Novo/PessoaJuridica'} title={'Editar credito'}>Editar</Link>
+        uidCliente ? <Link className={'btnEditar'} to={`/Clientes/Editar/${uidCliente}/Credito`} title={'Editar credito'}>Editar</Link>
             :
-            <Link className={'btnNovoCliente'} to={'/Clientes/Novo/PessoaJuridica'} title={'Novo credito'}>Novo</Link>
+            <Link className={'btnNovoCliente'} to={'/Clientes/Novo/Credito'} title={'Novo credito'}>Novo</Link>
     );
 
     return (

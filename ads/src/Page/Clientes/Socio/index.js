@@ -57,7 +57,7 @@ export default function Socio(props) {
             <fieldset className={'formulario'}>
                 <legend align={'center'} className={'formulario'}>{ ehNovoSocio ? 'Novo sócio': 'Editar sócio' }</legend>
                 
-                { socio && <PessoaFisica pessoa={socio} btnAdd={btnAdd} /> }
+                { socio && <PessoaFisica pessoa={socio} setPessoa={setSocio} btnAdd={btnAdd} /> }
                 
             </fieldset>
         </div>

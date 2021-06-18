@@ -6,7 +6,8 @@ import PessoaJuridica from '../Components/Form/PessoaJuridica';
 import Socio from '../Page/Clientes/Socio';
 import Avalistas from '../Page/Avalistas';
 import ContatoCliente from '../Components/Form/ContatoCliente';
-
+import EnderecoCliente from '../Components/Form/EnderecoCliente';
+import Credito from '../Components/Form/Credito';
 
 export default function AppRoutes() {
     return(
@@ -18,6 +19,8 @@ export default function AppRoutes() {
                     <Route exact path={'/Clientes/Novo/PessoaJuridica'} component={PessoaJuridica} />
                     <Route exact path={'/Clientes/Novo/Socio'} component={Socio} />
                     <Route exact path={'/Clientes/Novo/Contato'} component={ContatoCliente} />
+                    <Route exact path={'/Clientes/Novo/Endereco'} component={EnderecoCliente} />
+                    <Route exact path={'/Clientes/Novo/Credito'} component={Credito} />
                     
                 
                     <Route exact path={'/Clientes/Editar/:uidCliente'} component={EditarOuNovoCliente} />
@@ -26,6 +29,8 @@ export default function AppRoutes() {
                     <Route exact path={'/Clientes/Editar/:uidCliente/Socio'} component={Socio} />
                     <Route exact path={'/Clientes/Editar/:uidCliente/Avalista/:uidAvalista'} component={Avalistas} />
                     <Route exact path={'/Clientes/Editar/:uidCliente/Contato'} component={ContatoCliente} />
+                    <Route exact path={'/Clientes/Editar/:uidCliente/Endereco'} component={EnderecoCliente} />
+                    <Route exact path={'/Clientes/Editar/:uidCliente/Credito'} component={Credito} />
                
             </Switch>
         </BrowserRouter>

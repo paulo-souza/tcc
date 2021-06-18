@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { enderecoDefault } from '../../Helper/ObjetoDefault';
 
 
@@ -32,12 +32,13 @@ const styles = {
 };
 
 export default function EnderecoCliente() {
+   const { uidCliente } = useParams();
    const [enderecoCliente, setEnderecoCliente] = useState(enderecoDefault);
 
    const btnEndereco = (
-        enderecoCliente.uid ?  <Link className={'btnEditar'} to={'/Clientes/Novo/PessoaJuridica'} title={'Editar endereço'}>Editar</Link>
+        uidCliente  ?  <Link className={'btnEditar'} to={`/Clientes/Editar/${uidCliente}/Endereco`} title={'Editar endereço'}>Editar</Link>
         :
-        <Link className={'btnNovoCliente'} to={'/Clientes/Novo/PessoaJuridica'} title={'Novo endereço'}>Novo</Link>
+        <Link className={'btnNovoCliente'} to={'/Clientes/Novo/Endereco'} title={'Novo endereço'}>Novo</Link>
     );
 
     useEffect(()=> {

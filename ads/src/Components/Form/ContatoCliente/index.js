@@ -54,7 +54,7 @@ export default function ContatoCliente(props) {
             <fieldset className={'formulario'}>
                 <legend align={'center'} className={'formulario'}>{ehNovoCliente ? 'Novo Contato Cliente' : 'Editar Contato Cliente'}</legend>
 
-                {contato && <Contato contato={contato} btnAdd={btnAdd} />}
+                {contato && <Contato contato={contato} setContato={setContato} btnAdd={btnAdd} />}
 
             </fieldset>
         </div>

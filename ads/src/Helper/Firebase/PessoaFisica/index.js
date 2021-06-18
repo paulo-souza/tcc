@@ -6,7 +6,7 @@ export default async function busquePessoasFisica(path, uid) {
         let pessoasFisica = [];
 
         snapshot.forEach(pessoaObtida=> { 
-           const {numero, orgao_expedidor, uf_expedidor} = pessoaObtida.val().rg;
+           const {numero, orgao_expedidor, uf_expedidor: uf} = pessoaObtida.val().rg;
 
            let pessoa = {
                 uid: pessoaObtida.key,
@@ -18,7 +18,7 @@ export default async function busquePessoasFisica(path, uid) {
                 estado_civil: pessoaObtida.val().estado_civil,
                 conjuge: pessoaObtida.val().conjuge,
                 cpf: pessoaObtida.val().cpf,
-                rg: { numero: numero, orgao_expedidor: orgao_expedidor, uf: uf_expedidor},
+                rg: { numero, orgao_expedidor, uf},
                 mae: pessoaObtida.val().mae,
                 pai: pessoaObtida.val().pai
             };
