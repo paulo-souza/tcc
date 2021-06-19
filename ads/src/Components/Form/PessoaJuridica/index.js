@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import clienteDefault from '../../../Helper/ObjetoDefault';
-
+import { atualizarCliente } from '../../../Helper/Firebase/Cliente';
 
 export default function PessoaJuridica() {
     
@@ -30,16 +30,13 @@ export default function PessoaJuridica() {
 
         if(!cliente.uid) {
             window.sessionStorage.setItem('cliente', JSON.stringify(cliente));
+            history.goBack();
         } else{
             //tem que atualizar no banco de dados tbm
             window.sessionStorage.setItem('cliente', JSON.stringify(cliente));
+            atualizarCliente(cliente, history);
         }
-
-        console.log('====================================');
-        console.log('Cliente adicionado com sucesso em cache!!');
-        console.log('====================================');
-
-        history.goBack();
+      
     }
 
     return(

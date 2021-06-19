@@ -55,5 +55,14 @@ export async function busqueCliente(uid) {
 
         window.sessionStorage.setItem('cliente', JSON.stringify(cliente));
     })
-        .catch(error => console.log(`Erro ao Buscar o cliente de uid: ${uid}, erro => ${error}, error.code => ${error.code}`));
+    .catch(error => console.log(`Erro ao Buscar o cliente de uid: ${uid}, erro => ${error}, error.code => ${error.code}`));
+}
+
+export async function atualizarCliente(cliente, history) {
+    await database.ref('cliente').child(cliente.uid).update(cliente)
+    .then(()=> {
+        console.log('cliente atualizado com sucesso!');
+        history.goBack();
+    })
+    .catch(error => console.log(`Erro ao atualizar o cliente de uid: ${cliente.uid}, erro => ${error}, error.code => ${error.code}`));
 }
