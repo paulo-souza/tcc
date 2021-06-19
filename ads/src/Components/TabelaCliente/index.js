@@ -10,7 +10,7 @@ export default function TabelaCliente({clientes}){
 
     const[itens, setItens] = useState([]);
 
-    const classNamePagamento = {'em dia': 'tabPagamentoEmDia', pendente: 'tabPagamentoPendente', inadimplente: 'tabPagamentoInadimplente'};
+    const classNamePagamento = {'pago': 'tabPagamentoEmDia', pendente: 'tabPagamentoPendente', inadimplente: 'tabPagamentoInadimplente'};
 
     return(
 

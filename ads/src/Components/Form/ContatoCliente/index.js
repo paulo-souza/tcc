@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useHistory } from 'react-router-dom';
 import { contatoDefault } from '../../../Helper/ObjetoDefault';
+import { atualizarContato } from '../../../Helper/Firebase/Contato';
 import Contato from '../Contato';
+
 
 export default function ContatoCliente(props) {
     const history = useHistory();
@@ -22,17 +24,17 @@ export default function ContatoCliente(props) {
 
     function adicionarOuAtualizar() {
         
-        if(contato.uid){
+        if(ehNovoCliente){
             console.log('contato do cliente adicionado com sucesso!');
+            history.goBack();
         } else{
-            console.log('contato do cliente atualizado com sucesso!');
+            atualizarContato('contato_cliente', contato, history);
         }
 
         console.log('====================================');
         console.log('contato cliente => ', contato);
         console.log('====================================');
 
-        history.goBack();
     }
 
     const btnAdd = (

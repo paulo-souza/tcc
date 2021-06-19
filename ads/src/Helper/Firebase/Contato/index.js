@@ -19,6 +19,15 @@ export default async function busqueContato(path, uid) {
     .catch(error=> console.log('Erro ao buscar o contato!', error));
 }
 
+export async function atualizarContato(path, contato, history) {
+    await database.ref(path).child(contato.uid).update(contato)
+    .then(()=> {
+        console.log('contato atualizado com sucesso!');
+        history && history.goBack();
+    })
+    .catch(error => console.log(`Erro ao atualizar o contato de uid: ${contato.uid}, path=> ${path},erro => ${error}, error.code => ${error.code}`));
+}
+
 export async function getAllContatosAvalistas(setTodosContatosAvalista) {
     await database.ref('contato_avalista').once('value').then( snapshot => {
         let contatos = new Map();

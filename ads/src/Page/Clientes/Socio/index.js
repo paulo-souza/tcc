@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link, useHistory } from 'react-router-dom';
 import PessoaFisica from '../../../Components/Form/PessoaFisica';
 import { pessoaFisicaDefault } from '../../../Helper/ObjetoDefault';
-
+import { atualizarPessoaFisica } from '../../../Helper/Firebase/PessoaFisica';
 
 export default function Socio(props) {
     const {uidSocio, uidCliente} = useParams();
@@ -25,17 +25,29 @@ export default function Socio(props) {
 
     function adicionarOuAtualizar() {
         
-        if(ehNovoCliente){
+        if(ehNovoCliente && ehNovoSocio){
             console.log('sócio adicionado com sucesso');
+            history.goBack();
         } else{
-            console.log('sócio atualizado com sucesso!');
+            
+            let uf_expedidor = socio.rg.uf;
+            delete socio.rg['uf'];
+            socio.rg.uf_expedidor = uf_expedidor;
+
+            let socioBD = {path: 'socio', uidCliente, pessoa: socio, history};
+            atualizarPessoaFisica(socioBD);
+
+            let sociosCache = JSON.parse(window.sessionStorage.getItem('socio'));
+            sociosCache = sociosCache.filter(s=> s.uid !== socio.uid);
+            sociosCache = [...sociosCache, socio];
+
+            window.sessionStorage.setItem('socio', JSON.stringify(sociosCache));
         }
 
         console.log('====================================');
         console.log('socio => ', socio);
         console.log('====================================');
 
-        history.goBack();
     }
 
     const btnAdd = (

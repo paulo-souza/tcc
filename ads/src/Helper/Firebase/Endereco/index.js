@@ -19,6 +19,15 @@ export default async function busqueEndereco(path, uid) {
     .catch(error=> console.log('Erro ao buscar endereços!', error));
 }
 
+export async function atualizarEndereco(path, endereco, history) {
+    await database.ref(path).child(endereco.uid).update(endereco)
+    .then(()=> {
+        console.log('endereco atualizado com sucesso!');
+        history.goBack();
+    })
+    .catch(error => console.log(`Erro ao atualizar o endereco de uid: ${endereco.uid}, erro => ${error}, error.code => ${error.code}`));
+}
+
 export async function getAllEnderecosAvalistas(setTodosEnderecoAvalista) {
     await database.ref('endereco_avalista').once('value').then(snapshot => {
         let enderecos = new Map();

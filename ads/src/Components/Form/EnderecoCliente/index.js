@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { useParams, Link, useHistory } from 'react-router-dom';
 import Endereco from '../Endereco';
 import { enderecoDefault } from '../../../Helper/ObjetoDefault';
+import { atualizarEndereco } from '../../../Helper/Firebase/Endereco';
 
 export default function EnderecoCliente() {
     const {uidCliente} = useParams();
@@ -23,15 +24,15 @@ export default function EnderecoCliente() {
         
         if(ehNovoCliente){
             console.log('endereço do cliente adicionado com sucesso');
+            history.goBack();
         } else{
-            console.log('endereço do cliente atualizado com sucesso!');
+            atualizarEndereco('endereco_cliente', endereco, history)
         }
 
         console.log('====================================');
         console.log('endereço cliente => ', endereco);
         console.log('====================================');
 
-        history.goBack();
     }
 
 

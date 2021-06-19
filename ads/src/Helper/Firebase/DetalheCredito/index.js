@@ -28,3 +28,13 @@ export default async function getDetalhesCredito(uidCredito) {
     .catch(error=> console.log('Erro ao buscar detalhes dos creditos dos clientes!', error));
     
 }
+
+export async function atualizarDetalheCredito(detalhe_credito) {
+    await database.ref('detalhe_credito').child(detalhe_credito.uid).update(detalhe_credito)
+    .then(() => {
+        console.log('detalhe_credito atualizado com sucesso!');            
+    })
+    .catch(error => {
+        console.log(`Erro ao atualizar o detalhe_credito de uid: ${detalhe_credito.uid}, erro => ${error}, error.code => ${error.code}`);
+    });
+}

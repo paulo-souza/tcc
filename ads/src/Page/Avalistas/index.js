@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useHistory } from 'react-router-dom';
 import PessoaFisica from '../../Components/Form/PessoaFisica';
 import Endereco from '../../Components/Form/Endereco';
 import Contato from '../../Components/Form/Contato';
 import { pessoaFisicaDefault, contatoDefault, enderecoDefault } from '../../Helper/ObjetoDefault';
+import { atualizarPessoaFisica } from '../../Helper/Firebase/PessoaFisica';
+import { atualizarContato } from '../../Helper/Firebase/Contato';
+import { atualizarEndereco } from '../../Helper/Firebase/Endereco';
 import '../../Css/Tabs.css';
 import '../../Css/Cliente.css';
 
@@ -13,7 +16,7 @@ export default function Avalistas() {
     const ehNovoCliente = !uidAvalista && !uidCliente;
     const ehNovoAvalista = ehNovoCliente || (uidCliente && !uidAvalista);
     const titulo = ehNovoAvalista ? 'Novo Avalista' : 'Editar Avalista';
-  
+    const history = useHistory();
 
     const [avalista, setAvalista] = useState(null);
     const [enderecoAvalista, setEnderecoAvalista] = useState(null);
@@ -43,6 +46,40 @@ export default function Avalistas() {
         setContatoAvalista(contatoObtido);
    
     }, []);
+
+    function adicionarOuAtualizar(event) {
+        if(ehNovoAvalista && ehNovoCliente) {
+            history.goBack();
+        }else {
+            let uf_expedidor = avalista.rg.uf;
+            delete avalista.rg['uf'];
+            avalista.rg.uf_expedidor = uf_expedidor;
+
+            let avalistaBD = {path: 'avalista', uidCliente, pessoa: avalista};
+
+            atualizarPessoaFisica(avalistaBD);
+            atualizarContato('contato_avalista', contatoAvalista, null);
+            atualizarEndereco('endereco_avalista', enderecoAvalista, history);
+
+            let contatoAvalistasCache = JSON.parse(window.sessionStorage.getItem('contato_avalista'));
+            contatoAvalistasCache = contatoAvalistasCache.filter(a=> a.uid !== contatoAvalista.uid);
+            contatoAvalistasCache = [...contatoAvalistasCache, contatoAvalista];
+
+            window.sessionStorage.setItem('contato_avalista', JSON.stringify(contatoAvalistasCache));
+
+            let enderecoAvalistaCache = JSON.parse(window.sessionStorage.getItem('endereco_avalista'));
+            enderecoAvalistaCache = enderecoAvalistaCache.filter(e=> e.uid !== enderecoAvalista.uid);
+            enderecoAvalistaCache = [...enderecoAvalistaCache, enderecoAvalista];
+
+            window.sessionStorage.setItem('endereco_avalista', JSON.stringify(enderecoAvalistaCache));
+
+            let avalistasCache = JSON.parse(window.sessionStorage.getItem('avalista'));
+            avalistasCache = avalistasCache.filter(a=> a.uid !== avalista.uid);
+            avalistasCache = [...avalistasCache, avalista];
+
+            window.sessionStorage.setItem('avalista', JSON.stringify(avalistasCache));
+        }
+    }
 
     const pathSubNivel = ehNovoCliente  ? '/Clientes/Novo' : `/Clientes/Editar/${uidCliente}`;
 
@@ -98,8 +135,8 @@ export default function Avalistas() {
           
         
             <div style={{marginTop: 65, marginLeft: '25.5%', marginRight: '10.5%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                <button type={'button'} title={'Adicionar avalista'} className={'btnSubmit'}>
-                    Adicionar             
+                <button type={'button'} title={'Adicionar avalista'} className={'btnSubmit'} onClick={adicionarOuAtualizar}>
+                   {`${ehNovoAvalista ? 'Adicionar' : 'Atualizar'}`}             
                 </button>
             </div>
        

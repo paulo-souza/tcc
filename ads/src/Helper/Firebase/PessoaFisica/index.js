@@ -29,6 +29,16 @@ export default async function busquePessoasFisica(path, uid) {
         window.sessionStorage.setItem(path, JSON.stringify(pessoasFisica));
     })
     .catch(error=> console.log(`Erro ao buscar pessoas físicas -- error => ${error} -- error.code => ${error.code}`));
-    
    
+}
+
+export async function atualizarPessoaFisica(pessoaBD) {
+    const {path, uidCliente, pessoa, history} = pessoaBD;
+
+    await database.ref(path).child(uidCliente).child(pessoa.uid).update(pessoa)
+    .then(()=> {
+        console.log('pessoa atualizado com sucesso!');
+        history && history.goBack();
+    })
+    .catch(error => console.log(`Erro ao atualizar o pessoa de uid: ${pessoa.uid}, erro => ${error}, error.code => ${error.code}`));
 }

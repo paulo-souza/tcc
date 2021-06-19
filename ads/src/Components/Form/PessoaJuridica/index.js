@@ -31,8 +31,7 @@ export default function PessoaJuridica() {
         if(!cliente.uid) {
             window.sessionStorage.setItem('cliente', JSON.stringify(cliente));
             history.goBack();
-        } else{
-            //tem que atualizar no banco de dados tbm
+        } else{            
             window.sessionStorage.setItem('cliente', JSON.stringify(cliente));
             atualizarCliente(cliente, history);
         }

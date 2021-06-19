@@ -16,8 +16,6 @@ import busqueContato from '../../../Helper/Firebase/Contato';
 import busqueCredito from '../../../Helper/Firebase/Credito';
 import busqueEndereco from '../../../Helper/Firebase/Endereco';
 import busquePessoasFisica from '../../../Helper/Firebase/PessoaFisica';
-import clienteDefault from '../../../Helper/ObjetoDefault';
-import SaoIguais from '../../../Helper/Utilidades/SaoIguais';
 import '../../../Css/Tabs.css';
 import '../../../Css/Cliente.css';
 
