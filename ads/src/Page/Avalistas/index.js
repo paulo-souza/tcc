@@ -31,8 +31,6 @@ export default function Avalistas() {
         let enderecosCacheJSON = enderecosCache && JSON.parse(enderecosCache);
         let enderecoObtido = enderecoDefault;
         
-        console.log('enderecosCacheJSON => ',enderecosCacheJSON);
-
         if(enderecosCacheJSON) enderecoObtido = enderecosCacheJSON.find(e=> e.uid === uidAvalista);
         setEnderecoAvalista(enderecoObtido);
         

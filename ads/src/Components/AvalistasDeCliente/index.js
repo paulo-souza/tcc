@@ -10,19 +10,14 @@ export default function AvalistasDeCliente({uidCliente}) {
         let avalistasCache = window.sessionStorage.getItem('avalista');
         let avalistasCacheJSON = avalistasCache ? JSON.parse(avalistasCache) : [];
 
-        console.log('avalistasCacheJSON => ', avalistasCacheJSON);
-
         if(avalistasCacheJSON.length > 0 && (todosEnderecoAvalista.size > 0 && todosContatoAvalista.size > 0)) {
             let enderecos_avalistas = [];
             let contatos_avalistas = [];
 
-            avalistasCacheJSON.forEach(avalista => {
-                
-                console.log('todosEnderecoAvalista => ', todosEnderecoAvalista.size);
+            avalistasCacheJSON.forEach(avalista => {                
                 enderecos_avalistas.push(todosEnderecoAvalista.get(avalista.uid));
                 contatos_avalistas.push(todosContatoAvalista.get(avalista.uid));
             });
-            
             
             window.sessionStorage.setItem('contato_avalista', JSON.stringify(contatos_avalistas));
             window.sessionStorage.setItem('endereco_avalista', JSON.stringify(enderecos_avalistas));
