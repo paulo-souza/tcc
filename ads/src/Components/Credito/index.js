@@ -65,13 +65,9 @@ export default function Credito() {
     }, [dadosParaCalcularJuros, montanteState]);
 
     const valorEmprestimo = useMemo(()=> ParseToMoedaBRL(credito.valor_emprestimo), [credito]);
+    
+    const pathBtnCredito = uidCliente ? `/Clientes/Editar/${uidCliente}/Credito` : '/Clientes/Novo/Credito';
    
-    const btnCredito = (
-        uidCliente ? <Link className={'btnEditar'} to={`/Clientes/Editar/${uidCliente}/Credito`} title={'Editar credito'}>Editar</Link>
-            :
-            <Link className={'btnNovoCliente'} to={'/Clientes/Novo/Credito'} title={'Novo credito'}>Novo</Link>
-    );
-
     return (
         <section id={'section6'}>
             <input type={'radio'} name={'sections'} id={'option6'} />
@@ -80,7 +76,7 @@ export default function Credito() {
             <article>
                 <div className={'containerClienteSubTitulo'}>
                     <h3>Crédito*</h3>
-                    {btnCredito}
+                    <Link className={'btnNovoCliente'} to={pathBtnCredito} title={'Novo credito'}>Novo</Link>
                 </div>
                 <hr />
 

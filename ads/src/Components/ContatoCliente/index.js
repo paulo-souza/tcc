@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { contatoDefault } from '../../Helper/ObjetoDefault';
 
 const styles = {
@@ -22,18 +22,23 @@ const styles = {
 
 
 export default function ContatoCliente() {
+    const { uidCliente } = useParams();
     const [contato, setContato] = useState(contatoDefault);
     
     useEffect(()=> {
+      
       let contatoCache = window.sessionStorage.getItem('contato_cliente');
       let contatoCacheJSON = contatoCache ? JSON.parse(contatoCache) : contatoDefault;
       setContato(contatoCacheJSON);
     },[])
 
+    const classBtnNovo = !uidCliente && contato.uid ? 'btnEditar': 'btnNovoCliente';
+    const titleBtnNovo = !uidCliente && contato.uid ? 'Editar' : 'Novo';
+
     const btnContato = (
-        contato.uid ?  <Link className={'btnEditar'} to={`/Clientes/Editar/${contato.uid}/Contato`} title={'Editar contato'}>Editar</Link>
+        uidCliente ?  <Link className={'btnEditar'} to={`/Clientes/Editar/${contato.uid}/Contato`} title={'Editar contato'}>Editar</Link>
         :
-        <Link className={'btnNovoCliente'} to={'/Clientes/Novo/Contato'} title={'Novo contato'}>Novo</Link>
+        <Link className={classBtnNovo} to={'/Clientes/Novo/Contato'} title={`${titleBtnNovo} contato`}>{titleBtnNovo}</Link>
     );
 
     const formateNumeroTelefone = useCallback(numero => {

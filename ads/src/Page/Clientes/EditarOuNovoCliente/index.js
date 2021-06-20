@@ -28,6 +28,7 @@ export default function EditarOuNovoCliente() {
     const { estaCarregando, setEstaCarregando } = useContext(AuthContext); 
     
     
+    
     useEffect(()=> {
         setEstaCarregando(!ehNovoCliente);
 
@@ -38,7 +39,7 @@ export default function EditarOuNovoCliente() {
             busquePessoasFisica('socio', uidCliente);
             busquePessoasFisica('avalista', uidCliente);
             busqueCredito(uidCliente, setEstaCarregando);            
-        }
+        } 
     }, []);
 
     function ehParaVoltar(event) {
@@ -71,7 +72,7 @@ export default function EditarOuNovoCliente() {
                     
                     <PJMaisSocios />
                     <EnderecoCliente />
-                    <ContatoCliente  />
+                    <ContatoCliente />
                     <AnexosCliente />
                     <AvalistasDeCliente uidCliente={uidCliente} />
                     <Credito />
@@ -81,10 +82,12 @@ export default function EditarOuNovoCliente() {
 
             }
 
-           
-            <button type={'button'} title={'Salvar novo cliente'} className={'btnAdd btnSalvarCliente'}>
-                <FontAwesomeIcon icon={faSave} color={'#fff'} size={'lg'} />                
-            </button>
+           {
+               ehNovoCliente &&
+               <button type={'button'} title={'Salvar novo cliente'} className={'btnAdd btnSalvarCliente'}>
+                   <FontAwesomeIcon icon={faSave} color={'#fff'} size={'lg'} />                
+               </button>
+           }
            
         </div>
     );

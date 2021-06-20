@@ -1,12 +1,15 @@
-import React, { useEffect, useCallback, useState } from 'react';
+import React, { useEffect, useCallback, useState, useContext } from 'react';
+import { AuthContext } from '../../../Context/AuthProvider';
 import { Link, useHistory } from 'react-router-dom';
 import clienteDefault from '../../../Helper/ObjetoDefault';
-import { atualizarCliente } from '../../../Helper/Firebase/Cliente';
+import { atualizarCliente, salvarCliente } from '../../../Helper/Firebase/Cliente';
+import Loading from '../../Loading';
+
 
 export default function PessoaJuridica() {
-    
-    const history = useHistory();
+    const { estaCarregando, setEstaCarregando } = useContext(AuthContext);
     const [cliente, setCliente] = useState(clienteDefault);
+    const history = useHistory();
    
     const pathSubNivel = !cliente.uid ? '/Clientes/Novo' : `/Clientes/Editar/${cliente.uid}`;    
     
@@ -25,12 +28,21 @@ export default function PessoaJuridica() {
         setCliente({...cliente});
     },[cliente]);
 
-    function salvarCliente(event) {                     
+   async function salvarOuAtualizar(event) {                     
        //TODO Emitir mensagen de  salvo ou editado c/ sucesso.
 
         if(!cliente.uid) {
-            window.sessionStorage.setItem('cliente', JSON.stringify(cliente));
+            setEstaCarregando(true);
+            console.log('salvando...');
+            delete cliente['uid'];
+            let uidNovoCliente = await salvarCliente(cliente);
+                       
+            
+            window.sessionStorage.setItem('uidNovoCliente', JSON.stringify(uidNovoCliente));
+            setEstaCarregando(false);
             history.goBack();
+            
+
         } else{            
             window.sessionStorage.setItem('cliente', JSON.stringify(cliente));
             atualizarCliente(cliente, history);
@@ -40,6 +52,7 @@ export default function PessoaJuridica() {
 
     return(
         <div>
+            { estaCarregando && <Loading /> }
             <div className={'breadcumb'}>
                 <Link to={'/'} className={'niveis'}>Clientes</Link>
                 <span className={'niveis separadorNiveis'}>{'>'}</span>
@@ -108,7 +121,7 @@ export default function PessoaJuridica() {
                 <input id={'inscricao_estadual'} name={'inscricao_estadual'} value={cliente.inscricao_estadual}
                     type={'text'} placeholder={'Inscrição Estadual'} onChange={ajustaCliente} maxLength={11} />
 
-                <button className={'btnSubmit'} title={`${!cliente.uid ? 'Adicionar' : 'Atualizar'} cliente`} type={'button'} onClick={salvarCliente}>
+                <button className={'btnSubmit'} title={`${!cliente.uid ? 'Adicionar' : 'Atualizar'} cliente`} type={'button'} onClick={salvarOuAtualizar}>
                     {`${!cliente.uid ? 'Adicionar' : 'Atualizar'}`}
                 </button>
             </fieldset>

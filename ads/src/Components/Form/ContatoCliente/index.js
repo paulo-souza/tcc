@@ -24,22 +24,18 @@ export default function ContatoCliente(props) {
 
     function adicionarOuAtualizar() {
         
-        if(ehNovoCliente){
-            console.log('contato do cliente adicionado com sucesso!');
+        if(ehNovoCliente){   
+            contato.uid = '1';         
+            window.sessionStorage.setItem('contato_cliente', JSON.stringify(contato));
             history.goBack();
         } else{
             atualizarContato('contato_cliente', contato, history);
         }
-
-        console.log('====================================');
-        console.log('contato cliente => ', contato);
-        console.log('====================================');
-
     }
 
     const btnAdd = (
         <button className={'btnSubmit'} type={'button'} title={`${ehNovoCliente ? 'Atualizar' : 'Adicionar'}`} onClick={adicionarOuAtualizar}>
-             {`${ehNovoCliente ? 'Adicionar' : 'Atualizar'}`}
+             {`${ehNovoCliente && !contato?.uid? 'Adicionar' : 'Atualizar'}`}
         </button>
     );
 
@@ -54,7 +50,7 @@ export default function ContatoCliente(props) {
             </div>
 
             <fieldset className={'formulario'}>
-                <legend align={'center'} className={'formulario'}>{ehNovoCliente ? 'Novo Contato Cliente' : 'Editar Contato Cliente'}</legend>
+                <legend align={'center'} className={'formulario'}>{ehNovoCliente && !contato?.uid ? 'Novo Contato Cliente' : 'Editar Contato Cliente'}</legend>
 
                 {contato && <Contato contato={contato} setContato={setContato} btnAdd={btnAdd} />}
 

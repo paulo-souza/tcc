@@ -27,6 +27,16 @@ export default function Socio(props) {
         
         if(ehNovoCliente && ehNovoSocio){
             console.log('sócio adicionado com sucesso');
+            
+            let socios = window.sessionStorage.getItem('socio');
+            socios = socios ? JSON.parse(socios) : [];
+           
+            if(socios.length > 0) socios = socios.filter(s=> s.cpf!== socio.cpf);
+
+            socios = [...socios, socio];
+
+            window.sessionStorage.setItem('socio', JSON.stringify(socios));
+
             history.goBack();
         } else{
             

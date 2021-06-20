@@ -1,7 +1,8 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useParams, Link, useHistory } from 'react-router-dom';
 import { creditoDefault } from '../../../Helper/ObjetoDefault';
 import SomenteNumeros from '../../../Helper/Utilidades/SomenteNumeros';
+
 
 export default function Credito(props) {
     const history = useHistory();
@@ -9,13 +10,8 @@ export default function Credito(props) {
     const ehNovoCliente = !uidCliente;
     const pathSubNivel = ehNovoCliente ? '/Clientes/Novo' : `/Clientes/Editar/${uidCliente}`;
 
-    const [credito, setCredito] = useState(null);
-
-    useEffect(() => {
-        let creditoCache = window.sessionStorage.getItem('credito');
-        let creditoCacheJSON = creditoCache ? JSON.parse(creditoCache) : creditoDefault;
-        setCredito(creditoCacheJSON);
-    }, []);
+    const [credito, setCredito] = useState(creditoDefault);
+ 
 
     const ajustaCredito = useCallback(event => {
         const { name, value } = event.target;
@@ -25,19 +21,16 @@ export default function Credito(props) {
 
     }, [credito]);
 
-    function adicionarOuAtualizar() {
+    function novoCredito() {
+        //Sempre vai ser novo cliente
 
-        if (uidCliente) {
-            console.log('credito adicionado com sucesso!');
-        } else {
-            console.log('credito atualizado com sucesso!');
+        if(ehNovoCliente){
+            //Criar um novo crédito
+        } else{
+            //remover o crédito atual e suas parcelas no firebase e criar um novo mais suas parcelas
         }
 
-        console.log('====================================');
-        console.log('credito => ', credito);
-        console.log('====================================');
-
-        history.goBack();
+       history.goBack();
     }
 
     return (
@@ -55,7 +48,7 @@ export default function Credito(props) {
                 <fieldset className={'formulario'}>
 
 
-                    <legend align={'center'} className={'formulario'}>{ehNovoCliente ? 'Novo Crédito' : 'Editar Crédito'}</legend>
+                    <legend align={'center'} className={'formulario'}>Novo Crédito</legend>
 
                     <div>
                         <label htmlFor={'operacao_credito'}>Operação de crédito*</label>
@@ -87,10 +80,10 @@ export default function Credito(props) {
                         type={'number'} placeholder={'ex.: 10%'} onChange={ajustaCredito} onKeyPress={SomenteNumeros} />
 
                     <div style={{ height: 62, padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'flex-start', marginBottom: 25 }}>
-                        <div style={{ width: '20%' }}>
+                        <div id={'div_qtdPrazo'} style={{ width: '20%' }}>
                             <label htmlFor={'qtd_prazo'}>Em quantas vezes?</label>
                             <input id={'qtd_prazo'} name={'qtd_prazo'} value={credito.qtd_prazo} onKeyPress={SomenteNumeros}
-                                type={'number'} placeholder={'ex.: 3x'} onChange={ajustaCredito} min={0} />
+                                type={'number'} placeholder={'ex.: 3x'} onChange={ajustaCredito} min={0} readOnly={!ehNovoCliente} />
                         </div>
 
                         <div style={{ height: 67.5, flex: 1, marginLeft: 40 }}>
@@ -112,8 +105,8 @@ export default function Credito(props) {
                         type={'date'} onChange={ajustaCredito} />
 
 
-                    <button className={'btnSubmit'} type={'button'} title={`${ehNovoCliente ? 'Atualizar' : 'Adicionar'}`} onClick={adicionarOuAtualizar}>
-                        {`${ehNovoCliente ? 'Adicionar' : 'Atualizar'}`}
+                    <button className={'btnSubmit'} type={'button'} title={'Adicionar um novo crédito'} onClick={novoCredito}>
+                        Adicionar
                     </button>
                 </fieldset>
             }

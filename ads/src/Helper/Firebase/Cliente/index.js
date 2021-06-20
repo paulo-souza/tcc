@@ -1,5 +1,14 @@
 import { database } from '../../../Service/Firebase';
 
+export async function salvarCliente(cliente) {
+    const clientesRef = await database.ref('cliente');
+    const keyCliente = clientesRef.push().key;
+
+    clientesRef.child(keyCliente).set(cliente);
+
+    return keyCliente
+}
+
 export default async function getClientes(setClientes, setClientesView, setEstaCarregando) {
 
     setEstaCarregando(true);

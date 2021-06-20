@@ -75,7 +75,8 @@ const clienteDefault = {
     inscricao_estadual: '',
     natureza_juridica: 'Ltda',
     porte_empresa: 'ME',
-    situacao_empresa: 'ativo'
+    situacao_empresa: 'ativo',
+    pagamento: 'pendente'
 };
 
 export default clienteDefault;

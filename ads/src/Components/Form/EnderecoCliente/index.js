@@ -23,22 +23,19 @@ export default function EnderecoCliente() {
     function adicionarOuAtualizar() {
         
         if(ehNovoCliente){
-            console.log('endereço do cliente adicionado com sucesso');
+            endereco.uid = '1';
+            window.sessionStorage.setItem('endereco_cliente', JSON.stringify(endereco));
             history.goBack();
         } else{
             atualizarEndereco('endereco_cliente', endereco, history)
         }
-
-        console.log('====================================');
-        console.log('endereço cliente => ', endereco);
-        console.log('====================================');
 
     }
 
 
     const btnAdd = (
         <button className={'btnSubmit'} type={'button'} title={`${ehNovoCliente ? 'Adicionar' : 'Atualizar'}`} onClick={adicionarOuAtualizar}>
-             {`${ehNovoCliente ? 'Adicionar' : 'Atualizar'}`}
+             {`${ehNovoCliente && !endereco?.uid? 'Adicionar' : 'Atualizar'}`}
         </button>
     );
 
@@ -53,7 +50,7 @@ export default function EnderecoCliente() {
             </div>
 
             <fieldset className={'formulario'}>
-                <legend align={'center'} className={'formulario'}>{ ehNovoCliente ? 'Novo': 'Editar' } Endereço Cliente</legend>
+                <legend align={'center'} className={'formulario'}>{ ehNovoCliente && !endereco?.uid? 'Novo': 'Editar' } Endereço Cliente</legend>
                 
                 { endereco && <Endereco endereco={endereco} setEndereco={setEndereco} btnAdd={btnAdd} /> }
                 

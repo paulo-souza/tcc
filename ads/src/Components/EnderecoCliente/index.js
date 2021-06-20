@@ -35,10 +35,13 @@ export default function EnderecoCliente() {
    const { uidCliente } = useParams();
    const [enderecoCliente, setEnderecoCliente] = useState(enderecoDefault);
 
+   const classBtnNovoEndereco = !uidCliente && enderecoCliente?.uid ? 'btnEditar' : 'btnNovoCliente';
+   const titleBtnNovoEndereco = !uidCliente && enderecoCliente?.uid ? 'Editar' : 'Novo';
+
    const btnEndereco = (
         uidCliente  ?  <Link className={'btnEditar'} to={`/Clientes/Editar/${uidCliente}/Endereco`} title={'Editar endereço'}>Editar</Link>
         :
-        <Link className={'btnNovoCliente'} to={'/Clientes/Novo/Endereco'} title={'Novo endereço'}>Novo</Link>
+        <Link className={classBtnNovoEndereco} to={'/Clientes/Novo/Endereco'} title={`${titleBtnNovoEndereco} endereco`}>{titleBtnNovoEndereco}</Link>
     );
 
     useEffect(()=> {
